@@ -9,7 +9,7 @@
     <div class="carousel-inner">
 
         {% for testimonial_row in testimonials_table %}
-        {% set review = frappe.db.get_value("EventsConnect Course Review", testimonial_row.testimonials, ["owner", "review"], as_dict=True) %}
+        {% set review = frappe.db.get_value("EventsConnect Event Review", testimonial_row.testimonials, ["owner", "review"], as_dict=True) %}
         {% set member = frappe.db.get_value("User", review.owner, ["name", "username", "full_name", "user_image", "headline"], as_dict=True) %}
         {% if loop.index % 3 == 1 %}
         <div class="carousel-item {% if loop.index == 1 %} active {% endif %}"> <div class="cards-parent">

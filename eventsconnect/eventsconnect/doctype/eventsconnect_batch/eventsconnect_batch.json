@@ -34,7 +34,7 @@
   "batch_details_raw",
   "section_break_jgji",
   "students",
-  "courses",
+  "events",
   "assessment_tab",
   "assessment",
   "schedule_tab",
@@ -94,10 +94,10 @@
    "options": "Batch Student"
   },
   {
-   "fieldname": "courses",
+   "fieldname": "events",
    "fieldtype": "Table",
    "label": "Courses",
-   "options": "Batch Course"
+   "options": "Batch Event"
   },
   {
    "fieldname": "start_date",
@@ -315,7 +315,7 @@
    "fieldname": "instructors",
    "fieldtype": "Table MultiSelect",
    "label": "Instructors",
-   "options": "Course Instructor",
+   "options": "Event Instructor",
    "reqd": 1
   },
   {

@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from eventsconnect.eventsconnect.utils import has_course_moderator_role, has_course_instructor_role
+from eventsconnect.eventsconnect.utils import has_event_moderator_role, has_event_instructor_role
 
 
 class EventsConnectAssignment(Document):
@@ -12,7 +12,7 @@ class EventsConnectAssignment(Document):
 
 @frappe.whitelist()
 def save_assignment(assignment, title, type, question):
-	if not has_course_moderator_role() or not has_course_instructor_role():
+	if not has_event_moderator_role() or not has_event_instructor_role():
 		return
 
 	if assignment:

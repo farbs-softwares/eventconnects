@@ -7,11 +7,11 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cstr, comma_and
 from fuzzywuzzy import fuzz
-from eventsconnect.eventsconnect.doctype.course_lesson.course_lesson import save_progress
+from eventsconnect.eventsconnect.doctype.event_lesson.event_lesson import save_progress
 from eventsconnect.eventsconnect.utils import (
 	generate_slug,
-	has_course_moderator_role,
-	has_course_instructor_role,
+	has_event_moderator_role,
+	has_event_instructor_role,
 )
 
 
@@ -107,7 +107,7 @@ def quiz_summary(quiz, results):
 		del result["question_index"]
 
 	quiz_details = frappe.db.get_value(
-		"EventsConnect Quiz", quiz, ["total_marks", "passing_percentage", "lesson", "course"], as_dict=1
+		"EventsConnect Quiz", quiz, ["total_marks", "passing_percentage", "lesson", "event"], as_dict=1
 	)
 	score_out_of = quiz_details.total_marks
 	percentage = (score / score_out_of) * 100
@@ -129,11 +129,11 @@ def quiz_summary(quiz, results):
 	if (
 		percentage >= quiz_details.passing_percentage
 		and quiz_details.lesson
-		and quiz_details.course
+		and quiz_details.event
 	):
-		save_progress(quiz_details.lesson, quiz_details.course)
+		save_progress(quiz_details.lesson, quiz_details.event)
 	elif not quiz_details.passing_percentage:
-		save_progress(quiz_details.lesson, quiz_details.course)
+		save_progress(quiz_details.lesson, quiz_details.event)
 
 	return {
 		"score": score,
@@ -154,7 +154,7 @@ def save_quiz(
 	show_answers=1,
 	show_submission_history=0,
 ):
-	if not has_course_moderator_role() or not has_course_instructor_role():
+	if not has_event_moderator_role() or not has_event_instructor_role():
 		return
 
 	values = {
@@ -333,5 +333,5 @@ def check_input_answers(question, answer):
 
 @frappe.whitelist()
 def get_user_quizzes():
-	filters = {} if has_course_moderator_role() else {"owner": frappe.session.user}
+	filters = {} if has_event_moderator_role() else {"owner": frappe.session.user}
 	return frappe.get_all("EventsConnect Quiz", filters=filters, fields=["name", "title"])

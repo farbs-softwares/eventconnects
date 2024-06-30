@@ -4,7 +4,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from eventsconnect.eventsconnect.utils import has_course_instructor_role, has_course_moderator_role
+from eventsconnect.eventsconnect.utils import has_event_instructor_role, has_event_moderator_role
 
 
 class EventsConnectQuestion(Document):
@@ -79,7 +79,7 @@ def get_correct_options(question):
 
 @frappe.whitelist()
 def get_question_details(question):
-	if not has_course_instructor_role() or not has_course_moderator_role():
+	if not has_event_instructor_role() or not has_event_moderator_role():
 		return
 
 	fields = ["question", "type", "name"]

@@ -1,0 +1,18 @@
+<div>
+    <h3 class="section-title">{{ _(title) }}</h3>
+    {% if subtitle %}
+      <p> {{ _(subtitle) }} </p>
+    {% endif %}
+
+    <div class="cards-parent mt-10">
+      {% set events = frappe.db.get_list('EventsConnect Event',
+      fields=["name", "short_introduction", "upcoming", "title", "image", "currency", "enable_certification", "paid_event"], order_by="published_on desc", page_length=events_count) %}
+      {% for event in events %}
+      {{ widgets.CourseCard(event=event, read_only=False) }}
+      {% endfor %}
+    </div>
+
+    <a class="d-flex justify-content-center align-items-center mt-12" href="/eventsconnect/events">
+        <span>{{ _("Explore More") }}</span>
+    </a>
+</div>

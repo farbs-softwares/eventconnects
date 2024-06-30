@@ -38,8 +38,8 @@
 								{{ participant.full_name }}
 							</div>
 						</router-link>
-						<div class="leading-5" v-for="course in participant.courses">
-							{{ course }}
+						<div class="leading-5" v-for="event in participant.events">
+							{{ event }}
 						</div>
 					</div>
 				</div>

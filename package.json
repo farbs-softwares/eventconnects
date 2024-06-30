@@ -1,5 +1,5 @@
 {
-  "name": "frappe_eventsconnect",
+  "name": "eventsconnect",
   "version": "1.0.0",
   "description": "Easy to use, open-source, Learning Management System",
   "workspaces1": [

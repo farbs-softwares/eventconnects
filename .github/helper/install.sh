@@ -10,7 +10,7 @@ cd ./frappe-bench || exit
 
 bench -v setup requirements
 
-echo "Setting Up Events Connect App..."
+echo "Setting Up EventsConnect App..."
 bench get-app eventsconnect "${GITHUB_WORKSPACE}"
 
 echo "Setting Up Sites & Database..."

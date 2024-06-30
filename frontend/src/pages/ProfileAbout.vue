@@ -115,7 +115,7 @@ const props = defineProps({
 const badges = createResource({
 	url: 'frappe.client.get_list',
 	params: {
-		doctype: 'Events Connect Badge Assignment',
+		doctype: 'EventsConnect Badge Assignment',
 		fields: ['name', 'badge', 'badge_image', 'badge_description', 'issued_on'],
 		filters: {
 			member: props.profile.data.name,

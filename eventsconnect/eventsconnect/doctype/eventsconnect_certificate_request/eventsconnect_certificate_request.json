@@ -6,7 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "course",
+  "event",
   "evaluator",
   "batch_name",
   "column_break_4",
@@ -22,12 +22,12 @@
  ],
  "fields": [
   {
-   "fieldname": "course",
+   "fieldname": "event",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "reqd": 1
   },
   {

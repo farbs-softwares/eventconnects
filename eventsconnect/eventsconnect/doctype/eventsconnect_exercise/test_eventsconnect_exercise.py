@@ -5,16 +5,16 @@ import unittest
 
 import frappe
 
-from eventsconnect.eventsconnect.doctype.eventsconnect_course.test_eventsconnect_course import new_course
+from eventsconnect.eventsconnect.doctype.eventsconnect_event.test_eventsconnect_event import new_event
 
 
 class TestEventsConnectExercise(unittest.TestCase):
 	def new_exercise(self):
-		course = new_course("Test Course")
+		event = new_event("Test Event")
 		member = frappe.get_doc(
 			{
 				"doctype": "EventsConnect Enrollment",
-				"course": course.name,
+				"event": event.name,
 				"member": frappe.session.user,
 			}
 		)
@@ -23,7 +23,7 @@ class TestEventsConnectExercise(unittest.TestCase):
 			{
 				"doctype": "EventsConnect Exercise",
 				"name": "test-problem",
-				"course": course.name,
+				"event": event.name,
 				"title": "Test Problem",
 				"description": "draw a circle",
 				"code": "# draw a single cicle",
@@ -42,7 +42,7 @@ class TestEventsConnectExercise(unittest.TestCase):
 		submission = e.submit("circle(100, 100, 50)")
 		assert submission is not None
 		assert submission.exercise == e.name
-		assert submission.course == e.course
+		assert submission.event == e.event
 
 		user_submission = e.get_user_submission()
 		assert user_submission is not None

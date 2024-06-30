@@ -45,41 +45,41 @@ class CustomUser(User):
 
 	def get_user_reviews(self):
 		"""Returns the reviews created by user"""
-		return frappe.get_all("EventsConnect Course Review", {"owner": self.name})
+		return frappe.get_all("EventsConnect Event Review", {"owner": self.name})
 
-	def get_mentored_courses(self):
-		"""Returns all courses mentored by this user"""
-		mentored_courses = []
+	def get_mentored_events(self):
+		"""Returns all events mentored by this user"""
+		mentored_events = []
 		mapping = frappe.get_all(
-			"EventsConnect Course Mentor Mapping",
+			"EventsConnect Event Mentor Mapping",
 			{
 				"mentor": self.name,
 			},
-			["name", "course"],
+			["name", "event"],
 		)
 
 		for map in mapping:
-			if frappe.db.get_value("EventsConnect Course", map.course, "published"):
-				course = frappe.db.get_value(
-					"EventsConnect Course",
-					map.course,
+			if frappe.db.get_value("EventsConnect Event", map.event, "published"):
+				event = frappe.db.get_value(
+					"EventsConnect Event",
+					map.event,
 					["name", "upcoming", "title", "image", "enable_certification"],
 					as_dict=True,
 				)
-				mentored_courses.append(course)
+				mentored_events.append(event)
 
-		return mentored_courses
+		return mentored_events
 
 
-def get_enrolled_courses():
+def get_enrolled_events():
 	in_progress = []
 	completed = []
-	memberships = get_course_membership(None, member_type="Student")
+	memberships = get_event_membership(None, member_type="Student")
 
 	for membership in memberships:
-		course = frappe.db.get_value(
-			"EventsConnect Course",
-			membership.course,
+		event = frappe.db.get_value(
+			"EventsConnect Event",
+			membership.event,
 			[
 				"name",
 				"upcoming",
@@ -87,25 +87,25 @@ def get_enrolled_courses():
 				"short_introduction",
 				"image",
 				"enable_certification",
-				"paid_course",
-				"course_price",
+				"paid_event",
+				"event_price",
 				"currency",
 				"published",
 				"creation",
 			],
 			as_dict=True,
 		)
-		if not course.published:
+		if not event.published:
 			continue
-		course.enrollment_count = frappe.db.count(
-			"EventsConnect Enrollment", {"course": course.name, "member_type": "Student"}
+		event.enrollment_count = frappe.db.count(
+			"EventsConnect Enrollment", {"event": event.name, "member_type": "Student"}
 		)
-		course.avg_rating = get_average_rating(course.name) or 0
+		event.avg_rating = get_average_rating(event.name) or 0
 		progress = cint(membership.progress)
 		if progress < 100:
-			in_progress.append(course)
+			in_progress.append(event)
 		else:
-			completed.append(course)
+			completed.append(event)
 
 	in_progress.sort(key=lambda x: x.enrollment_count, reverse=True)
 	completed.sort(key=lambda x: x.enrollment_count, reverse=True)
@@ -113,35 +113,35 @@ def get_enrolled_courses():
 	return {"in_progress": in_progress, "completed": completed}
 
 
-def get_course_membership(member=None, member_type=None):
+def get_event_membership(member=None, member_type=None):
 	"""Returns all memberships of the user."""
 
 	filters = {"member": member or frappe.session.user}
 	if member_type:
 		filters["member_type"] = member_type
 
-	return frappe.get_all("EventsConnect Enrollment", filters, ["name", "course", "progress"])
+	return frappe.get_all("EventsConnect Enrollment", filters, ["name", "event", "progress"])
 
 
-def get_authored_courses(member=None, only_published=True):
-	"""Returns the number of courses authored by this user."""
-	course_details = []
-	courses = frappe.get_all(
-		"Course Instructor", {"instructor": member or frappe.session.user}, ["parent"]
+def get_authored_events(member=None, only_published=True):
+	"""Returns the number of events authored by this user."""
+	event_details = []
+	events = frappe.get_all(
+		"Event Instructor", {"instructor": member or frappe.session.user}, ["parent"]
 	)
 
-	for course in courses:
+	for event in events:
 		detail = frappe.db.get_value(
-			"EventsConnect Course",
-			course.parent,
+			"EventsConnect Event",
+			event.parent,
 			[
 				"name",
 				"upcoming",
 				"title",
 				"short_introduction",
 				"image",
-				"paid_course",
-				"course_price",
+				"paid_event",
+				"event_price",
 				"currency",
 				"status",
 				"published",
@@ -153,13 +153,13 @@ def get_authored_courses(member=None, only_published=True):
 		if only_published and detail and not detail.published:
 			continue
 		detail.enrollment_count = frappe.db.count(
-			"EventsConnect Enrollment", {"course": detail.name, "member_type": "Student"}
+			"EventsConnect Enrollment", {"event": detail.name, "member_type": "Student"}
 		)
 		detail.avg_rating = get_average_rating(detail.name) or 0
-		course_details.append(detail)
+		event_details.append(detail)
 
-	course_details.sort(key=lambda x: x.enrollment_count, reverse=True)
-	return course_details
+	event_details.sort(key=lambda x: x.enrollment_count, reverse=True)
+	return event_details
 
 
 def get_palette(full_name):

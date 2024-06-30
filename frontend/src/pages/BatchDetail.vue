@@ -16,9 +16,9 @@
 				>
 					<div class="flex items-center">
 						<BookOpen class="h-4 w-4 text-gray-700 mr-2" />
-						<span> {{ batch.data?.courses?.length }} {{ __('Courses') }} </span>
+						<span> {{ batch.data?.events?.length }} {{ __('Courses') }} </span>
 					</div>
-					<span class="hidden lg:block" v-if="batch.data.courses"
+					<span class="hidden lg:block" v-if="batch.data.events"
 						>&middot;</span
 					>
 					<DateRange
@@ -62,7 +62,7 @@
 					<BatchOverlay :batch="batch" />
 				</div>
 			</div>
-			<div v-if="batch.data.courses.length">
+			<div v-if="batch.data.events.length">
 				<div class="flex items-center mt-10">
 					<div class="text-2xl font-semibold">
 						{{ __('Courses') }}
@@ -70,19 +70,19 @@
 				</div>
 				<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-5">
 					<div
-						v-if="batch.data.courses"
-						v-for="course in courses.data"
-						:key="course.course"
+						v-if="batch.data.events"
+						v-for="event in events.data"
+						:key="event.event"
 					>
 						<router-link
 							:to="{
 								name: 'CourseDetail',
 								params: {
-									courseName: course.name,
+									eventName: event.name,
 								},
 							}"
 						>
-							<CourseCard :course="course" :key="course.name" />
+							<CourseCard :event="event" :key="event.name" />
 						</router-link>
 					</div>
 				</div>
@@ -137,8 +137,8 @@ const batch = createResource({
 	},
 })
 
-const courses = createResource({
-	url: 'eventsconnect.eventsconnect.utils.get_batch_courses',
+const events = createResource({
+	url: 'eventsconnect.eventsconnect.utils.get_batch_events',
 	params: {
 		batch: props.batchName,
 	},

@@ -3,7 +3,7 @@
 		<UpcomingEvaluations
 			:batch="batch.data.name"
 			:endDate="batch.data.evaluation_end_date"
-			:courses="batch.data.courses"
+			:events="batch.data.events"
 			:isStudent="isStudent"
 		/>
 		<Assessments :batch="batch.data.name" />

@@ -115,26 +115,26 @@ class CoursePage(BaseRenderer):
 		self.renderer = None
 
 	def can_render(self):
-		return self.path.startswith("course")
+		return self.path.startswith("event")
 
 	def render(self):
 		if "learn" in self.path:
 			prefix = self.path.split("/learn")[0]
-			course_name = prefix.split("/")[1]
+			event_name = prefix.split("/")[1]
 			lesson_index = self.path.split("/learn/")[1]
 			chapter_number = lesson_index.split(".")[0]
 			lesson_number = lesson_index.split(".")[1]
 
 			frappe.flags.redirect_location = (
-				f"/eventsconnect/courses/{course_name}/learn/{chapter_number}-{lesson_number}"
+				f"/eventsconnect/events/{event_name}/learn/{chapter_number}-{lesson_number}"
 			)
 			return RedirectPage(self.path).render()
 
 		elif len(self.path.split("/")) > 1:
-			course_name = self.path.split("/")[1]
-			frappe.flags.redirect_location = f"/eventsconnect/courses/{course_name}"
+			event_name = self.path.split("/")[1]
+			frappe.flags.redirect_location = f"/eventsconnect/events/{event_name}"
 			return RedirectPage(self.path).render()
 
 		else:
-			frappe.flags.redirect_location = "/eventsconnect/courses"
+			frappe.flags.redirect_location = "/eventsconnect/events"
 			return RedirectPage(self.path).render()

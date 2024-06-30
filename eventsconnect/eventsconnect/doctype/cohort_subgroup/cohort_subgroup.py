@@ -13,11 +13,11 @@ class CohortSubgroup(Document):
 
 	def get_url(self):
 		cohort = frappe.get_doc("Cohort", self.cohort)
-		return f"{frappe.utils.get_url()}/eventsconnect/courses/{self.course}/subgroups/{cohort.slug}/{self.slug}"
+		return f"{frappe.utils.get_url()}/eventsconnect/events/{self.event}/subgroups/{cohort.slug}/{self.slug}"
 
 	def get_invite_link(self):
 		cohort = frappe.get_doc("Cohort", self.cohort)
-		return f"{frappe.utils.get_url()}/eventsconnect/courses/{self.course}/join/{cohort.slug}/{self.slug}/{self.invite_code}"
+		return f"{frappe.utils.get_url()}/eventsconnect/events/{self.event}/join/{cohort.slug}/{self.slug}/{self.invite_code}"
 
 	def has_student(self, email):
 		"""Check if given user is a student of this subgroup."""

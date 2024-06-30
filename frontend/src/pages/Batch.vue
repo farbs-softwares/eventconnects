@@ -64,7 +64,7 @@
 							</div>
 							<div v-else-if="tab.label == 'Discussions'">
 								<Discussions
-									doctype="Events Connect Batch"
+									doctype="EventsConnect Batch"
 									:docname="batch.data.name"
 									:title="__('Discussions')"
 									:key="batch.data.name"

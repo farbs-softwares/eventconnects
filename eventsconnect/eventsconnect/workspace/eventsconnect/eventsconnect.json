@@ -5,11 +5,11 @@
    "label": "Signups"
   },
   {
-   "chart_name": "Course Enrollments",
+   "chart_name": "Event Enrollments",
    "label": "Enrollments"
   }
  ],
- "content": "[{\"id\":\"jNO4sdKxHu\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Get Started</b></span>\",\"col\":12}},{\"id\":\"5s0qRBc4rY\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/eventsconnect/courses\\\">Visit EventsConnect Portal</a>\",\"col\":4}},{\"id\":\"lGMuNLpmv-\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/eventsconnect/courses/new/edit\\\">Create a Course</a>\",\"col\":4}},{\"id\":\"3TVyc9AkPy\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/app/web-page/new-web-page-1\\\">Setup a Home Page</a>\",\"col\":4}},{\"id\":\"9zcbqpu2gm\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/app/eventsconnect-settings/EventsConnect%20Settings\\\">EventsConnect Setting</a>\",\"col\":4}},{\"id\":\"0ATmnKmXjc\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"https://docs.frappe.io/learning\\\">Documentation</a>\",\"col\":4}},{\"id\":\"C128a4abjX\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"5q4sPiv2ci\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Signups\",\"col\":6}},{\"id\":\"8NSaRaEV5u\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Enrollments\",\"col\":6}},{\"id\":\"kMuzko0uAU\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"iuvIOHmztI\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px;\\\"><b>Statistics</b></span>\",\"col\":12}},{\"id\":\"l0VTd66Uy2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Users\",\"col\":4}},{\"id\":\"wAWZin1KKk\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Course\",\"col\":4}},{\"id\":\"RLrIlFx0Hd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Enrollments\",\"col\":4}},{\"id\":\"OuhWkhCQmq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Course Completed\",\"col\":4}},{\"id\":\"3g8QmNqUXG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Certificate\",\"col\":4}},{\"id\":\"EZsdsujs8N\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Evaluation\",\"col\":4}},{\"id\":\"s-nfsFQbGV\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"jeOBWBzHEa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Master</b></span>\",\"col\":12}},{\"id\":\"sVhgfS5GIh\",\"type\":\"card\",\"data\":{\"card_name\":\"Course Data\",\"col\":4}},{\"id\":\"Iea0snm4Fg\",\"type\":\"card\",\"data\":{\"card_name\":\"Course Stats\",\"col\":4}},{\"id\":\"bZB7RqOl6a\",\"type\":\"card\",\"data\":{\"card_name\":\"Certification\",\"col\":4}}]",
+ "content": "[{\"id\":\"jNO4sdKxHu\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Get Started</b></span>\",\"col\":12}},{\"id\":\"5s0qRBc4rY\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/eventsconnect/events\\\">Visit EventsConnect Portal</a>\",\"col\":4}},{\"id\":\"lGMuNLpmv-\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/eventsconnect/events/new/edit\\\">Create a Event</a>\",\"col\":4}},{\"id\":\"3TVyc9AkPy\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/app/web-page/new-web-page-1\\\">Setup a Home Page</a>\",\"col\":4}},{\"id\":\"9zcbqpu2gm\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"/app/eventsconnect-settings/EventsConnect%20Settings\\\">EventsConnect Setting</a>\",\"col\":4}},{\"id\":\"0ATmnKmXjc\",\"type\":\"paragraph\",\"data\":{\"text\":\"<a href=\\\"https://docs.frappe.io/learning\\\">Documentation</a>\",\"col\":4}},{\"id\":\"C128a4abjX\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"5q4sPiv2ci\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Signups\",\"col\":6}},{\"id\":\"8NSaRaEV5u\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Enrollments\",\"col\":6}},{\"id\":\"kMuzko0uAU\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"iuvIOHmztI\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px;\\\"><b>Statistics</b></span>\",\"col\":12}},{\"id\":\"l0VTd66Uy2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Users\",\"col\":4}},{\"id\":\"wAWZin1KKk\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Event\",\"col\":4}},{\"id\":\"RLrIlFx0Hd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Enrollments\",\"col\":4}},{\"id\":\"OuhWkhCQmq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Event Completed\",\"col\":4}},{\"id\":\"3g8QmNqUXG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Certificate\",\"col\":4}},{\"id\":\"EZsdsujs8N\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Evaluation\",\"col\":4}},{\"id\":\"s-nfsFQbGV\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"jeOBWBzHEa\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Master</b></span>\",\"col\":12}},{\"id\":\"sVhgfS5GIh\",\"type\":\"card\",\"data\":{\"card_name\":\"Event Data\",\"col\":4}},{\"id\":\"Iea0snm4Fg\",\"type\":\"card\",\"data\":{\"card_name\":\"Event Stats\",\"col\":4}},{\"id\":\"bZB7RqOl6a\",\"type\":\"card\",\"data\":{\"card_name\":\"Certification\",\"col\":4}}]",
  "creation": "2021-10-21 17:20:01.358903",
  "custom_blocks": [],
  "docstatus": 0,
@@ -23,7 +23,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Course Data",
+   "label": "Event Data",
    "link_count": 3,
    "onboard": 0,
    "type": "Card Break"
@@ -31,9 +31,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Course",
+   "label": "Event",
    "link_count": 0,
-   "link_to": "EventsConnect Course",
+   "link_to": "EventsConnect Event",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -43,7 +43,7 @@
    "is_query_report": 0,
    "label": "Chapter",
    "link_count": 0,
-   "link_to": "Course Chapter",
+   "link_to": "Event Chapter",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -53,7 +53,7 @@
    "is_query_report": 0,
    "label": "Lesson",
    "link_count": 0,
-   "link_to": "Course Lesson",
+   "link_to": "Event Lesson",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -81,7 +81,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Course Stats",
+   "label": "Event Stats",
    "link_count": 2,
    "onboard": 0,
    "type": "Card Break"
@@ -91,7 +91,7 @@
    "is_query_report": 0,
    "label": "Interest",
    "link_count": 0,
-   "link_to": "EventsConnect Course Interest",
+   "link_to": "EventsConnect Event Interest",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -101,7 +101,7 @@
    "is_query_report": 0,
    "label": "Review",
    "link_count": 0,
-   "link_to": "EventsConnect Course Review",
+   "link_to": "EventsConnect Event Review",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -170,7 +170,7 @@
    "color": "Blue",
    "doc_view": "List",
    "format": "{} Completed",
-   "label": "Course Completed",
+   "label": "Event Completed",
    "link_to": "EventsConnect Enrollment",
    "stats_filter": "{\"progress\":[\"like\",\"%100%\"]}",
    "type": "DocType"
@@ -206,8 +206,8 @@
    "color": "Green",
    "doc_view": "List",
    "format": "{} Published",
-   "label": "Course",
-   "link_to": "EventsConnect Course",
+   "label": "Event",
+   "link_to": "EventsConnect Event",
    "stats_filter": "{\"published\":[\"=\",1]}",
    "type": "DocType"
   }

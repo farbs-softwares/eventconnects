@@ -1,0 +1,31 @@
+{% set enrolled = get_enrolled_events().in_progress + get_enrolled_events().completed %}
+
+
+{% if enrolled | length %}
+<div class="cards-parent">
+    {% for event in enrolled %}
+        {{ widgets.CourseCard(event=event) }}
+    {% endfor %}
+</div>
+
+
+{% else %}
+{% set site_name = frappe.db.get_single_value("System Settings", "app_name") %}
+<div class="empty-state p-5">
+    <div style="text-align: left; flex: 1;">
+        <div class="text-center">
+            <div class="empty-state-heading">{{ _("You haven't enrolled for any events") }}</div>
+            <div class="event-meta mb-6">{{ _("Here are a few events we recommend for you to get started with {0}").format(site_name) }}</div>
+        </div>
+        {% set recommended_events = get_popular_events() %}
+        <div class="cards-parent">
+            {% for event in recommended_events %}
+                {% if event %}
+                    {% set event_details = frappe.get_doc("EventsConnect Event", event.event) %}
+                    {{ widgets.CourseCard(event=event_details) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}

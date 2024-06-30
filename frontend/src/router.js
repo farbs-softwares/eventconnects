@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { usersStore } from './stores/user'
 import { sessionStore } from './stores/session'
 
-let defaultRoute = '/courses'
+let defaultRoute = '/events'
 const routes = [
 	{
 		path: '/',
@@ -11,18 +11,18 @@ const routes = [
 		},
 	},
 	{
-		path: '/courses',
+		path: '/events',
 		name: 'Courses',
 		component: () => import('@/pages/Courses.vue'),
 	},
 	{
-		path: '/courses/:courseName',
+		path: '/events/:eventName',
 		name: 'CourseDetail',
 		component: () => import('@/pages/CourseDetail.vue'),
 		props: true,
 	},
 	{
-		path: '/courses/:courseName/learn/:chapterNumber-:lessonNumber',
+		path: '/events/:eventName/learn/:chapterNumber-:lessonNumber',
 		name: 'Lesson',
 		component: () => import('@/pages/Lesson.vue'),
 		props: true,
@@ -96,13 +96,13 @@ const routes = [
 		props: true,
 	},
 	{
-		path: '/courses/:courseName/edit',
+		path: '/events/:eventName/edit',
 		name: 'CreateCourse',
 		component: () => import('@/pages/CreateCourse.vue'),
 		props: true,
 	},
 	{
-		path: '/courses/:courseName/learn/:chapterNumber-:lessonNumber/edit',
+		path: '/events/:eventName/learn/:chapterNumber-:lessonNumber/edit',
 		name: 'CreateLesson',
 		component: () => import('@/pages/CreateLesson.vue'),
 		props: true,

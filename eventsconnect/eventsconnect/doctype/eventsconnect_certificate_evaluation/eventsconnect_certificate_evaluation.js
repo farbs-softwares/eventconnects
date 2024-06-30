@@ -14,7 +14,7 @@ frappe.ui.form.on("EventsConnect Certificate Evaluation", {
 	},
 
 	onload: function (frm) {
-		frm.set_query("course", function (doc) {
+		frm.set_query("event", function (doc) {
 			return {
 				filters: {
 					enable_certification: true,

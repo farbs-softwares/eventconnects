@@ -28,11 +28,11 @@ class EventsConnectCertificateRequest(Document):
 
 	def set_evaluator(self):
 		if not self.evaluator:
-			self.evaluator = get_evaluator(self.course, self.batch_name)
+			self.evaluator = get_evaluator(self.event, self.batch_name)
 
 	def validate_unavailability(self):
 		unavailable = frappe.db.get_value(
-			"Course Evaluator", self.evaluator, ["unavailable_from", "unavailable_to"], as_dict=1
+			"Event Evaluator", self.evaluator, ["unavailable_from", "unavailable_to"], as_dict=1
 		)
 		if (
 			unavailable.unavailable_from
@@ -65,10 +65,10 @@ class EventsConnectCertificateRequest(Document):
 			"EventsConnect Certificate Request",
 			{
 				"member": self.member,
-				"course": self.course,
+				"event": self.event,
 				"name": ["!=", self.name],
 			},
-			["date", "start_time", "course"],
+			["date", "start_time", "event"],
 		)
 
 		for req in existing_requests:
@@ -80,12 +80,12 @@ class EventsConnectCertificateRequest(Document):
 					and getdate(self.start_time) < getdate(req.start_time)
 				)
 			):
-				course_title = frappe.db.get_value("EventsConnect Course", req.course, "title")
+				event_title = frappe.db.get_value("EventsConnect Event", req.event, "title")
 				frappe.throw(
-					_("You already have an evaluation on {0} at {1} for the course {2}.").format(
+					_("You already have an evaluation on {0} at {1} for the event {2}.").format(
 						format_date(req.date, "medium"),
 						format_time(req.start_time, "short"),
-						course_title,
+						event_title,
 					)
 				)
 		if getdate() == getdate(self.date) and get_time(self.start_time) < get_time(
@@ -184,10 +184,10 @@ def update_meeting_details(eval, event, calendar):
 
 @frappe.whitelist()
 def create_certificate_request(
-	course, date, day, start_time, end_time, batch_name=None
+	event, date, day, start_time, end_time, batch_name=None
 ):
 	is_member = frappe.db.exists(
-		{"doctype": "EventsConnect Enrollment", "course": course, "member": frappe.session.user}
+		{"doctype": "EventsConnect Enrollment", "event": event, "member": frappe.session.user}
 	)
 
 	if not is_member:
@@ -195,8 +195,8 @@ def create_certificate_request(
 	eval = frappe.new_doc("EventsConnect Certificate Request")
 	eval.update(
 		{
-			"course": course,
-			"evaluator": get_evaluator(course, batch_name),
+			"event": event,
+			"evaluator": get_evaluator(event, batch_name),
 			"member": frappe.session.user,
 			"date": date,
 			"day": day,

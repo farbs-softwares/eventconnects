@@ -35,7 +35,7 @@ class EventsConnectSettings(Document):
 					).format(
 						get_url_to_list("Google Calendar"),
 						frappe.bold("Google Calendar"),
-						get_url_to_list("Course Evaluator"),
-						frappe.bold("Course Evaluator"),
+						get_url_to_list("Event Evaluator"),
+						frappe.bold("Event Evaluator"),
 					)
 				)

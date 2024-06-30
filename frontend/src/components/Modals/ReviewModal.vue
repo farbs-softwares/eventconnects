@@ -47,7 +47,7 @@ let review = reactive({
 })
 
 const props = defineProps({
-	courseName: {
+	eventName: {
 		type: String,
 		required: true,
 	},
@@ -58,8 +58,8 @@ const createReview = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Events Connect Course Review',
-				course: props.courseName,
+				doctype: 'EventsConnect Event Review',
+				event: props.eventName,
 				...values,
 			},
 		}

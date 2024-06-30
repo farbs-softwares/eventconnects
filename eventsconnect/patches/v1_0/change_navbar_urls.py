@@ -2,7 +2,7 @@ import frappe
 
 
 def execute():
-	rename_link("/courses", "/eventsconnect/courses")
+	rename_link("/events", "/eventsconnect/events")
 	rename_link("/batches", "/eventsconnect/batches")
 	rename_link("/statistics", "/eventsconnect/statistics")
 	rename_link("/eventjob-openings", "/eventsconnect/eventjob-openings")

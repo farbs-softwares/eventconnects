@@ -3,4 +3,4 @@
 from .doctype.eventsconnect_enrollment.eventsconnect_enrollment import (
 	EventsConnectBatchMembership as Membership,
 )
-from .doctype.eventsconnect_course.eventsconnect_course import EventsConnectCourse as Course
+from .doctype.eventsconnect_event.eventsconnect_event import EventsConnectCourse as Event

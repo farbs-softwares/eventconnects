@@ -3,7 +3,7 @@ import frappe
 
 def execute():
 	fields = [
-		"courses",
+		"events",
 		"batches",
 		"certified_participants",
 		"eventjobs",

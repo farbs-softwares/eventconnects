@@ -1,0 +1,18 @@
+{% set events = get_events_under_review() %}
+
+{% if events | length %}
+<div class="cards-parent">
+    {% for event in events %}
+    {{ widgets.CourseCard(event=event) }}
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="empty-state">
+    <img class="icon icon-xl" src="/assets/eventsconnect/icons/comment.svg">
+    <div class="empty-state-text">
+        <div class="empty-state-heading">{{ _("No events under review") }}</div>
+        <div class="event-meta">{{ _("When a event gets submitted for review, it will be listed here.") }}</div>
+    </div>
+</div>
+{% endif %}

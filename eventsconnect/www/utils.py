@@ -2,7 +2,7 @@ import frappe
 
 from eventsconnect.eventsconnect.utils import get_lesson_url, get_lessons, get_membership
 from frappe.utils import cstr
-from eventsconnect.eventsconnect.utils import redirect_to_courses_list
+from eventsconnect.eventsconnect.utils import redirect_to_events_list
 
 
 def get_common_context(context):
@@ -13,24 +13,24 @@ def get_common_context(context):
 	except KeyError:
 		batch_name = None
 
-	course = frappe.db.get_value(
-		"EventsConnect Course",
-		frappe.form_dict["course"],
+	event = frappe.db.get_value(
+		"EventsConnect Event",
+		frappe.form_dict["event"],
 		["name", "title", "video_link", "enable_certification", "status"],
 		as_dict=True,
 	)
-	if not course:
-		redirect_to_courses_list()
+	if not event:
+		redirect_to_events_list()
 
-	context.course = course
-	context.lessons = get_lessons(course.name)
-	membership = get_membership(course.name, frappe.session.user, batch_name)
+	context.event = event
+	context.lessons = get_lessons(event.name)
+	membership = get_membership(event.name, frappe.session.user, batch_name)
 	context.membership = membership
 	context.progress = frappe.utils.cint(membership.progress) if membership else 0
 	context.batch_old = (
 		membership.batch_old if membership and membership.batch_old else None
 	)
-	context.course.query_parameter = (
+	context.event.query_parameter = (
 		"?batch=" + membership.batch_old if membership and membership.batch_old else ""
 	)
 	context.livecode_url = get_livecode_url()
@@ -40,9 +40,9 @@ def get_livecode_url():
 	return frappe.db.get_single_value("EventsConnect Settings", "livecode_url")
 
 
-def redirect_to_lesson(course, index_="1.1"):
+def redirect_to_lesson(event, index_="1.1"):
 	frappe.local.flags.redirect_location = (
-		get_lesson_url(course.name, index_) + course.query_parameter
+		get_lesson_url(event.name, index_) + event.query_parameter
 	)
 	raise frappe.Redirect
 
@@ -54,7 +54,7 @@ def get_current_lesson_details(lesson_number, context, is_edit=False):
 		if is_edit:
 			return None
 		else:
-			redirect_to_lesson(context.course)
+			redirect_to_lesson(context.event)
 
 	lesson_info = details_list[0]
 	lesson_info.body = lesson_info.body.replace('"', "'")

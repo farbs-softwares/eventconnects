@@ -8,7 +8,7 @@ def execute():
 
 	rename_eventsconnect_class()
 	rename_class_student()
-	rename_class_courses()
+	rename_class_events()
 
 
 def rename_eventsconnect_class():
@@ -25,8 +25,8 @@ def rename_class_student():
 	frappe.reload_doctype("Batch Student", force=True)
 
 
-def rename_class_courses():
+def rename_class_events():
 	frappe.flags.ignore_route_conflict_validation = True
-	rename_doc("DocType", "Class Course", "Batch Course")
+	rename_doc("DocType", "Class Event", "Batch Event")
 	frappe.flags.ignore_route_conflict_validation = False
-	frappe.reload_doctype("Batch Course", force=True)
+	frappe.reload_doctype("Batch Event", force=True)

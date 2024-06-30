@@ -26,7 +26,7 @@ class EventsConnectAssignmentSubmission(Document):
 			"EventsConnect Assignment Submission",
 			{"assignment": self.assignment, "member": self.member, "name": ["!=", self.name]},
 		):
-			lesson_title = frappe.db.get_value("Course Lesson", self.lesson, "title")
+			lesson_title = frappe.db.get_value("Event Lesson", self.lesson, "title")
 			frappe.throw(
 				_("Assignment for Lesson {0} by {1} already exists.").format(
 					lesson_title, self.member_name

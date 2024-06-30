@@ -13,10 +13,10 @@
 				@change.stop="changeRole('moderator')"
 			/>
 			<FormControl
-				:label="__('Course Creator')"
-				v-model="course_creator"
+				:label="__('Event Creator')"
+				v-model="event_creator"
 				type="checkbox"
-				@change.stop="changeRole('course_creator')"
+				@change.stop="changeRole('event_creator')"
 			/>
 			<FormControl
 				:label="__('Evaluator')"
@@ -39,7 +39,7 @@ import { ref } from 'vue'
 import { showToast, convertToTitleCase } from '@/utils'
 
 const moderator = ref(false)
-const course_creator = ref(false)
+const event_creator = ref(false)
 const batch_evaluator = ref(false)
 const eventsconnect_student = ref(false)
 
@@ -61,7 +61,7 @@ const roles = createResource({
 	onSuccess(data) {
 		let roles = [
 			'moderator',
-			'course_creator',
+			'event_creator',
 			'batch_evaluator',
 			'eventsconnect_student',
 		]

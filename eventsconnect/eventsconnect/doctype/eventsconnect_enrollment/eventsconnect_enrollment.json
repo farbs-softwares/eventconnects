@@ -6,7 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "course",
+  "event",
   "progress",
   "payment",
   "current_lesson",
@@ -68,20 +68,20 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "batch.course",
-   "fieldname": "course",
+   "fetch_from": "batch.event",
+   "fieldname": "event",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "reqd": 1
   },
   {
    "fieldname": "current_lesson",
    "fieldtype": "Link",
    "label": "Current Lesson",
-   "options": "Course Lesson"
+   "options": "Event Lesson"
   },
   {
    "fetch_from": "member.username",

@@ -28,8 +28,8 @@ class EventsConnectCertificate(Document):
 
 		args = {
 			"student_name": self.member_name,
-			"course_name": self.course,
-			"course_title": frappe.db.get_value("EventsConnect Course", self.course, "title"),
+			"event_name": self.event,
+			"event_title": frappe.db.get_value("EventsConnect Event", self.event, "title"),
 			"certificate_name": self.name,
 			"template": self.template,
 		}
@@ -50,13 +50,13 @@ class EventsConnectCertificate(Document):
 	def validate_duplicate_certificate(self):
 		certificates = frappe.get_all(
 			"EventsConnect Certificate",
-			{"member": self.member, "course": self.course, "name": ["!=", self.name]},
+			{"member": self.member, "event": self.event, "name": ["!=", self.name]},
 		)
 		if len(certificates):
 			full_name = frappe.db.get_value("User", self.member, "full_name")
-			course_name = frappe.db.get_value("EventsConnect Course", self.course, "title")
+			event_name = frappe.db.get_value("EventsConnect Event", self.event, "title")
 			frappe.throw(
-				_("{0} is already certified for the course {1}").format(full_name, course_name)
+				_("{0} is already certified for the event {1}").format(full_name, event_name)
 			)
 
 	def on_update(self):
@@ -77,14 +77,14 @@ def has_website_permission(doc, ptype, user, verbose=False):
 
 
 @frappe.whitelist()
-def create_certificate(course):
-	certificate = is_certified(course)
+def create_certificate(event):
+	certificate = is_certified(event)
 
 	if certificate:
 		return certificate
 
 	else:
-		expires_after_yrs = int(frappe.db.get_value("EventsConnect Course", course, "expiry"))
+		expires_after_yrs = int(frappe.db.get_value("EventsConnect Event", event, "expiry"))
 		expiry_date = None
 		if expires_after_yrs:
 			expiry_date = add_years(nowdate(), expires_after_yrs)
@@ -108,7 +108,7 @@ def create_certificate(course):
 			{
 				"doctype": "EventsConnect Certificate",
 				"member": frappe.session.user,
-				"course": course,
+				"event": event,
 				"issue_date": nowdate(),
 				"expiry_date": expiry_date,
 				"template": default_certificate_template,

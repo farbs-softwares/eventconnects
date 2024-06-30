@@ -37,13 +37,13 @@
  "web_form_fields": [
   {
    "allow_read_on_all_link_options": 0,
-   "fieldname": "course",
+   "fieldname": "event",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Course",
+   "label": "Event",
    "max_length": 0,
    "max_value": 0,
-   "options": "EventsConnect Course",
+   "options": "EventsConnect Event",
    "read_only": 0,
    "reqd": 0,
    "show_in_filter": 0

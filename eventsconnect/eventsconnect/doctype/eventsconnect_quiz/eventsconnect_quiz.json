@@ -24,7 +24,7 @@
   "section_break_3",
   "lesson",
   "column_break_5",
-  "course"
+  "event"
  ],
  "fields": [
   {
@@ -45,7 +45,7 @@
    "fieldname": "lesson",
    "fieldtype": "Link",
    "label": "Lesson",
-   "options": "Course Lesson",
+   "options": "Event Lesson",
    "read_only": 1
   },
   {
@@ -55,11 +55,11 @@
    "label": "Max Attempts"
   },
   {
-   "fetch_from": "lesson.course",
-   "fieldname": "course",
+   "fetch_from": "lesson.event",
+   "fieldname": "event",
    "fieldtype": "Link",
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "read_only": 1
   },
   {
@@ -171,7 +171,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Course Creator",
+   "role": "Event Creator",
    "share": 1,
    "write": 1
   },

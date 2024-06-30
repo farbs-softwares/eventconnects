@@ -3,10 +3,10 @@ from eventsconnect.eventsconnect.md import markdown_to_html
 
 
 def execute():
-	lessons = frappe.get_all("Course Lesson", fields=["name", "body"])
+	lessons = frappe.get_all("Event Lesson", fields=["name", "body"])
 
 	for lesson in lessons:
 		html = markdown_to_html(lesson.body)
-		frappe.db.set_value("Course Lesson", lesson.name, "body", html)
+		frappe.db.set_value("Event Lesson", lesson.name, "body", html)
 
-	frappe.reload_doc("eventsconnect", "doctype", "course_lesson")
+	frappe.reload_doc("eventsconnect", "doctype", "event_lesson")

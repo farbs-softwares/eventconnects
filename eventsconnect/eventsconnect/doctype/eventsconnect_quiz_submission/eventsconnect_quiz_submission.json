@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "quiz",
-  "course",
+  "event",
   "column_break_3",
   "member",
   "member_name",
@@ -66,11 +66,11 @@
    "fieldtype": "Section Break"
   },
   {
-   "fetch_from": "quiz.course",
-   "fieldname": "course",
+   "fetch_from": "quiz.event",
+   "fieldname": "event",
    "fieldtype": "Link",
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "read_only": 1
   },
   {

@@ -26,7 +26,7 @@
    "fieldname": "testimonials",
    "fieldtype": "Link",
    "label": "Testimonials",
-   "options": "EventsConnect Course Review",
+   "options": "EventsConnect Event Review",
    "reqd": 0
   }
  ],

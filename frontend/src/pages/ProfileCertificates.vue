@@ -11,7 +11,7 @@
 				@click="openCertificate(certificate)"
 			>
 				<div class="font-medium leading-5">
-					{{ certificate.course_title }}
+					{{ certificate.event_title }}
 				</div>
 				<div class="mt-2">
 					<span class="text-xs text-gray-700"> {{ __('issued on') }}: </span>
@@ -43,7 +43,7 @@ const certificates = createResource({
 
 const openCertificate = (certificate) => {
 	window.open(
-		`/api/method/frappe.utils.print_format.download_pdf?doctype=Events Connect+Certificate&name=${
+		`/api/method/frappe.utils.print_format.download_pdf?doctype=EventsConnect+Certificate&name=${
 			certificate.name
 		}&format=${encodeURIComponent(certificate.template)}`
 	)

@@ -23,37 +23,37 @@ def get_context():
 
 
 def get_meta(app_path):
-	if app_path == "courses":
+	if app_path == "events":
 		return {
-			"title": _("Course List"),
+			"title": _("Event List"),
 			"image": frappe.db.get_single_value("Website Settings", "banner_image"),
-			"description": "This page lists all the courses published on our website",
+			"description": "This page lists all the events published on our website",
 			"keywords": "All Courses, Courses, Learn",
-			"link": "/courses",
+			"link": "/events",
 		}
 
-	if re.match(r"^courses/.*$", app_path):
+	if re.match(r"^events/.*$", app_path):
 		if "new/edit" in app_path:
 			return {
-				"title": _("New Course"),
+				"title": _("New Event"),
 				"image": frappe.db.get_single_value("Website Settings", "banner_image"),
-				"description": "Create a new course",
-				"keywords": "New Course, Create Course",
-				"link": "/eventsconnect/courses/new/edit",
+				"description": "Create a new event",
+				"keywords": "New Event, Create Event",
+				"link": "/eventsconnect/events/new/edit",
 			}
-		course_name = app_path.split("/")[1]
-		course = frappe.db.get_value(
-			"EventsConnect Course",
-			course_name,
+		event_name = app_path.split("/")[1]
+		event = frappe.db.get_value(
+			"EventsConnect Event",
+			event_name,
 			["title", "image", "short_introduction", "tags"],
 			as_dict=True,
 		)
 		return {
-			"title": course.title,
-			"image": course.image,
-			"description": course.short_introduction,
-			"keywords": course.tags,
-			"link": f"/courses/{course_name}",
+			"title": event.title,
+			"image": event.image,
+			"description": event.short_introduction,
+			"keywords": event.tags,
+			"link": f"/events/{event_name}",
 		}
 
 	if app_path == "batches":

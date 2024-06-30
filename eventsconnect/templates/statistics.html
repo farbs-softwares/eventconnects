@@ -1,9 +1,9 @@
 <div class="stats-parent">
-	{% if published_courses %}
+	{% if published_events %}
 	<div class="common-card-style p-4 flex-column">
 		<div class="stats-label">{{ _("Published Courses") }}</div>
 		<div class="stats-value">
-			{{ frappe.utils.fmt_money( frappe.db.count("EventsConnect Course", {
+			{{ frappe.utils.fmt_money( frappe.db.count("EventsConnect Event", {
 			"published": 1, "upcoming": 0 }) , 0) }}
 		</div>
 	</div>
@@ -22,16 +22,16 @@
 			{{ frappe.utils.fmt_money( frappe.db.count("EventsConnect Enrollment") , 0) }}
 		</div>
 	</div>
-	{% endif %} {% if course_completion %} {% set course_completion_count =
+	{% endif %} {% if event_completion %} {% set event_completion_count =
 	frappe.db.count("EventsConnect Enrollment", { "progress":["like","%100%"] }) %}
 	<div class="common-card-style p-4 flex-column">
 		<div class="stats-label">{{ _("Courses Completed") }}</div>
 		<div class="stats-value">
-			{{ frappe.utils.fmt_money(course_completion_count, 0) }}
+			{{ frappe.utils.fmt_money(event_completion_count, 0) }}
 		</div>
 	</div>
 	{% endif %} {% if lesson_completion %} {% set lesson_completion_count =
-	frappe.db.count("EventsConnect Course Progress") %}
+	frappe.db.count("EventsConnect Event Progress") %}
 	<div class="common-card-style p-4 flex-column">
 		<div class="stats-label">{{ _("Lessons Completed") }}</div>
 		<div class="stats-value">

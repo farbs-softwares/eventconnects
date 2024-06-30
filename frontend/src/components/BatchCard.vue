@@ -31,7 +31,7 @@
 			</div>
 			<div class="flex items-center">
 				<BookOpen class="h-4 w-4 stroke-1.5 mr-2 text-gray-700" />
-				<span> {{ batch.courses.length }} {{ __('Courses') }} </span>
+				<span> {{ batch.events.length }} {{ __('Courses') }} </span>
 			</div>
 			<DateRange
 				:startDate="batch.start_date"

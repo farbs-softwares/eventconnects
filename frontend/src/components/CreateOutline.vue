@@ -1,16 +1,16 @@
 <template>
-	<div v-if="course">
+	<div v-if="event">
 		<div class="text-xl font-semibold">
-			{{ course.title }}
+			{{ event.title }}
 		</div>
-		<div v-if="course.chapters.length">
-			{{ course.chapters }}
+		<div v-if="event.chapters.length">
+			{{ event.chapters }}
 		</div>
 		<div v-else class="border bg-white rounded-md p-5 text-center mt-4">
 			<div>
 				{{
 					__(
-						'There are no chapters in this course. Create and manage chapters from here.'
+						'There are no chapters in this event. Create and manage chapters from here.'
 					)
 				}}
 			</div>
@@ -22,7 +22,7 @@
 </template>
 <script setup>
 const props = defineProps({
-	course: {
+	event: {
 		type: Object,
 		default: {},
 	},

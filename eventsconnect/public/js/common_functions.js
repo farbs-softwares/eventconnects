@@ -2,8 +2,8 @@ frappe.ready(() => {
 	setup_file_size();
 	pin_header();
 
-	$(".enroll-in-course").click((e) => {
-		enroll_in_course(e);
+	$(".enroll-in-event").click((e) => {
+		enroll_in_event(e);
 	});
 
 	$(".notify-me").click((e) => {
@@ -20,9 +20,9 @@ frappe.ready(() => {
 
 	if (window.location.pathname == "/statistics") {
 		generate_graph("New Signups", "#new-signups");
-		generate_graph("Course Enrollments", "#course-enrollments");
+		generate_graph("Event Enrollments", "#event-enrollments");
 		generate_graph("Lesson Completion", "#lesson-completion");
-		generate_course_completion_graph();
+		generate_event_completion_graph();
 	}
 
 	expand_the_active_chapter();
@@ -41,8 +41,8 @@ frappe.ready(() => {
 		open_batch_dialog(e);
 	});
 
-	$("#course-filter").change((e) => {
-		filter_courses(e);
+	$("#event-filter").change((e) => {
+		filter_events(e);
 	});
 });
 
@@ -72,11 +72,11 @@ const file_size = (value) => {
 	return value;
 };
 
-const enroll_in_course = (e) => {
+const enroll_in_event = (e) => {
 	e.preventDefault();
-	let course = $(e.currentTarget).attr("data-course");
+	let event = $(e.currentTarget).attr("data-event");
 	if (frappe.session.user == "Guest") {
-		window.location.href = `/login?redirect-to=/courses/${course}`;
+		window.location.href = `/login?redirect-to=/events/${event}`;
 		return;
 	}
 
@@ -86,7 +86,7 @@ const enroll_in_course = (e) => {
 		method: "eventsconnect.eventsconnect.doctype.eventsconnect_enrollment.eventsconnect_enrollment.create_membership",
 		args: {
 			batch: batch ? batch : "",
-			course: course,
+			event: event,
 		},
 		callback: (data) => {
 			if (data.message == "OK") {
@@ -99,7 +99,7 @@ const enroll_in_course = (e) => {
 					3
 				);
 				setTimeout(function () {
-					window.location.href = `/courses/${course}/learn/1.1`;
+					window.location.href = `/events/${event}/learn/1.1`;
 				}, 1000);
 			}
 		},
@@ -108,23 +108,23 @@ const enroll_in_course = (e) => {
 
 const notify_user = (e) => {
 	e.preventDefault();
-	var course = decodeURIComponent($("#outline-heading").attr("data-course"));
+	var event = decodeURIComponent($("#outline-heading").attr("data-event"));
 	if (frappe.session.user == "Guest") {
-		window.location.href = `/login?redirect-to=/courses/${course}`;
+		window.location.href = `/login?redirect-to=/events/${event}`;
 		return;
 	}
 
 	frappe.call({
-		method: "eventsconnect.eventsconnect.doctype.eventsconnect_course_interest.eventsconnect_course_interest.capture_interest",
+		method: "eventsconnect.eventsconnect.doctype.eventsconnect_event_interest.eventsconnect_event_interest.capture_interest",
 		args: {
-			course: course,
+			event: event,
 		},
 		callback: (data) => {
 			$(".no-preview-modal").modal("hide");
 			frappe.show_alert(
 				{
 					message: __(
-						"You have opted to be notified for this course. You will receive an email when the course becomes available."
+						"You have opted to be notified for this event. You will receive an email when the event becomes available."
 					),
 					indicator: "green",
 				},
@@ -171,14 +171,14 @@ const render_chart = (data, chart_name, element, type) => {
 	});
 };
 
-const generate_course_completion_graph = () => {
+const generate_event_completion_graph = () => {
 	frappe.call({
-		method: "eventsconnect.eventsconnect.utils.get_course_completion_data",
+		method: "eventsconnect.eventsconnect.utils.get_event_completion_data",
 		callback: (data) => {
 			render_chart(
 				data.message,
-				"Course Completion",
-				"#course-completion",
+				"Event Completion",
+				"#event-completion",
 				"pie"
 			);
 		},
@@ -194,7 +194,7 @@ const open_tab = () => {
 };
 
 const expand_the_first_chapter = () => {
-	let elements = $(".course-home-outline .collapse");
+	let elements = $(".event-home-outline .collapse");
 	elements.each((i, element) => {
 		if (i < 1) {
 			show_section(element);
@@ -204,12 +204,12 @@ const expand_the_first_chapter = () => {
 };
 
 const expand_the_active_chapter = () => {
-	let selector = $(".course-home-headings.title");
+	let selector = $(".event-home-headings.title");
 
-	if (selector.length && $(".course-details-page").length) {
-		expand_for_course_details(selector);
+	if (selector.length && $(".event-details-page").length) {
+		expand_for_event_details(selector);
 	} else if ($(".active-lesson").length) {
-		/* For course home page */
+		/* For event home page */
 		selector = $(".active-lesson");
 		show_section(selector.parent().parent());
 	} else {
@@ -218,7 +218,7 @@ const expand_the_active_chapter = () => {
 	}
 };
 
-const expand_for_course_details = (selector) => {
+const expand_for_event_details = (selector) => {
 	$(".lesson-info").removeClass("active-lesson");
 	$(".lesson-info").each((i, elem) => {
 		if ($(elem).data("lesson") == selector.data("lesson")) {
@@ -435,16 +435,16 @@ const save_batch = (values) => {
 	});
 };
 
-const filter_courses = (e) => {
-	const course_lists = $(".course-cards-parent");
+const filter_events = (e) => {
+	const event_lists = $(".event-cards-parent");
 	const filter = $(e.currentTarget).val();
-	course_lists.each((i, list) => {
-		const course_cards = $(list).children(".course-card");
-		course_cards.sort((a, b) => {
+	event_lists.each((i, list) => {
+		const event_cards = $(list).children(".event-card");
+		event_cards.sort((a, b) => {
 			var value1 = $(a).data(filter);
 			var value2 = $(b).data(filter);
 			return value1 > value2 ? -1 : value1 < value2 ? 1 : 0;
 		});
-		$(list).append(course_cards);
+		$(list).append(event_cards);
 	});
 };

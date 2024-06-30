@@ -1,0 +1,18 @@
+{% set events = events_created if events_created else get_authored_events(user or None, only_published or False) %}
+
+{% if events | length %}
+<div class="cards-parent">
+    {% for event in events %}
+    {{ widgets.CourseCard(event=event) }}
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="empty-state">
+    <img class="icon icon-xl" src="/assets/eventsconnect/icons/comment.svg">
+    <div class="empty-state-text">
+        <div class="empty-state-heading">{{ _("No events created") }}</div>
+        <div class="event-meta">{{ _("Help others learn something new by creating a event.") }}</div>
+    </div>
+</div>
+{% endif %}

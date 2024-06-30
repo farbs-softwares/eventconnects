@@ -176,7 +176,7 @@ const createSlot = createResource({
 				doctype: 'Evaluator Schedule',
 				parent: evaluator.data?.slots.name,
 				parentfield: 'schedule',
-				parenttype: 'Course Evaluator',
+				parenttype: 'Event Evaluator',
 				...newSlot,
 			},
 		}
@@ -233,7 +233,7 @@ const updateUnavailability = createResource({
 	url: 'frappe.client.set_value',
 	makeParams(values) {
 		return {
-			doctype: 'Course Evaluator',
+			doctype: 'Event Evaluator',
 			name: evaluator.data?.slots.name,
 			fieldname: values.field,
 			value: values.value,

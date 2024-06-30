@@ -12,7 +12,7 @@
   "title",
   "column_break_4",
   "invite_code",
-  "course",
+  "event",
   "section_break_7",
   "description"
  ],
@@ -54,11 +54,11 @@
    "reqd": 1
   },
   {
-   "fetch_from": "cohort.course",
-   "fieldname": "course",
+   "fetch_from": "cohort.event",
+   "fieldname": "event",
    "fieldtype": "Link",
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "read_only": 1
   },
   {

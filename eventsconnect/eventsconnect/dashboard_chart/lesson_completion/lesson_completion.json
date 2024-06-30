@@ -7,7 +7,7 @@
  "custom_options": "{\"type\": \"line\", \"axisOptions\": {\"xIsSeries\": 1}, \"lineOptions\": {\"regionFill\": 1}}",
  "docstatus": 0,
  "doctype": "Dashboard Chart",
- "document_type": "EventsConnect Course Progress",
+ "document_type": "EventsConnect Event Progress",
  "dynamic_filters_json": "[]",
  "filters_json": "[]",
  "group_by_type": "Count",

@@ -2,7 +2,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_course")
+	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_event")
 	frappe.reload_doc("eventsconnect", "doctype", "chapter")
 	frappe.reload_doc("eventsconnect", "doctype", "lesson")
 	frappe.reload_doc("eventsconnect", "doctype", "lessons")
@@ -13,14 +13,14 @@ def execute():
 
 
 def update_chapters():
-	courses = frappe.get_all("EventsConnect Course", pluck="name")
-	for course in courses:
-		course_details = frappe.get_doc("EventsConnect Course", course)
-		chapters = frappe.get_all("Chapter", {"course": course}, ["name"], order_by="index_")
+	events = frappe.get_all("EventsConnect Event", pluck="name")
+	for event in events:
+		event_details = frappe.get_doc("EventsConnect Event", event)
+		chapters = frappe.get_all("Chapter", {"event": event}, ["name"], order_by="index_")
 		for chapter in chapters:
-			course_details.append("chapters", {"chapter": chapter.name})
+			event_details.append("chapters", {"chapter": chapter.name})
 
-		course_details.save()
+		event_details.save()
 
 
 def update_lessons():

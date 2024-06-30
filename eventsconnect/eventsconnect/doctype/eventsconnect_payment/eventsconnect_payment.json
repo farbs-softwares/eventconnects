@@ -123,7 +123,7 @@
    "fieldname": "payment_for_document_type",
    "fieldtype": "Select",
    "label": "Payment for Document Type",
-   "options": "\nEventsConnect Course\nEventsConnect Batch"
+   "options": "\nEventsConnect Event\nEventsConnect Batch"
   },
   {
    "fieldname": "payment_for_document",

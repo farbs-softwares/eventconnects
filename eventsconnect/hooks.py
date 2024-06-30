@@ -144,17 +144,17 @@ override_whitelisted_methods = {
 website_route_rules = [
 	{"from_route": "/eventsconnect/<path:app_path>", "to_route": "eventsconnect"},
 	{
-		"from_route": "/courses/<course_name>/<certificate_id>",
+		"from_route": "/events/<event_name>/<certificate_id>",
 		"to_route": "certificate",
 	},
 ]
 
 website_redirects = [
 	{"source": "/update-profile", "target": "/edit-profile"},
-	{"source": "/courses", "target": "/eventsconnect/courses"},
+	{"source": "/events", "target": "/eventsconnect/events"},
 	{
-		"source": r"^/courses/.*$",
-		"target": "/eventsconnect/courses",
+		"source": r"^/events/.*$",
+		"target": "/eventsconnect/events",
 	},
 	{"source": "/batches", "target": "/eventsconnect/batches"},
 	{
@@ -178,9 +178,9 @@ update_website_context = [
 jinja = {
 	"methods": [
 		"eventsconnect.page_renderers.get_profile_url",
-		"eventsconnect.overrides.user.get_enrolled_courses",
-		"eventsconnect.overrides.user.get_course_membership",
-		"eventsconnect.overrides.user.get_authored_courses",
+		"eventsconnect.overrides.user.get_enrolled_events",
+		"eventsconnect.overrides.user.get_event_membership",
+		"eventsconnect.overrides.user.get_authored_events",
 		"eventsconnect.overrides.user.get_palette",
 		"eventsconnect.eventsconnect.utils.get_membership",
 		"eventsconnect.eventsconnect.utils.get_lessons",
@@ -205,19 +205,19 @@ jinja = {
 		"eventsconnect.eventsconnect.utils.is_instructor",
 		"eventsconnect.eventsconnect.utils.convert_number_to_character",
 		"eventsconnect.eventsconnect.utils.get_signup_optin_checks",
-		"eventsconnect.eventsconnect.utils.get_popular_courses",
+		"eventsconnect.eventsconnect.utils.get_popular_events",
 		"eventsconnect.eventsconnect.utils.format_amount",
 		"eventsconnect.eventsconnect.utils.first_lesson_exists",
-		"eventsconnect.eventsconnect.utils.get_courses_under_review",
-		"eventsconnect.eventsconnect.utils.has_course_instructor_role",
-		"eventsconnect.eventsconnect.utils.has_course_moderator_role",
+		"eventsconnect.eventsconnect.utils.get_events_under_review",
+		"eventsconnect.eventsconnect.utils.has_event_instructor_role",
+		"eventsconnect.eventsconnect.utils.has_event_moderator_role",
 		"eventsconnect.eventsconnect.utils.get_certificates",
 		"eventsconnect.eventsconnect.utils.format_number",
 		"eventsconnect.eventsconnect.utils.get_lesson_count",
 		"eventsconnect.eventsconnect.utils.get_all_memberships",
 		"eventsconnect.eventsconnect.utils.get_filtered_membership",
 		"eventsconnect.eventsconnect.utils.show_start_learing_cta",
-		"eventsconnect.eventsconnect.utils.can_create_courses",
+		"eventsconnect.eventsconnect.utils.can_create_events",
 		"eventsconnect.eventsconnect.utils.get_telemetry_boot_info",
 		"eventsconnect.eventsconnect.utils.is_onboarding_complete",
 		"eventsconnect.www.utils.is_student",

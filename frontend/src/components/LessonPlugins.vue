@@ -22,7 +22,7 @@
 			<Link
 				v-model="quiz"
 				class="flex-1"
-				doctype="Events Connect Quiz"
+				doctype="EventsConnect Quiz"
 				:label="__('Select a Quiz')"
 			/>
 			<Button @click="addQuiz()" class="self-end ml-2">

@@ -5,7 +5,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
-from eventsconnect.eventsconnect.utils import has_course_moderator_role
+from eventsconnect.eventsconnect.utils import has_event_moderator_role
 
 
 class EventsConnectCertificateEvaluation(Document):
@@ -18,7 +18,7 @@ class EventsConnectCertificateEvaluation(Document):
 
 
 def has_website_permission(doc, ptype, user, verbose=False):
-	if has_course_moderator_role() or doc.member == frappe.session.user:
+	if has_event_moderator_role() or doc.member == frappe.session.user:
 		return True
 	return False
 

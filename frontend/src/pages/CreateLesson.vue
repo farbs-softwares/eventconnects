@@ -82,7 +82,7 @@ const user = inject('$user')
 const openInstructorEditor = ref(false)
 
 const props = defineProps({
-	courseName: {
+	eventName: {
 		type: String,
 		required: true,
 	},
@@ -123,7 +123,7 @@ const lesson = reactive({
 const lessonDetails = createResource({
 	url: 'eventsconnect.eventsconnect.utils.get_lesson_creation_details',
 	params: {
-		course: props.courseName,
+		event: props.eventName,
 		chapter: props.chapterNumber,
 		lesson: props.lessonNumber,
 	},
@@ -165,8 +165,8 @@ const newLessonResource = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Course Lesson',
-				course: props.courseName,
+				doctype: 'Event Lesson',
+				event: props.eventName,
 				chapter: lessonDetails.data?.chapter.name,
 				...lesson,
 			},
@@ -178,7 +178,7 @@ const editLesson = createResource({
 	url: 'frappe.client.set_value',
 	makeParams(values) {
 		return {
-			doctype: 'Course Lesson',
+			doctype: 'Event Lesson',
 			name: values.lesson,
 			fieldname: lesson,
 		}
@@ -192,7 +192,7 @@ const lessonReference = createResource({
 			doc: {
 				doctype: 'Lesson Reference',
 				parent: lessonDetails.data?.chapter.name,
-				parenttype: 'Course Chapter',
+				parenttype: 'Event Chapter',
 				parentfield: 'lessons',
 				lesson: values.lesson,
 				idx: props.lessonNumber,
@@ -397,8 +397,8 @@ const breadcrumbs = computed(() => {
 			route: { name: 'Courses' },
 		},
 		{
-			label: lessonDetails.data?.course_title,
-			route: { name: 'CourseDetail', params: { courseName: props.courseName } },
+			label: lessonDetails.data?.event_title,
+			route: { name: 'CourseDetail', params: { eventName: props.eventName } },
 		},
 	]
 
@@ -408,7 +408,7 @@ const breadcrumbs = computed(() => {
 			route: {
 				name: 'Lesson',
 				params: {
-					courseName: props.courseName,
+					eventName: props.eventName,
 					chapterNumber: props.chapterNumber,
 					lessonNumber: props.lessonNumber,
 				},
@@ -420,7 +420,7 @@ const breadcrumbs = computed(() => {
 		route: {
 			name: 'CreateLesson',
 			params: {
-				courseName: props.courseName,
+				eventName: props.eventName,
 				chapterNumber: props.chapterNumber,
 				lessonNumber: props.lessonNumber,
 			},
@@ -432,7 +432,7 @@ const breadcrumbs = computed(() => {
 const pageMeta = computed(() => {
 	return {
 		title: 'Lesson Editor',
-		description: 'Create and edit lessons for your course',
+		description: 'Create and edit lessons for your event',
 	}
 })
 

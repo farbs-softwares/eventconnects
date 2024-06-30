@@ -16,7 +16,7 @@ def after_sync():
 def add_pages_to_nav():
 	pages = [
 		{"label": "Explore", "idx": 1},
-		{"label": "Courses", "url": "/eventsconnect/courses", "parent": "Explore", "idx": 2},
+		{"label": "Courses", "url": "/eventsconnect/events", "parent": "Explore", "idx": 2},
 		{"label": "Batches", "url": "/eventsconnect/batches", "parent": "Explore", "idx": 3},
 		{"label": "Statistics", "url": "/eventsconnect/statistics", "parent": "Explore", "idx": 4},
 		{"label": "EventJobs", "url": "/eventsconnect/eventjob-openings", "parent": "Explore", "idx": 5},
@@ -50,25 +50,25 @@ def before_uninstall():
 
 
 def create_eventsconnect_roles():
-	create_course_creator_role()
+	create_event_creator_role()
 	create_moderator_role()
 	create_evaluator_role()
 	create_eventsconnect_student_role()
 
 
 def delete_eventsconnect_roles():
-	roles = ["Course Creator", "Moderator"]
+	roles = ["Event Creator", "Moderator"]
 	for role in roles:
 		if frappe.db.exists("Role", role):
 			frappe.db.delete("Role", role)
 
 
-def create_course_creator_role():
-	if not frappe.db.exists("Role", "Course Creator"):
+def create_event_creator_role():
+	if not frappe.db.exists("Role", "Event Creator"):
 		role = frappe.get_doc(
 			{
 				"doctype": "Role",
-				"role_name": "Course Creator",
+				"role_name": "Event Creator",
 				"home_page": "",
 				"desk_access": 0,
 			}

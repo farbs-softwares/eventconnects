@@ -28,7 +28,7 @@ class EventsConnectBatch(Document):
 	def validate(self):
 		if self.seat_count:
 			self.validate_seats_left()
-		self.validate_duplicate_courses()
+		self.validate_duplicate_events()
 		self.validate_duplicate_students()
 		self.validate_duplicate_assessments()
 		self.validate_membership()
@@ -46,13 +46,13 @@ class EventsConnectBatch(Document):
 				)
 			)
 
-	def validate_duplicate_courses(self):
-		courses = [row.course for row in self.courses]
-		duplicates = {course for course in courses if courses.count(course) > 1}
+	def validate_duplicate_events(self):
+		events = [row.event for row in self.events]
+		duplicates = {event for event in events if events.count(event) > 1}
 		if len(duplicates):
-			title = frappe.db.get_value("EventsConnect Course", next(iter(duplicates)), "title")
+			title = frappe.db.get_value("EventsConnect Event", next(iter(duplicates)), "title")
 			frappe.throw(
-				_("Course {0} has already been added to this batch.").format(frappe.bold(title))
+				_("Event {0} has already been added to this batch.").format(frappe.bold(title))
 			)
 
 	def validate_duplicate_assessments(self):
@@ -114,12 +114,12 @@ class EventsConnectBatch(Document):
 		)
 
 	def validate_membership(self):
-		for course in self.courses:
+		for event in self.events:
 			for student in self.students:
 				filters = {
 					"doctype": "EventsConnect Enrollment",
 					"member": student.student,
-					"course": course.course,
+					"event": event.event,
 				}
 				if not frappe.db.exists(filters):
 					frappe.get_doc(filters).save()
@@ -169,9 +169,9 @@ def remove_student(student, batch_name):
 
 
 @frappe.whitelist()
-def remove_course(course, parent):
+def remove_event(event, parent):
 	frappe.only_for("Moderator")
-	frappe.db.delete("Batch Course", {"course": course, "parent": parent})
+	frappe.db.delete("Batch Event", {"event": event, "parent": parent})
 
 
 @frappe.whitelist()
@@ -303,34 +303,34 @@ def create_batch(
 
 
 @frappe.whitelist()
-def fetch_lessons(courses):
+def fetch_lessons(events):
 	lessons = []
-	courses = json.loads(courses)
+	events = json.loads(events)
 
-	for course in courses:
-		lessons.extend(get_lessons(course.get("course")))
+	for event in events:
+		lessons.extend(get_lessons(event.get("event")))
 
 	return lessons
 
 
 @frappe.whitelist()
-def add_course(course, parent, name=None, evaluator=None):
+def add_event(event, parent, name=None, evaluator=None):
 	frappe.only_for("Moderator")
 
-	if frappe.db.exists("Batch Course", {"course": course, "parent": parent}):
-		frappe.throw(_("Course already added to the batch."))
+	if frappe.db.exists("Batch Event", {"event": event, "parent": parent}):
+		frappe.throw(_("Event already added to the batch."))
 
 	if name:
-		doc = frappe.get_doc("Batch Course", name)
+		doc = frappe.get_doc("Batch Event", name)
 	else:
-		doc = frappe.new_doc("Batch Course")
+		doc = frappe.new_doc("Batch Event")
 
 	doc.update(
 		{
-			"course": course,
+			"event": event,
 			"evaluator": evaluator,
 			"parent": parent,
-			"parentfield": "courses",
+			"parentfield": "events",
 			"parenttype": "EventsConnect Batch",
 		}
 	)
@@ -390,16 +390,16 @@ def get_timetable_details(timetable):
 		)
 		assessment = frappe._dict({"assessment_name": entry.reference_docname})
 
-		if entry.reference_doctype == "Course Lesson":
-			course = frappe.db.get_value(
-				entry.reference_doctype, entry.reference_docname, "course"
+		if entry.reference_doctype == "Event Lesson":
+			event = frappe.db.get_value(
+				entry.reference_doctype, entry.reference_docname, "event"
 			)
-			entry.url = get_lesson_url(course, get_lesson_index(entry.reference_docname))
+			entry.url = get_lesson_url(event, get_lesson_index(entry.reference_docname))
 
 			entry.completed = (
 				True
 				if frappe.db.exists(
-					"EventsConnect Course Progress",
+					"EventsConnect Event Progress",
 					{"lesson": entry.reference_docname, "member": frappe.session.user},
 				)
 				else False
@@ -428,9 +428,9 @@ def is_milestone_complete(idx, batch):
 	)
 
 	for row in previous_rows:
-		if row.reference_doctype == "Course Lesson":
+		if row.reference_doctype == "Event Lesson":
 			if not frappe.db.exists(
-				"EventsConnect Course Progress",
+				"EventsConnect Event Progress",
 				{"member": frappe.session.user, "lesson": row.reference_docname},
 			):
 				return False

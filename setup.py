@@ -9,7 +9,7 @@ from eventsconnect import __version__ as version
 setup(
 	name="eventsconnect",
 	version=version,
-	description="Events Connect App",
+	description="EventsConnect App",
 	author="Frappe",
 	author_email="school@frappe.io",
 	packages=find_packages(),

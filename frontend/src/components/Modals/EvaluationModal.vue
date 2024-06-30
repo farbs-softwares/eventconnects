@@ -17,9 +17,9 @@
 			<div class="flex flex-col gap-4">
 				<div>
 					<div class="mb-1.5 text-sm text-gray-600">
-						{{ __('Course') }}
+						{{ __('Event') }}
 					</div>
-					<Select v-model="evaluation.course" :options="getCourses()" />
+					<Select v-model="evaluation.event" :options="getCourses()" />
 				</div>
 				<div>
 					<div class="mb-1.5 text-sm text-gray-600">
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div
-					v-else-if="evaluation.course && evaluation.date"
+					v-else-if="evaluation.event && evaluation.date"
 					class="text-sm italic text-red-600"
 				>
 					{{ __('No slots available for this date.') }}
@@ -67,7 +67,7 @@ const show = defineModel()
 const evaluations = defineModel('reloadEvals')
 
 const props = defineProps({
-	courses: {
+	events: {
 		type: Array,
 		default: [],
 	},
@@ -82,7 +82,7 @@ const props = defineProps({
 })
 
 let evaluation = reactive({
-	course: '',
+	event: '',
 	date: '',
 	start_time: '',
 	end_time: '',
@@ -96,7 +96,7 @@ const createEvaluation = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Events Connect Certificate Request',
+				doctype: 'EventsConnect Certificate Request',
 				batch_name: values.batch,
 				...values,
 			},
@@ -107,8 +107,8 @@ const createEvaluation = createResource({
 function submitEvaluation(close) {
 	createEvaluation.submit(evaluation, {
 		validate() {
-			if (!evaluation.course) {
-				return 'Please select a course.'
+			if (!evaluation.event) {
+				return 'Please select a event.'
 			}
 			if (!evaluation.date) {
 				return 'Please select a date.'
@@ -143,21 +143,21 @@ function submitEvaluation(close) {
 }
 
 const getCourses = () => {
-	let courses = []
-	for (const course of props.courses) {
-		courses.push({
-			label: course.title,
-			value: course.course,
+	let events = []
+	for (const event of props.events) {
+		events.push({
+			label: event.title,
+			value: event.event,
 		})
 	}
-	return courses
+	return events
 }
 
 const slots = createResource({
-	url: 'eventsconnect.eventsconnect.doctype.course_evaluator.course_evaluator.get_schedule',
+	url: 'eventsconnect.eventsconnect.doctype.event_evaluator.event_evaluator.get_schedule',
 	makeParams(values) {
 		return {
-			course: values.course,
+			event: values.event,
 			date: values.date,
 			batch: props.batch,
 		}
@@ -168,15 +168,15 @@ watch(
 	() => evaluation.date,
 	(date) => {
 		evaluation.start_time = ''
-		if (date && evaluation.course) {
+		if (date && evaluation.event) {
 			slots.submit(evaluation)
 		}
 	}
 )
 
 watch(
-	() => evaluation.course,
-	(course) => {
+	() => evaluation.event,
+	(event) => {
 		evaluation.date = ''
 		evaluation.start_time = ''
 		slots.reset()

@@ -20,7 +20,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Lesson",
-   "options": "Course Lesson",
+   "options": "Event Lesson",
    "reqd": 1
   },
   {

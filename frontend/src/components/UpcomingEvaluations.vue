@@ -11,7 +11,7 @@
 				<div v-for="evl in upcoming_evals.data">
 					<div class="border rounded-md p-3">
 						<div class="font-semibold mb-3">
-							{{ evl.course_title }}
+							{{ evl.event_title }}
 						</div>
 						<div class="flex items-center mb-2">
 							<Calendar class="w-4 h-4 stroke-1.5" />
@@ -42,7 +42,7 @@
 	<EvaluationModal
 		:batch="batch"
 		:endDate="endDate"
-		:courses="courses"
+		:events="events"
 		v-model="showEvalModal"
 		v-model:reloadEvals="upcoming_evals"
 	/>
@@ -63,7 +63,7 @@ const props = defineProps({
 		type: String,
 		default: null,
 	},
-	courses: {
+	events: {
 		type: Array,
 		default: [],
 	},
@@ -82,7 +82,7 @@ const upcoming_evals = createResource({
 	cache: ['upcoming_evals', user.data.name],
 	params: {
 		student: user.data.name,
-		courses: props.courses.map((course) => course.course),
+		events: props.events.map((event) => event.event),
 	},
 	auto: true,
 })

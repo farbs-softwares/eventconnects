@@ -47,7 +47,7 @@ const communications = createListResource({
 		'sender_full_name',
 	],
 	filters: {
-		reference_doctype: 'Events Connect Batch',
+		reference_doctype: 'EventsConnect Batch',
 		reference_name: props.batch,
 	},
 	orderBy: 'communication_date desc',

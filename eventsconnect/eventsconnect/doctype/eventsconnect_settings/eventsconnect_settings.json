@@ -10,17 +10,17 @@
   "column_break_zdel",
   "unsplash_access_key",
   "livecode_url",
-  "course_settings_section",
+  "event_settings_section",
   "search_placeholder",
   "column_break_iqxy",
-  "portal_course_creation",
+  "portal_event_creation",
   "section_break_szgq",
   "send_calendar_invite_for_evaluations",
   "show_day_view",
   "allow_student_progress",
   "column_break_2",
   "show_dashboard",
-  "show_courses",
+  "show_events",
   "show_students",
   "show_assessments",
   "show_live_class",
@@ -39,7 +39,7 @@
   "cookie_policy_page",
   "sidebar_tab",
   "items_in_sidebar_section",
-  "courses",
+  "events",
   "batches",
   "certified_participants",
   "column_break_exdz",
@@ -101,7 +101,7 @@
   {
    "fieldname": "search_placeholder",
    "fieldtype": "Data",
-   "label": "Course List Search Bar Placeholder"
+   "label": "Event List Search Bar Placeholder"
   },
   {
    "default": "0",
@@ -140,11 +140,11 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Course Creator Role",
-   "fieldname": "portal_course_creation",
+   "default": "Event Creator Role",
+   "fieldname": "portal_event_creation",
    "fieldtype": "Select",
-   "label": "Course Creation Access Through Website To",
-   "options": "Course Creator Role\nAnyone"
+   "label": "Event Creation Access Through Website To",
+   "options": "Event Creator Role\nAnyone"
   },
   {
    "fieldname": "column_break_9",
@@ -231,9 +231,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "course_settings_section",
+   "fieldname": "event_settings_section",
    "fieldtype": "Section Break",
-   "label": "Course Settings"
+   "label": "Event Settings"
   },
   {
    "fieldname": "column_break_iqxy",
@@ -282,7 +282,7 @@
   },
   {
    "default": "1",
-   "fieldname": "show_courses",
+   "fieldname": "show_events",
    "fieldtype": "Check",
    "label": "Courses"
   },
@@ -366,7 +366,7 @@
   },
   {
    "default": "1",
-   "fieldname": "courses",
+   "fieldname": "events",
    "fieldtype": "Check",
    "label": "Courses"
   },

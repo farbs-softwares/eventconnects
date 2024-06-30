@@ -2,7 +2,7 @@ import frappe
 
 
 def execute():
-	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_course")
+	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_event")
 	frappe.reload_doc("eventsconnect", "doctype", "chapter")
 	frappe.reload_doc("eventsconnect", "doctype", "lesson")
 	frappe.reload_doc("eventsconnect", "doctype", "chapter_reference")

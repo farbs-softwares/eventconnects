@@ -1,6 +1,6 @@
-{% if not course.upcoming %}
+{% if not event.upcoming %}
 <div class="reviews-parent">
-    {% set reviews = get_reviews(course.name) %}
+    {% set reviews = get_reviews(event.name) %}
     <div class="page-title mb-5"> {{ _("Reviews") }} </div>
 
 
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="course-meta"> {{ reviews | length }} {{ _("ratings") }} </div>
+            <div class="event-meta"> {{ reviews | length }} {{ _("ratings") }} </div>
             <!--
 
              -->
@@ -34,11 +34,11 @@
 
 
         <div class="vertical-divider"></div>
-        {% set sorted_reviews = get_sorted_reviews(course.name) %}
+        {% set sorted_reviews = get_sorted_reviews(event.name) %}
         <div>
             {% for review in sorted_reviews %}
             <div class="d-flex align-items-center mb-3">
-                <div class="course-meta mr-2">
+                <div class="event-meta mr-2">
                     {{ frappe.utils.cint(review) }} {{ _("stars") }}
                 </div>
                 <div class="progress">
@@ -47,7 +47,7 @@
                         <span class="sr-only"> {{ sorted_reviews[review] }} {{ _("Complete") }} </span>
                     </div>
                 </div>
-                <div class="course-meta ml-3"> {{ frappe.utils.cint(sorted_reviews[review]) }}% </div>
+                <div class="event-meta ml-3"> {{ frappe.utils.cint(sorted_reviews[review]) }}% </div>
             </div>
             {% endfor %}
         </div>
@@ -70,7 +70,7 @@
                             {{ review.owner_details.full_name }}
                         </span>
                         </a>
-                        <div class="frappe-timestamp course-meta" data-timestamp="{{ review.creation }}">
+                        <div class="frappe-timestamp event-meta" data-timestamp="{{ review.creation }}">
                             {{ review.creation }}
                         </div>
                     </div>
@@ -96,8 +96,8 @@
     <div class="empty-state">
         <img class="icon icon-xl" src="/assets/eventsconnect/icons/comment.svg">
         <div class="empty-state-text">
-            <div class="empty-state-heading">{{ _("Review the course") }}</div>
-            <div class="course-meta">{{ _("Help us improve our course material.") }}</div>
+            <div class="empty-state-heading">{{ _("Review the event") }}</div>
+            <div class="event-meta">{{ _("Help us improve our event material.") }}</div>
             <div class="mt-2">
                 {% include "eventsconnect/templates/reviews_cta.html" %}
             </div>
@@ -157,7 +157,7 @@
                     {{ _("Discard") }}
                 </button>
 
-                <button class="btn btn-primary btn-sm" data-course="{{ course.name | urlencode}}" id="submit-review">
+                <button class="btn btn-primary btn-sm" data-event="{{ event.name | urlencode}}" id="submit-review">
                     {{ _("Submit") }}
                 </button>
             </div>

@@ -125,7 +125,7 @@
 								{{ __('Source') }}
 							</div>
 							<Link
-								doctype="Events Connect Source"
+								doctype="EventsConnect Source"
 								:value="billingDetails.source"
 								@change="(option) => (billingDetails.source = option)"
 							/>
@@ -153,9 +153,9 @@
 			<NotPermitted
 				:text="access.data.message"
 				:buttonLabel="
-					type == 'course' ? 'Checkout Courses' : 'Checkout Batches'
+					type == 'event' ? 'Checkout Courses' : 'Checkout Batches'
 				"
-				:buttonLink="type == 'course' ? '/eventsconnect/courses' : '/eventsconnect/batches'"
+				:buttonLink="type == 'event' ? '/eventsconnect/events' : '/eventsconnect/batches'"
 			/>
 		</div>
 		<div v-else-if="!user.data?.name">
@@ -211,7 +211,7 @@ const orderSummary = createResource({
 	url: 'eventsconnect.eventsconnect.utils.get_order_summary',
 	makeParams(values) {
 		return {
-			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
+			doctype: props.type == 'event' ? 'EventsConnect Event' : 'EventsConnect Batch',
 			docname: props.name,
 			country: billingDetails.country,
 		}
@@ -241,7 +241,7 @@ const paymentOptions = createResource({
 	url: 'eventsconnect.eventsconnect.utils.get_payment_options',
 	makeParams(values) {
 		return {
-			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
+			doctype: props.type == 'event' ? 'EventsConnect Event' : 'EventsConnect Batch',
 			docname: props.name,
 			phone: billingDetails.phone,
 			country: billingDetails.country,
@@ -258,7 +258,7 @@ const generatePaymentLink = () => {
 			},
 			onSuccess(data) {
 				data.handler = (response) => {
-					let doctype = props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch'
+					let doctype = props.type == 'event' ? 'EventsConnect Event' : 'EventsConnect Batch'
 					let docname = props.name
 					handleSuccess(response, doctype, docname, data.order_id)
 				}
@@ -277,7 +277,7 @@ const paymentResource = createResource({
 	makeParams(values) {
 		return {
 			response: values.response,
-			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
+			doctype: props.type == 'event' ? 'EventsConnect Event' : 'EventsConnect Batch',
 			docname: props.name,
 			address: billingDetails,
 			order_id: values.orderId,

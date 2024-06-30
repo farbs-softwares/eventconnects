@@ -4,7 +4,7 @@ import frappe
 def execute():
 	fields = [
 		"show_dashboard",
-		"show_courses",
+		"show_events",
 		"show_students",
 		"show_emails",
 		"show_assessments",

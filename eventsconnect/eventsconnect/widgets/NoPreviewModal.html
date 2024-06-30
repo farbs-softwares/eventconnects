@@ -9,11 +9,11 @@
             <div class="modal-body">
                 {% if is_user_interested %}
                     <div class="">
-                        {{ _("You have opted to be notified for this course. You will receive an email when the course becomes available.") }}
+                        {{ _("You have opted to be notified for this event. You will receive an email when the event becomes available.") }}
                     </div>
                 {% else %}
                     <div class="">
-                        {{ _("This lesson is not available for preview. Please join the course to access it.") }}
+                        {{ _("This lesson is not available for preview. Please join the event to access it.") }}
                     </div>
                 {% endif %}
             </div>
@@ -25,8 +25,8 @@
                     {{ _("Discard") }}
                 </button>
 
-                {% if course.upcoming %}
-                <button class="btn btn-primary btn-sm notify-me pull-right" data-course="{{course.name | urlencode}}">
+                {% if event.upcoming %}
+                <button class="btn btn-primary btn-sm notify-me pull-right" data-event="{{event.name | urlencode}}">
                     {{ _("Notify me when available") }}
                 </button>
                 {% endif %}

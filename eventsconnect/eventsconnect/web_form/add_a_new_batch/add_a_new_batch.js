@@ -9,7 +9,7 @@ frappe.ready(function () {
 			clear: true,
 		});
 		setTimeout(function () {
-			window.location.href = `courses/${slug}`;
+			window.location.href = `events/${slug}`;
 		}, 2000);
 	};
 

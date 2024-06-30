@@ -11,17 +11,17 @@ class EventsConnectMentorRequest(Document):
 		if self.has_value_changed("status"):
 
 			if self.status == "Approved":
-				self.create_course_mentor_mapping()
+				self.create_event_mentor_mapping()
 
 			if self.status != "Pending":
 				self.send_status_change_email()
 
-	def create_course_mentor_mapping(self):
+	def create_event_mentor_mapping(self):
 		mapping = frappe.get_doc(
 			{
-				"doctype": "EventsConnect Course Mentor Mapping",
+				"doctype": "EventsConnect Event Mentor Mapping",
 				"mentor": self.member,
-				"course": self.course,
+				"event": self.event,
 			}
 		)
 		mapping.save()
@@ -31,20 +31,20 @@ class EventsConnectMentorRequest(Document):
 		if not email_template:
 			return
 
-		course_details = frappe.db.get_value(
-			"EventsConnect Course", self.course, ["owner", "slug", "title"], as_dict=True
+		event_details = frappe.db.get_value(
+			"EventsConnect Event", self.event, ["owner", "slug", "title"], as_dict=True
 		)
 		message = frappe.render_template(
 			email_template.response,
 			{
 				"member_name": frappe.db.get_value("User", frappe.session.user, "full_name"),
-				"course_url": "/eventsconnect/courses/" + course_details.slug,
-				"course": course_details.title,
+				"event_url": "/eventsconnect/events/" + event_details.slug,
+				"event": event_details.title,
 			},
 		)
 
 		email_args = {
-			"recipients": [frappe.session.user, course_details.owner],
+			"recipients": [frappe.session.user, event_details.owner],
 			"subject": email_template.subject,
 			"header": email_template.subject,
 			"message": message,
@@ -58,22 +58,22 @@ class EventsConnectMentorRequest(Document):
 		if not email_template:
 			return
 
-		course_details = frappe.db.get_value(
-			"EventsConnect Course", self.course, ["owner", "title"], as_dict=True
+		event_details = frappe.db.get_value(
+			"EventsConnect Event", self.event, ["owner", "title"], as_dict=True
 		)
 		message = frappe.render_template(
 			email_template.response,
 			{
 				"member_name": self.member_name,
 				"status": self.status,
-				"course": course_details.title,
+				"event": event_details.title,
 			},
 		)
 
 		if self.status == "Approved" or self.status == "Rejected":
 			email_args = {
 				"recipients": self.member,
-				"cc": [course_details.owner, self.reviewed_by],
+				"cc": [event_details.owner, self.reviewed_by],
 				"subject": email_template.subject,
 				"header": email_template.subject,
 				"message": message,
@@ -84,7 +84,7 @@ class EventsConnectMentorRequest(Document):
 
 		elif self.status == "Withdrawn":
 			email_args = {
-				"recipients": [self.member, course_details.owner],
+				"recipients": [self.member, event_details.owner],
 				"subject": email_template.subject,
 				"header": email_template.subject,
 				"message": message,
@@ -100,25 +100,25 @@ class EventsConnectMentorRequest(Document):
 
 
 @frappe.whitelist()
-def has_requested(course):
+def has_requested(event):
 	return frappe.db.count(
 		"EventsConnect Mentor Request",
 		filters={
 			"member": frappe.session.user,
-			"course": course,
+			"event": event,
 			"status": ["in", ("Pending", "Approved")],
 		},
 	)
 
 
 @frappe.whitelist()
-def create_request(course):
-	if not has_requested(course):
+def create_request(event):
+	if not has_requested(event):
 		request = frappe.get_doc(
 			{
 				"doctype": "EventsConnect Mentor Request",
 				"member": frappe.session.user,
-				"course": course,
+				"event": event,
 				"status": "Pending",
 			}
 		)
@@ -131,12 +131,12 @@ def create_request(course):
 
 
 @frappe.whitelist()
-def cancel_request(course):
+def cancel_request(event):
 	request = frappe.get_doc(
 		"EventsConnect Mentor Request",
 		{
 			"member": frappe.session.user,
-			"course": course,
+			"event": event,
 			"status": ["in", ("Pending", "Approved")],
 		},
 	)

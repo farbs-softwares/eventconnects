@@ -71,11 +71,11 @@ def generate_slug(title, doctype):
 	return slugify(title, used_slugs=slugs)
 
 
-def get_membership(course, member=None, batch=None):
+def get_membership(event, member=None, batch=None):
 	if not member:
 		member = frappe.session.user
 
-	filters = {"member": member, "course": course}
+	filters = {"member": member, "event": event}
 	if batch:
 		filters["batch_old"] = batch
 
@@ -97,16 +97,16 @@ def get_membership(course, member=None, batch=None):
 	return False
 
 
-def get_chapters(course):
-	"""Returns all chapters of this course."""
-	if not course:
+def get_chapters(event):
+	"""Returns all chapters of this event."""
+	if not event:
 		return []
 	chapters = frappe.get_all(
-		"Chapter Reference", {"parent": course}, ["idx", "chapter"], order_by="idx"
+		"Chapter Reference", {"parent": event}, ["idx", "chapter"], order_by="idx"
 	)
 	for chapter in chapters:
 		chapter_details = frappe.db.get_value(
-			"Course Chapter",
+			"Event Chapter",
 			{"name": chapter.chapter},
 			["name", "title", "description"],
 			as_dict=True,
@@ -115,9 +115,9 @@ def get_chapters(course):
 	return chapters
 
 
-def get_lessons(course, chapter=None, get_details=True, progress=False):
+def get_lessons(event, chapter=None, get_details=True, progress=False):
 	"""If chapter is passed, returns lessons of only that chapter.
-	Else returns lessons of all chapters of the course"""
+	Else returns lessons of all chapters of the event"""
 	lessons = []
 	lesson_count = 0
 	if chapter:
@@ -126,7 +126,7 @@ def get_lessons(course, chapter=None, get_details=True, progress=False):
 		else:
 			return frappe.db.count("Lesson Reference", {"parent": chapter.name})
 
-	for chapter in get_chapters(course):
+	for chapter in get_chapters(event):
 		if get_details:
 			lessons += get_lesson_details(chapter, progress=progress)
 		else:
@@ -142,7 +142,7 @@ def get_lesson_details(chapter, progress=False):
 	)
 	for row in lesson_list:
 		lesson_details = frappe.db.get_value(
-			"Course Lesson",
+			"Event Lesson",
 			row.lesson,
 			[
 				"name",
@@ -155,7 +155,7 @@ def get_lesson_details(chapter, progress=False):
 				"question",
 				"file_type",
 				"instructor_notes",
-				"course",
+				"event",
 			],
 			as_dict=True,
 		)
@@ -163,7 +163,7 @@ def get_lesson_details(chapter, progress=False):
 		lesson_details.icon = get_lesson_icon(lesson_details.body)
 
 		if progress:
-			lesson_details.is_complete = get_progress(lesson_details.course, lesson_details.name)
+			lesson_details.is_complete = get_progress(lesson_details.event, lesson_details.name)
 
 		lessons.append(lesson_details)
 	return lessons
@@ -186,15 +186,15 @@ def get_lesson_icon(content):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_tags(course):
-	tags = frappe.db.get_value("EventsConnect Course", course, "tags")
+def get_tags(event):
+	tags = frappe.db.get_value("EventsConnect Event", event, "tags")
 	return tags.split(",") if tags else []
 
 
-def get_instructors(course):
+def get_instructors(event):
 	instructor_details = []
 	instructors = frappe.get_all(
-		"Course Instructor", {"parent": course}, order_by="idx", pluck="instructor"
+		"Event Instructor", {"parent": event}, order_by="idx", pluck="instructor"
 	)
 
 	for instructor in instructors:
@@ -209,9 +209,9 @@ def get_instructors(course):
 	return instructor_details
 
 
-def get_students(course, batch=None):
+def get_students(event, batch=None):
 	"""Returns (email, full_name, username) of all the students of this batch as a list of dict."""
-	filters = {"course": course, "member_type": "Student"}
+	filters = {"event": event, "member_type": "Student"}
 
 	if batch:
 		filters["batch_old"] = batch
@@ -219,24 +219,24 @@ def get_students(course, batch=None):
 	return frappe.get_all("EventsConnect Enrollment", filters, ["member"])
 
 
-def get_average_rating(course):
-	ratings = [review.rating for review in get_reviews(course)]
+def get_average_rating(event):
+	ratings = [review.rating for review in get_reviews(event)]
 	if not len(ratings):
 		return None
 	return sum(ratings) / len(ratings)
 
 
 @frappe.whitelist(allow_guest=True)
-def get_reviews(course):
+def get_reviews(event):
 	reviews = frappe.get_all(
-		"EventsConnect Course Review",
-		{"course": course},
+		"EventsConnect Event Review",
+		{"event": event},
 		["review", "rating", "owner", "creation"],
 		order_by="creation desc",
 	)
 
 	out_of_ratings = frappe.db.get_all(
-		"DocField", {"parent": "EventsConnect Course Review", "fieldtype": "Rating"}, ["options"]
+		"DocField", {"parent": "EventsConnect Event Review", "fieldtype": "Rating"}, ["options"]
 	)
 	out_of_ratings = (len(out_of_ratings) and out_of_ratings[0].options) or 5
 	for review in reviews:
@@ -249,13 +249,13 @@ def get_reviews(course):
 	return reviews
 
 
-def get_sorted_reviews(course):
+def get_sorted_reviews(event):
 	rating_count = rating_percent = frappe._dict()
 	keys = ["5.0", "4.0", "3.0", "2.0", "1.0"]
 	for key in keys:
 		rating_count[key] = 0
 
-	reviews = get_reviews(course)
+	reviews = get_reviews(event)
 	for review in reviews:
 		rating_count[cstr(review.rating)] += 1
 
@@ -265,9 +265,9 @@ def get_sorted_reviews(course):
 	return rating_percent
 
 
-def is_certified(course):
+def is_certified(event):
 	certificate = frappe.get_all(
-		"EventsConnect Certificate", {"member": frappe.session.user, "course": course}
+		"EventsConnect Certificate", {"member": frappe.session.user, "event": event}
 	)
 	if len(certificate):
 		return certificate[0].name
@@ -291,27 +291,27 @@ def get_lesson_index(lesson_name):
 	return f"{chapter.idx}-{lesson.idx}"
 
 
-def get_lesson_url(course, lesson_number):
+def get_lesson_url(event, lesson_number):
 	if not lesson_number:
 		return
-	return f"/courses/{course}/learn/{lesson_number}"
+	return f"/events/{event}/learn/{lesson_number}"
 
 
-def get_batch(course, batch_name):
-	return frappe.get_all("EventsConnect Batch Old", {"name": batch_name, "course": course})
+def get_batch(event, batch_name):
+	return frappe.get_all("EventsConnect Batch Old", {"name": batch_name, "event": event})
 
 
 def get_slugified_chapter_title(chapter):
 	return slugify(chapter)
 
 
-def get_progress(course, lesson, member=None):
+def get_progress(event, lesson, member=None):
 	if not member:
 		member = frappe.session.user
 
 	return frappe.db.exists(
-		"EventsConnect Course Progress",
-		{"course": course, "member": member, "lesson": lesson},
+		"EventsConnect Event Progress",
+		{"event": event, "member": member, "lesson": lesson},
 		["status"],
 	)
 
@@ -335,26 +335,26 @@ def render_html(lesson):
 	return markdown_to_html(text)
 
 
-def is_mentor(course, email):
-	"""Checks if given user is a mentor for this course."""
+def is_mentor(event, email):
+	"""Checks if given user is a mentor for this event."""
 	if not email:
 		return False
 	return frappe.db.count(
-		"EventsConnect Course Mentor Mapping", {"course": course, "mentor": email}
+		"EventsConnect Event Mentor Mapping", {"event": event, "mentor": email}
 	)
 
 
-def is_cohort_staff(course, user_email):
-	"""Returns True if the user is either a mentor or a staff for one or more active cohorts of this course."""
-	staff = {"doctype": "Cohort Staff", "course": course, "email": user_email}
-	mentor = {"doctype": "Cohort Mentor", "course": course, "email": user_email}
+def is_cohort_staff(event, user_email):
+	"""Returns True if the user is either a mentor or a staff for one or more active cohorts of this event."""
+	staff = {"doctype": "Cohort Staff", "event": event, "email": user_email}
+	mentor = {"doctype": "Cohort Mentor", "event": event, "email": user_email}
 	return frappe.db.exists(staff) or frappe.db.exists(mentor)
 
 
-def get_mentors(course):
-	"""Returns the list of all mentors for this course."""
-	course_mentors = []
-	mentors = frappe.get_all("EventsConnect Course Mentor Mapping", {"course": course}, ["mentor"])
+def get_mentors(event):
+	"""Returns the list of all mentors for this event."""
+	event_mentors = []
+	mentors = frappe.get_all("EventsConnect Event Mentor Mapping", {"event": event}, ["mentor"])
 	for mentor in mentors:
 		member = frappe.db.get_value(
 			"User", mentor.mentor, ["name", "username", "full_name", "user_image"]
@@ -362,34 +362,34 @@ def get_mentors(course):
 		member.batch_count = frappe.db.count(
 			"EventsConnect Enrollment", {"member": member.name, "member_type": "Mentor"}
 		)
-		course_mentors.append(member)
-	return course_mentors
+		event_mentors.append(member)
+	return event_mentors
 
 
-def is_eligible_to_review(course):
-	"""Checks if user is eligible to review the course"""
+def is_eligible_to_review(event):
+	"""Checks if user is eligible to review the event"""
 	if frappe.db.count(
-		"EventsConnect Course Review", {"course": course, "owner": frappe.session.user}
+		"EventsConnect Event Review", {"event": event, "owner": frappe.session.user}
 	):
 		return False
 	return True
 
 
-def get_course_progress(course, member=None):
-	"""Returns the course progress of the session user"""
-	lesson_count = get_lessons(course, get_details=False)
+def get_event_progress(event, member=None):
+	"""Returns the event progress of the session user"""
+	lesson_count = get_lessons(event, get_details=False)
 	if not lesson_count:
 		return 0
 	completed_lessons = frappe.db.count(
-		"EventsConnect Course Progress",
-		{"course": course, "member": member or frappe.session.user, "status": "Complete"},
+		"EventsConnect Event Progress",
+		{"event": event, "member": member or frappe.session.user, "status": "Complete"},
 	)
 	precision = cint(frappe.db.get_default("float_precision")) or 3
 	return flt(((completed_lessons / lesson_count) * 100), precision)
 
 
-def get_initial_members(course):
-	members = frappe.get_all("EventsConnect Enrollment", {"course": course}, ["member"], limit=3)
+def get_initial_members(event):
+	members = frappe.get_all("EventsConnect Enrollment", {"event": event}, ["member"], limit=3)
 
 	member_details = []
 	for member in members:
@@ -402,9 +402,9 @@ def get_initial_members(course):
 	return member_details
 
 
-def is_instructor(course):
+def is_instructor(event):
 	return (
-		len(list(filter(lambda x: x.name == frappe.session.user, get_instructors(course))))
+		len(list(filter(lambda x: x.name == frappe.session.user, get_instructors(event))))
 		> 0
 	)
 
@@ -434,35 +434,35 @@ def get_signup_optin_checks():
 	return (", ").join(links)
 
 
-def get_popular_courses():
-	courses = frappe.get_all("EventsConnect Course", {"published": 1, "upcoming": 0})
-	course_membership = []
+def get_popular_events():
+	events = frappe.get_all("EventsConnect Event", {"published": 1, "upcoming": 0})
+	event_membership = []
 
-	for course in courses:
-		course_membership.append(
+	for event in events:
+		event_membership.append(
 			{
-				"course": course.name,
-				"members": cint(frappe.db.count("EventsConnect Enrollment", {"course": course.name})),
+				"event": event.name,
+				"members": cint(frappe.db.count("EventsConnect Enrollment", {"event": event.name})),
 			}
 		)
 
-	course_membership = sorted(
-		course_membership, key=lambda x: x.get("members"), reverse=True
+	event_membership = sorted(
+		event_membership, key=lambda x: x.get("members"), reverse=True
 	)
-	return course_membership[:3]
+	return event_membership[:3]
 
 
-def get_evaluation_details(course, member=None):
+def get_evaluation_details(event, member=None):
 	info = frappe.db.get_value(
-		"EventsConnect Course",
-		course,
+		"EventsConnect Event",
+		event,
 		["grant_certificate_after", "max_attempts", "duration"],
 		as_dict=True,
 	)
 	request = frappe.db.get_value(
 		"EventsConnect Certificate Request",
 		{
-			"course": course,
+			"event": event,
 			"member": member or frappe.session.user,
 			"date": [">=", getdate()],
 		},
@@ -473,7 +473,7 @@ def get_evaluation_details(course, member=None):
 	no_of_attempts = frappe.db.count(
 		"EventsConnect Certificate Evaluation",
 		{
-			"course": course,
+			"event": event,
 			"member": member or frappe.session.user,
 			"status": ["!=", "Pass"],
 			"creation": [">=", add_months(getdate(), -abs(cint(info.duration)))],
@@ -506,9 +506,9 @@ def format_number(number):
 	return f"{frappe.utils.flt(number_reduced, 1)}k"
 
 
-def first_lesson_exists(course):
+def first_lesson_exists(event):
 	first_chapter = frappe.db.get_value(
-		"Chapter Reference", {"parent": course, "idx": 1}, "name"
+		"Chapter Reference", {"parent": event, "idx": 1}, "name"
 	)
 	if not first_chapter:
 		return False
@@ -522,27 +522,27 @@ def first_lesson_exists(course):
 	return True
 
 
-def redirect_to_courses_list():
-	frappe.local.flags.redirect_location = "/eventsconnect/courses"
+def redirect_to_events_list():
+	frappe.local.flags.redirect_location = "/eventsconnect/events"
 	raise frappe.Redirect
 
 
-def has_course_instructor_role(member=None):
+def has_event_instructor_role(member=None):
 	return frappe.db.get_value(
 		"Has Role",
-		{"parent": member or frappe.session.user, "role": "Course Creator"},
+		{"parent": member or frappe.session.user, "role": "Event Creator"},
 		"name",
 	)
 
 
-def can_create_courses(course, member=None):
+def can_create_events(event, member=None):
 	if not member:
 		member = frappe.session.user
 
 	instructors = frappe.get_all(
-		"Course Instructor",
+		"Event Instructor",
 		{
-			"parent": course,
+			"parent": event,
 		},
 		pluck="instructor",
 	)
@@ -550,26 +550,26 @@ def can_create_courses(course, member=None):
 	if frappe.session.user == "Guest":
 		return False
 
-	if has_course_moderator_role(member):
+	if has_event_moderator_role(member):
 		return True
 
-	if has_course_instructor_role(member) and member in instructors:
+	if has_event_instructor_role(member) and member in instructors:
 		return True
 
-	portal_course_creation = frappe.db.get_single_value(
-		"EventsConnect Settings", "portal_course_creation"
+	portal_event_creation = frappe.db.get_single_value(
+		"EventsConnect Settings", "portal_event_creation"
 	)
 
-	if portal_course_creation == "Anyone" and member in instructors:
+	if portal_event_creation == "Anyone" and member in instructors:
 		return True
 
-	if not course and has_course_instructor_role(member):
+	if not event and has_event_instructor_role(member):
 		return True
 
 	return False
 
 
-def has_course_moderator_role(member=None):
+def has_event_moderator_role(member=None):
 	return frappe.db.get_value(
 		"Has Role",
 		{"parent": member or frappe.session.user, "role": "Moderator"},
@@ -577,7 +577,7 @@ def has_course_moderator_role(member=None):
 	)
 
 
-def has_course_evaluator_role(member=None):
+def has_event_evaluator_role(member=None):
 	return frappe.db.get_value(
 		"Has Role",
 		{"parent": member or frappe.session.user, "role": "Batch Evaluator"},
@@ -593,9 +593,9 @@ def has_student_role(member=None):
 	)
 
 
-def get_courses_under_review():
+def get_events_under_review():
 	return frappe.get_all(
-		"EventsConnect Course",
+		"EventsConnect Event",
 		{"status": "Under Review"},
 		[
 			"name",
@@ -603,8 +603,8 @@ def get_courses_under_review():
 			"title",
 			"short_introduction",
 			"image",
-			"paid_course",
-			"course_price",
+			"paid_event",
+			"event_price",
 			"currency",
 			"status",
 			"published",
@@ -616,7 +616,7 @@ def get_certificates(member=None):
 	return frappe.get_all(
 		"EventsConnect Certificate",
 		{"member": member or frappe.session.user},
-		["course", "member", "issue_date", "expiry_date", "name"],
+		["event", "member", "issue_date", "expiry_date", "name"],
 	)
 
 
@@ -636,7 +636,7 @@ def handle_notifications(doc, method):
 		["reference_doctype", "reference_docname", "owner", "title"],
 		as_dict=1,
 	)
-	if topic.reference_doctype not in ["Course Lesson", "EventsConnect Batch"]:
+	if topic.reference_doctype not in ["Event Lesson", "EventsConnect Batch"]:
 		return
 	create_notification_log(doc, topic)
 	notify_mentions_on_portal(doc, topic)
@@ -645,21 +645,21 @@ def handle_notifications(doc, method):
 
 def create_notification_log(doc, topic):
 	users = []
-	if topic.reference_doctype == "Course Lesson":
-		course = frappe.db.get_value("Course Lesson", topic.reference_docname, "course")
-		course_title = frappe.db.get_value("EventsConnect Course", course, "title")
+	if topic.reference_doctype == "Event Lesson":
+		event = frappe.db.get_value("Event Lesson", topic.reference_docname, "event")
+		event_title = frappe.db.get_value("EventsConnect Event", event, "title")
 		instructors = frappe.db.get_all(
-			"Course Instructor", {"parent": course}, pluck="instructor"
+			"Event Instructor", {"parent": event}, pluck="instructor"
 		)
 
 		if doc.owner != topic.owner:
 			users.append(topic.owner)
 
 		users += instructors
-		subject = _("New reply on the topic {0} in course {1}").format(
-			topic.title, course_title
+		subject = _("New reply on the topic {0} in event {1}").format(
+			topic.title, event_title
 		)
-		link = get_lesson_url(course, get_lesson_index(topic.reference_docname))
+		link = get_lesson_url(event, get_lesson_index(topic.reference_docname))
 
 	else:
 		batch_title = frappe.db.get_value("EventsConnect Batch", topic.reference_docname, "title")
@@ -691,12 +691,12 @@ def notify_mentions_on_portal(doc, topic):
 
 	from_user_name = get_fullname(doc.owner)
 
-	if topic.reference_doctype == "Course Lesson":
-		course = frappe.db.get_value("Course Lesson", topic.reference_docname, "course")
+	if topic.reference_doctype == "Event Lesson":
+		event = frappe.db.get_value("Event Lesson", topic.reference_docname, "event")
 		subject = _("{0} mentioned you in a comment in {1}").format(
 			from_user_name, topic.title
 		)
-		link = get_lesson_url(course, get_lesson_index(topic.reference_docname))
+		link = get_lesson_url(event, get_lesson_index(topic.reference_docname))
 	else:
 		batch_title = frappe.db.get_value("EventsConnect Batch", topic.reference_docname, "title")
 		subject = _("{0} mentioned you in a comment in {1}").format(
@@ -745,10 +745,10 @@ def notify_mentions_via_email(doc, topic):
 
 	if topic.reference_doctype == "EventsConnect Batch":
 		link = f"/batches/{topic.reference_docname}#discussions"
-	if topic.reference_doctype == "Course Lesson":
-		course = frappe.db.get_value("Course Lesson", topic.reference_docname, "course")
+	if topic.reference_doctype == "Event Lesson":
+		event = frappe.db.get_value("Event Lesson", topic.reference_docname, "event")
 		lesson_index = get_lesson_index(topic.reference_docname)
-		link = get_lesson_url(course, lesson_index)
+		link = get_lesson_url(event, lesson_index)
 
 	args = {
 		"sender": sender_fullname,
@@ -767,9 +767,9 @@ def notify_mentions_via_email(doc, topic):
 		)
 
 
-def get_lesson_count(course):
+def get_lesson_count(event):
 	lesson_count = 0
-	chapters = frappe.get_all("Chapter Reference", {"parent": course}, ["chapter"])
+	chapters = frappe.get_all("Chapter Reference", {"parent": event}, ["chapter"])
 	for chapter in chapters:
 		lesson_count += frappe.db.count("Lesson Reference", {"parent": chapter.chapter})
 
@@ -791,33 +791,33 @@ def get_all_memberships(member):
 	return frappe.get_all(
 		"EventsConnect Enrollment",
 		{"member": member},
-		["name", "course", "batch_old", "current_lesson", "member_type", "progress"],
+		["name", "event", "batch_old", "current_lesson", "member_type", "progress"],
 	)
 
 
-def get_filtered_membership(course, memberships):
-	current_membership = list(filter(lambda x: x.course == course, memberships))
+def get_filtered_membership(event, memberships):
+	current_membership = list(filter(lambda x: x.event == event, memberships))
 	return current_membership[0] if len(current_membership) else None
 
 
-def show_start_learing_cta(course, membership):
+def show_start_learing_cta(event, membership):
 
-	if course.disable_self_learning or course.upcoming:
+	if event.disable_self_learning or event.upcoming:
 		return False
-	if is_instructor(course.name):
+	if is_instructor(event.name):
 		return False
-	if course.status != "Approved":
+	if event.status != "Approved":
 		return False
-	if not has_lessons(course):
+	if not has_lessons(event):
 		return False
 	if not membership:
 		return True
 
 
-def has_lessons(course):
+def has_lessons(event):
 	lesson_exists = False
 	chapter_exists = frappe.db.get_value(
-		"Chapter Reference", {"parent": course.name}, ["name", "chapter"], as_dict=True
+		"Chapter Reference", {"parent": event.name}, ["name", "chapter"], as_dict=True
 	)
 
 	if chapter_exists:
@@ -874,7 +874,7 @@ def get_chart_data(
 
 
 @frappe.whitelist(allow_guest=True)
-def get_course_completion_data():
+def get_event_completion_data():
 	all_membership = frappe.db.count("EventsConnect Enrollment")
 	completed = frappe.db.count("EventsConnect Enrollment", {"progress": ["like", "%100%"]})
 
@@ -882,7 +882,7 @@ def get_course_completion_data():
 		"labels": ["Completed", "In Progress"],
 		"datasets": [
 			{
-				"name": "Course Completion",
+				"name": "Event Completion",
 				"data": [completed, all_membership - completed],
 			}
 		],
@@ -906,20 +906,20 @@ def get_telemetry_boot_info():
 
 
 def is_onboarding_complete():
-	course_created = frappe.db.a_row_exists("EventsConnect Course")
-	chapter_created = frappe.db.a_row_exists("Course Chapter")
-	lesson_created = frappe.db.a_row_exists("Course Lesson")
+	event_created = frappe.db.a_row_exists("EventsConnect Event")
+	chapter_created = frappe.db.a_row_exists("Event Chapter")
+	lesson_created = frappe.db.a_row_exists("Event Lesson")
 
-	if course_created and chapter_created and lesson_created:
+	if event_created and chapter_created and lesson_created:
 		frappe.db.set_single_value("EventsConnect Settings", "is_onboarding_complete", 1)
 
 	return {
 		"is_onboarded": frappe.db.get_single_value("EventsConnect Settings", "is_onboarding_complete"),
-		"course_created": course_created,
+		"event_created": event_created,
 		"chapter_created": chapter_created,
 		"lesson_created": lesson_created,
-		"first_course": frappe.get_all("EventsConnect Course", limit=1, order_by=None, pluck="name")[0]
-		if course_created
+		"first_event": frappe.get_all("EventsConnect Event", limit=1, order_by=None, pluck="name")[0]
+		if event_created
 		else None,
 	}
 
@@ -944,37 +944,37 @@ def has_graded_assessment(submission):
 	return False if status == "Not Graded" else True
 
 
-def get_evaluator(course, batch=None):
+def get_evaluator(event, batch=None):
 	evaluator = None
 
 	if batch:
 		evaluator = frappe.db.get_value(
-			"Batch Course",
-			{"parent": batch, "course": course},
+			"Batch Event",
+			{"parent": batch, "event": event},
 			"evaluator",
 		)
 
 	if not evaluator:
-		evaluator = frappe.db.get_value("EventsConnect Course", course, "evaluator")
+		evaluator = frappe.db.get_value("EventsConnect Event", event, "evaluator")
 
 	return evaluator
 
 
 @frappe.whitelist()
-def get_upcoming_evals(student, courses):
+def get_upcoming_evals(student, events):
 	upcoming_evals = frappe.get_all(
 		"EventsConnect Certificate Request",
 		{
 			"member": student,
-			"course": ["in", courses],
+			"event": ["in", events],
 			"date": [">=", frappe.utils.nowdate()],
 		},
-		["date", "start_time", "course", "evaluator", "google_meet_link"],
+		["date", "start_time", "event", "evaluator", "google_meet_link"],
 		order_by="date",
 	)
 
 	for evals in upcoming_evals:
-		evals.course_title = frappe.db.get_value("EventsConnect Course", evals.course, "title")
+		evals.event_title = frappe.db.get_value("EventsConnect Event", evals.event, "title")
 		evals.evaluator_name = frappe.db.get_value("User", evals.evaluator, "full_name")
 	return upcoming_evals
 
@@ -999,7 +999,7 @@ def get_payment_options(doctype, docname, phone, country):
 	options = {
 		"key_id": frappe.db.get_single_value("EventsConnect Settings", "razorpay_key"),
 		"name": frappe.db.get_single_value("Website Settings", "app_name"),
-		"description": _("Payment for {0} course").format(details["title"]),
+		"description": _("Payment for {0} event").format(details["title"]),
 		"order_id": order["id"],
 		"amount": cint(order["amount"]) * 100,
 		"currency": order["currency"],
@@ -1070,15 +1070,15 @@ def apply_gst(amount, country=None):
 
 
 def get_details(doctype, docname):
-	if doctype == "EventsConnect Course":
+	if doctype == "EventsConnect Event":
 		details = frappe.db.get_value(
-			"EventsConnect Course",
+			"EventsConnect Event",
 			docname,
-			["name", "title", "paid_course", "currency", "course_price as amount", "amount_usd"],
+			["name", "title", "paid_event", "currency", "event_price as amount", "amount_usd"],
 			as_dict=True,
 		)
-		if not details.paid_course:
-			frappe.throw(_("This course is free."))
+		if not details.paid_event:
+			frappe.throw(_("This event is free."))
 	else:
 		details = frappe.db.get_value(
 			"EventsConnect Batch",
@@ -1156,7 +1156,7 @@ def verify_payment(response, doctype, docname, address, order_id):
 	)
 
 	payment = record_payment(address, response, client, doctype, docname)
-	if doctype == "EventsConnect Course":
+	if doctype == "EventsConnect Event":
 		return create_membership(docname, payment)
 	else:
 		return add_student_to_batch(docname, payment)
@@ -1191,7 +1191,7 @@ def record_payment(address, response, client, doctype, docname):
 
 
 def get_payment_details(doctype, docname, address):
-	amount_field = "course_price" if doctype == "EventsConnect Course" else "amount"
+	amount_field = "event_price" if doctype == "EventsConnect Event" else "amount"
 	amount = frappe.db.get_value(doctype, docname, amount_field)
 	currency = frappe.db.get_value(doctype, docname, "currency")
 	amount_usd = frappe.db.get_value(doctype, docname, "amount_usd")
@@ -1208,13 +1208,13 @@ def get_payment_details(doctype, docname, address):
 	}
 
 
-def create_membership(course, payment):
+def create_membership(event, payment):
 	membership = frappe.new_doc("EventsConnect Enrollment")
 	membership.update(
-		{"member": frappe.session.user, "course": course, "payment": payment.name}
+		{"member": frappe.session.user, "event": event, "payment": payment.name}
 	)
 	membership.save(ignore_permissions=True)
-	return f"/eventsconnect/courses/{course}/learn/1-1"
+	return f"/eventsconnect/events/{event}/learn/1-1"
 
 
 def add_student_to_batch(batchname, payment):
@@ -1251,24 +1251,24 @@ def change_currency(amount, currency, country=None):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_courses(search_query=""):
-	"""Returns the list of courses."""
-	courses = []
-	course_list = frappe.get_all(
-		"EventsConnect Course", {"title": ["like", f"%{search_query}%"]}, pluck="name"
+def get_events(search_query=""):
+	"""Returns the list of events."""
+	events = []
+	event_list = frappe.get_all(
+		"EventsConnect Event", {"title": ["like", f"%{search_query}%"]}, pluck="name"
 	)
-	for course in course_list:
-		courses.append(get_course_details(course))
+	for event in event_list:
+		events.append(get_event_details(event))
 
-	courses = get_categorized_courses(courses)
-	return courses
+	events = get_categorized_events(events)
+	return events
 
 
 @frappe.whitelist(allow_guest=True)
-def get_course_details(course):
-	course_details = frappe.db.get_value(
-		"EventsConnect Course",
-		course,
+def get_event_details(event):
+	event_details = frappe.db.get_value(
+		"EventsConnect Event",
+		event,
 		[
 			"name",
 			"title",
@@ -1283,79 +1283,79 @@ def get_course_details(course):
 			"disable_self_learning",
 			"published_on",
 			"status",
-			"paid_course",
-			"course_price",
+			"paid_event",
+			"event_price",
 			"currency",
 			"amount_usd",
 		],
 		as_dict=1,
 	)
-	course_details.tags = course_details.tags.split(",") if course_details.tags else []
-	course_details.lesson_count = get_lesson_count(course_details.name)
+	event_details.tags = event_details.tags.split(",") if event_details.tags else []
+	event_details.lesson_count = get_lesson_count(event_details.name)
 
-	course_details.enrollment_count = frappe.db.count(
-		"EventsConnect Enrollment", {"course": course_details.name, "member_type": "Student"}
+	event_details.enrollment_count = frappe.db.count(
+		"EventsConnect Enrollment", {"event": event_details.name, "member_type": "Student"}
 	)
-	course_details.enrollment_count_formatted = format_number(
-		course_details.enrollment_count
+	event_details.enrollment_count_formatted = format_number(
+		event_details.enrollment_count
 	)
 
-	avg_rating = get_average_rating(course_details.name) or 0
-	course_details.avg_rating = flt(
+	avg_rating = get_average_rating(event_details.name) or 0
+	event_details.avg_rating = flt(
 		avg_rating, frappe.get_system_settings("float_precision") or 3
 	)
 
-	course_details.instructors = get_instructors(course_details.name)
-	if course_details.paid_course:
-		"""course_details.course_price, course_details.currency = check_multicurrency(
-		        course_details.course_price, course_details.currency, None, course_details.amount_usd
+	event_details.instructors = get_instructors(event_details.name)
+	if event_details.paid_event:
+		"""event_details.event_price, event_details.currency = check_multicurrency(
+		        event_details.event_price, event_details.currency, None, event_details.amount_usd
 		)"""
-		course_details.price = fmt_money(
-			course_details.course_price, 0, course_details.currency
+		event_details.price = fmt_money(
+			event_details.event_price, 0, event_details.currency
 		)
 
 	if frappe.session.user == "Guest":
-		course_details.membership = None
-		course_details.is_instructor = False
+		event_details.membership = None
+		event_details.is_instructor = False
 	else:
-		course_details.membership = frappe.db.get_value(
+		event_details.membership = frappe.db.get_value(
 			"EventsConnect Enrollment",
-			{"member": frappe.session.user, "course": course_details.name},
-			["name", "course", "current_lesson", "progress", "member"],
+			{"member": frappe.session.user, "event": event_details.name},
+			["name", "event", "current_lesson", "progress", "member"],
 			as_dict=1,
 		)
-		course_details.is_instructor = is_instructor(course_details.name)
+		event_details.is_instructor = is_instructor(event_details.name)
 
-	if course_details.membership and course_details.membership.current_lesson:
-		course_details.current_lesson = get_lesson_index(
-			course_details.membership.current_lesson
+	if event_details.membership and event_details.membership.current_lesson:
+		event_details.current_lesson = get_lesson_index(
+			event_details.membership.current_lesson
 		)
 
-	return course_details
+	return event_details
 
 
-def get_categorized_courses(courses):
+def get_categorized_events(events):
 	live, upcoming, new, enrolled, created, under_review = [], [], [], [], [], []
 
-	for course in courses:
-		if course.status == "Under Review":
-			under_review.append(course)
-		elif course.published and course.upcoming:
-			upcoming.append(course)
-		elif course.published:
-			live.append(course)
+	for event in events:
+		if event.status == "Under Review":
+			under_review.append(event)
+		elif event.published and event.upcoming:
+			upcoming.append(event)
+		elif event.published:
+			live.append(event)
 
 		if (
-			course.published
-			and not course.upcoming
-			and course.published_on > add_months(getdate(), -3)
+			event.published
+			and not event.upcoming
+			and event.published_on > add_months(getdate(), -3)
 		):
-			new.append(course)
+			new.append(event)
 
-		if course.membership and course.published:
-			enrolled.append(course)
-		elif course.is_instructor:
-			created.append(course)
+		if event.membership and event.published:
+			enrolled.append(event)
+		elif event.is_instructor:
+			created.append(event)
 
 		categories = [live, enrolled, created]
 		for category in categories:
@@ -1374,48 +1374,48 @@ def get_categorized_courses(courses):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_course_outline(course, progress=False):
-	"""Returns the course outline."""
+def get_event_outline(event, progress=False):
+	"""Returns the event outline."""
 	outline = []
 	chapters = frappe.get_all(
-		"Chapter Reference", {"parent": course}, ["chapter", "idx"], order_by="idx"
+		"Chapter Reference", {"parent": event}, ["chapter", "idx"], order_by="idx"
 	)
 	for chapter in chapters:
 		chapter_details = frappe.db.get_value(
-			"Course Chapter",
+			"Event Chapter",
 			chapter.chapter,
 			["name", "title", "description"],
 			as_dict=True,
 		)
 		chapter_details["idx"] = chapter.idx
-		chapter_details.lessons = get_lessons(course, chapter_details, progress=progress)
+		chapter_details.lessons = get_lessons(event, chapter_details, progress=progress)
 		outline.append(chapter_details)
 	return outline
 
 
 @frappe.whitelist(allow_guest=True)
-def get_lesson(course, chapter, lesson):
+def get_lesson(event, chapter, lesson):
 	chapter_name = frappe.db.get_value(
-		"Chapter Reference", {"parent": course, "idx": chapter}, "chapter"
+		"Chapter Reference", {"parent": event, "idx": chapter}, "chapter"
 	)
 	lesson_name = frappe.db.get_value(
 		"Lesson Reference", {"parent": chapter_name, "idx": lesson}, "lesson"
 	)
 	lesson_details = frappe.db.get_value(
-		"Course Lesson", lesson_name, ["include_in_preview", "title"], as_dict=1
+		"Event Lesson", lesson_name, ["include_in_preview", "title"], as_dict=1
 	)
-	membership = get_membership(course)
-	course_title = frappe.db.get_value("EventsConnect Course", course, "title")
+	membership = get_membership(event)
+	event_title = frappe.db.get_value("EventsConnect Event", event, "title")
 	if (
 		not lesson_details.include_in_preview
 		and not membership
-		and not has_course_moderator_role()
-		and not is_instructor(course)
+		and not has_event_moderator_role()
+		and not is_instructor(event)
 	):
-		return {"no_preview": 1, "title": lesson_details.title, "course_title": course_title}
+		return {"no_preview": 1, "title": lesson_details.title, "event_title": event_title}
 
 	lesson_details = frappe.db.get_value(
-		"Course Lesson",
+		"Event Lesson",
 		lesson_name,
 		[
 			"name",
@@ -1428,7 +1428,7 @@ def get_lesson(course, chapter, lesson):
 			"question",
 			"file_type",
 			"instructor_notes",
-			"course",
+			"event",
 			"content",
 			"instructor_content",
 		],
@@ -1438,23 +1438,23 @@ def get_lesson(course, chapter, lesson):
 	if frappe.session.user == "Guest":
 		progress = 0
 	else:
-		progress = get_progress(course, lesson_details.name)
+		progress = get_progress(event, lesson_details.name)
 
 	lesson_details.rendered_content = render_html(lesson_details)
-	neighbours = get_neighbour_lesson(course, chapter, lesson)
+	neighbours = get_neighbour_lesson(event, chapter, lesson)
 	lesson_details.next = neighbours["next"]
 	lesson_details.progress = progress
 	lesson_details.prev = neighbours["prev"]
 	lesson_details.membership = membership
-	lesson_details.instructors = get_instructors(course)
-	lesson_details.course_title = course_title
+	lesson_details.instructors = get_instructors(event)
+	lesson_details.event_title = event_title
 	return lesson_details
 
 
-def get_neighbour_lesson(course, chapter, lesson):
+def get_neighbour_lesson(event, chapter, lesson):
 	numbers = []
 	current = f"{chapter}.{lesson}"
-	chapters = frappe.get_all("Chapter Reference", {"parent": course}, ["idx", "chapter"])
+	chapters = frappe.get_all("Chapter Reference", {"parent": event}, ["idx", "chapter"])
 	for chapter in chapters:
 		lessons = frappe.get_all("Lesson Reference", {"parent": chapter.chapter}, pluck="idx")
 		for lesson in lessons:
@@ -1516,8 +1516,8 @@ def get_batch_details(batch):
 
 	batch_details.instructors = get_instructors(batch)
 
-	batch_details.courses = frappe.get_all(
-		"Batch Course", filters={"parent": batch}, fields=["course", "title"]
+	batch_details.events = frappe.get_all(
+		"Batch Event", filters={"parent": batch}, fields=["event", "title"]
 	)
 	batch_details.students = frappe.get_all(
 		"Batch Student", {"parent": batch}, pluck="student"
@@ -1594,16 +1594,16 @@ def get_question_details(question):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_batch_courses(batch):
-	courses = []
-	course_list = frappe.get_all("Batch Course", {"parent": batch}, ["name", "course"])
+def get_batch_events(batch):
+	events = []
+	event_list = frappe.get_all("Batch Event", {"parent": batch}, ["name", "event"])
 
-	for course in course_list:
-		details = get_course_details(course.course)
-		details.batch_course = course.name
-		courses.append(details)
+	for event in event_list:
+		details = get_event_details(event.event)
+		details.batch_event = event.name
+		events.append(details)
 
-	return courses
+	return events
 
 
 @frappe.whitelist()
@@ -1704,7 +1704,7 @@ def get_batch_students(batch):
 		"Batch Student", filters={"parent": batch}, fields=["student", "name"]
 	)
 
-	batch_courses = frappe.get_all("Batch Course", {"parent": batch}, pluck="course")
+	batch_events = frappe.get_all("Batch Event", {"parent": batch}, pluck="event")
 
 	assessments = frappe.get_all(
 		"EventsConnect Assessment",
@@ -1713,7 +1713,7 @@ def get_batch_students(batch):
 	)
 
 	for student in students_list:
-		courses_completed = 0
+		events_completed = 0
 		assessments_completed = 0
 		detail = frappe.db.get_value(
 			"User",
@@ -1725,15 +1725,15 @@ def get_batch_students(batch):
 		detail.name = student.name
 		students.append(detail)
 
-		for course in batch_courses:
+		for event in batch_events:
 			progress = frappe.db.get_value(
-				"EventsConnect Enrollment", {"course": course, "member": student.student}, "progress"
+				"EventsConnect Enrollment", {"event": event, "member": student.student}, "progress"
 			)
 
 			if progress == 100:
-				courses_completed += 1
+				events_completed += 1
 
-		detail.courses_completed = courses_completed
+		detail.events_completed = events_completed
 
 		for assessment in assessments:
 			if has_submitted_assessment(
@@ -1810,16 +1810,16 @@ def get_discussion_replies(topic):
 
 @frappe.whitelist()
 def get_order_summary(doctype, docname, country=None):
-	if doctype == "EventsConnect Course":
+	if doctype == "EventsConnect Event":
 		details = frappe.db.get_value(
-			"EventsConnect Course",
+			"EventsConnect Event",
 			docname,
-			["title", "name", "paid_course", "course_price as amount", "currency", "amount_usd"],
+			["title", "name", "paid_event", "event_price as amount", "currency", "amount_usd"],
 			as_dict=True,
 		)
 
-		if not details.paid_course:
-			raise frappe.throw(_("This course is free."))
+		if not details.paid_event:
+			raise frappe.throw(_("This event is free."))
 
 	else:
 		details = frappe.db.get_value(
@@ -1846,9 +1846,9 @@ def get_order_summary(doctype, docname, country=None):
 
 
 @frappe.whitelist()
-def get_lesson_creation_details(course, chapter, lesson):
+def get_lesson_creation_details(event, chapter, lesson):
 	chapter_name = frappe.db.get_value(
-		"Chapter Reference", {"parent": course, "idx": chapter}, "chapter"
+		"Chapter Reference", {"parent": event, "idx": chapter}, "chapter"
 	)
 	lesson_name = frappe.db.get_value(
 		"Lesson Reference", {"parent": chapter_name, "idx": lesson}, "lesson"
@@ -1856,7 +1856,7 @@ def get_lesson_creation_details(course, chapter, lesson):
 
 	if lesson_name:
 		lesson_details = frappe.db.get_value(
-			"Course Lesson",
+			"Event Lesson",
 			lesson_name,
 			[
 				"name",
@@ -1873,9 +1873,9 @@ def get_lesson_creation_details(course, chapter, lesson):
 		)
 
 	return {
-		"course_title": frappe.db.get_value("EventsConnect Course", course, "title"),
+		"event_title": frappe.db.get_value("EventsConnect Event", event, "title"),
 		"chapter": frappe.db.get_value(
-			"Course Chapter", chapter_name, ["title", "name"], as_dict=True
+			"Event Chapter", chapter_name, ["title", "name"], as_dict=True
 		),
 		"lesson": lesson_details if lesson_name else None,
 	}
@@ -1885,9 +1885,9 @@ def get_lesson_creation_details(course, chapter, lesson):
 def get_roles(name):
 	frappe.only_for("Moderator")
 	return {
-		"moderator": has_course_moderator_role(name),
-		"course_creator": has_course_instructor_role(name),
-		"batch_evaluator": has_course_evaluator_role(name),
+		"moderator": has_event_moderator_role(name),
+		"event_creator": has_event_instructor_role(name),
+		"batch_evaluator": has_event_evaluator_role(name),
 		"eventsconnect_student": has_student_role(name),
 	}
 

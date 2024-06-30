@@ -1,0 +1,14 @@
+{% set search_placeholder = frappe.db.get_single_value("EventsConnect Settings", "search_placeholder") %}
+{% set portal_event_creation = frappe.db.get_single_value("EventsConnect Settings", "portal_event_creation") %}
+
+
+<div class="modal fade search-modal" id="search-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input class="search search-event" id="search-event" placeholder="{{ _(search_placeholder) or 'Search for events' }}">
+            </div>
+        </div>
+    </div>
+</div>
+<script> {% include "eventsconnect/templates/search_event/search_event.js" %} </script>

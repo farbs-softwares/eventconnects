@@ -35,13 +35,13 @@ class EventsConnectExercise(Document):
 		if old_submission and old_submission.solution == code:
 			return old_submission
 
-		member = get_membership(self.course, frappe.session.user)
+		member = get_membership(self.event, frappe.session.user)
 
 		doc = frappe.get_doc(
 			doctype="Exercise Submission",
 			exercise=self.name,
 			exercise_title=self.title,
-			course=self.course,
+			event=self.event,
 			lesson=self.lesson,
 			batch=member.batch_old,
 			solution=code,

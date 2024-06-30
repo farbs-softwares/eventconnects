@@ -158,7 +158,7 @@ const eventjobApplication = createResource({
 	url: 'frappe.client.get_list',
 	makeParams(values) {
 		return {
-			doctype: 'Events Connect EventJob Application',
+			doctype: 'EventsConnect EventJob Application',
 			filters: {
 				eventjob: eventjob.data?.name,
 				user: user.data?.name,
@@ -171,7 +171,7 @@ const applicationCount = createResource({
 	url: 'frappe.client.get_count',
 	makeParams(values) {
 		return {
-			doctype: 'Events Connect EventJob Application',
+			doctype: 'EventsConnect EventJob Application',
 			filters: {
 				eventjob: eventjob.data?.name,
 			},

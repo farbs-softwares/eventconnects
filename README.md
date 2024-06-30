@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.frappeeventsconnect.com/">
-    <img src="https://frappe.io/files/eventsconnect.png" alt="Frappe Events Connect" width="50px" height="50px">
+    <img src="https://frappe.io/files/eventsconnect.png" alt="Frappe EventsConnect" width="50px" height="50px">
   </a>
   <p align="center">Easy to use, open source, learning management system.</p>
 </p>
@@ -9,7 +9,7 @@
 &nbsp;
 
 <p align="center">
-    <a href="https://www.producthunt.com/posts/frappe-eventsconnect?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-frappe&#0045;eventsconnect" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=396079&theme=dark&period=weekly&topic_id=204" alt="Frappe&#0032;Events Connect - Easy&#0032;to&#0032;use&#0044;&#0032;100&#0037;&#0032;open&#0032;source&#0032;learning&#0032;management&#0032;system | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+    <a href="https://www.producthunt.com/posts/frappe-eventsconnect?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-frappe&#0045;eventsconnect" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=396079&theme=dark&period=weekly&topic_id=204" alt="Frappe&#0032;EventsConnect - Easy&#0032;to&#0032;use&#0044;&#0032;100&#0037;&#0032;open&#0032;source&#0032;learning&#0032;management&#0032;system | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
 
 
@@ -39,16 +39,16 @@
 	<img width="941" alt="ss3" src="https://user-images.githubusercontent.com/31363128/210056134-01a7c429-1ef4-434e-9d43-128dda35d7e5.png">
 </details>
 
-Frappe Events Connect is an easy-to-use, open-source learning management system. You can use it to create and share online courses. The app has a clear UI that helps students focus only on what's important and assists in distraction-free learning.
+Frappe EventsConnect is an easy-to-use, open-source learning management system. You can use it to create and share online events. The app has a clear UI that helps students focus only on what's important and assists in distraction-free learning.
 
-You can create courses and lessons through simple forms. Lessons can be in the form of text, videos, quizzes or a combination of all these. You can keep your students engaged with quizzes to help revise and test the concepts learned. Course Instructors and Students can reach out to each other through the discussions section available for each lesson and get queries resolved.
+You can create events and lessons through simple forms. Lessons can be in the form of text, videos, quizzes or a combination of all these. You can keep your students engaged with quizzes to help revise and test the concepts learned. Event Instructors and Students can reach out to each other through the discussions section available for each lesson and get queries resolved.
 
 ## Features
-- Create online courses. 📚
-- Add detailed descriptions and preview videos to the course. 🎬
+- Create online events. 📚
+- Add detailed descriptions and preview videos to the event. 🎬
 - Add videos, quizzes, and assignments to your lessons and make them interesting and interactive 📝
 - Discussions section below each lesson where instructors and students can interact with each other. 💬
-- Create batches to group your students based on courses and track their progress 🏛
+- Create batches to group your students based on events and track their progress 🏛
 - Statistics dashboard that provides all important numbers at a glimpse. 📈
 - EventJob Board where users can post and look for eventjobs. 💼
 - People directory with each person's profile page 👨‍👩‍👧‍👦
@@ -58,7 +58,7 @@ You can create courses and lessons through simple forms. Lessons can be in the f
 
 ## Tech Stack
 
-Frappe Events Connect is built on [Frappe Framework](https://frappeframework.com) which is a batteries-included python web framework.
+Frappe EventsConnect is built on [Frappe Framework](https://frappeframework.com) which is a batteries-included python web framework.
 These are some of the tools it's built on:
 - [Python](https://www.python.org)
 - [Redis](https://redis.io/)
@@ -100,10 +100,10 @@ Currently, this app depends on the `develop` branch of [frappe](https://github.c
 
 
 ## Deployment
-Frappe Events Connect is an app built on top of the Frappe Framework. So, you can follow any deployment guide for hosting a Frappe Framework-based site.
+Frappe EventsConnect is an app built on top of the Frappe Framework. So, you can follow any deployment guide for hosting a Frappe Framework-based site.
 
 ### Managed Hosting
-Frappe Events Connect can be deployed in a few clicks on [Frappe Cloud](https://frappecloud.com/marketplace/apps/eventsconnect).
+Frappe EventsConnect can be deployed in a few clicks on [Frappe Cloud](https://frappecloud.com/marketplace/apps/eventsconnect).
 
 ### Self-hosting
 If you want to self-host, you can follow official [Frappe Bench Installation](https://github.com/frappe/bench#installation) instructions.

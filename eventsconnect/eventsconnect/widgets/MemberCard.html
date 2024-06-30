@@ -16,12 +16,12 @@
 			<div class="indicator-pill green"> {{ _("Open Network") }} </div>
 			{% endif %}
 
-			{% set course_count = get_authored_courses(member.name, True) | length %}
-			{% set suffix = "Courses" if course_count > 1 else "Course" %}
+			{% set event_count = get_authored_events(member.name, True) | length %}
+			{% set suffix = "Courses" if event_count > 1 else "Event" %}
 
-			{% if show_course_count and course_count > 0 %}
+			{% if show_event_count and event_count > 0 %}
 			<div class="">
-				Created {{ course_count }} {{ suffix }}
+				Created {{ event_count }} {{ suffix }}
 			</div>
 			{% endif %}
 		</div>

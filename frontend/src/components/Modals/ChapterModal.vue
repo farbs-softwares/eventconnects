@@ -28,7 +28,7 @@ const show = defineModel()
 const outline = defineModel('outline')
 
 const props = defineProps({
-	course: {
+	event: {
 		type: String,
 		required: true,
 	},
@@ -45,10 +45,10 @@ const chapterResource = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Course Chapter',
+				doctype: 'Event Chapter',
 				title: chapter.title,
 				description: chapter.description,
-				course: props.course,
+				event: props.event,
 			},
 		}
 	},
@@ -58,7 +58,7 @@ const chapterEditResource = createResource({
 	url: 'frappe.client.set_value',
 	makeParams(values) {
 		return {
-			doctype: 'Course Chapter',
+			doctype: 'Event Chapter',
 			name: props.chapterDetail?.name,
 			fieldname: 'title',
 			value: chapter.title,
@@ -73,8 +73,8 @@ const chapterReference = createResource({
 			doc: {
 				doctype: 'Chapter Reference',
 				chapter: values.name,
-				parent: props.course,
-				parenttype: 'Events Connect Course',
+				parent: props.event,
+				parenttype: 'EventsConnect Event',
 				parentfield: 'chapters',
 			},
 		}

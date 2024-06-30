@@ -146,7 +146,7 @@ const props = defineProps({
 const assignment = createResource({
 	url: 'frappe.client.get',
 	params: {
-		doctype: 'Events Connect Assignment',
+		doctype: 'EventsConnect Assignment',
 		name: props.assignmentName,
 	},
 	auto: true,
@@ -166,7 +166,7 @@ const updateSubmission = createResource({
 			fieldname.answer = answer.value
 		}
 		return {
-			doctype: 'Events Connect Assignment Submission',
+			doctype: 'EventsConnect Assignment Submission',
 			name: props.submissionName,
 			fieldname: fieldname,
 		}
@@ -190,7 +190,7 @@ const newSubmission = createResource({
 	url: 'frappe.client.insert',
 	makeParams(values) {
 		let doc = {
-			doctype: 'Events Connect Assignment Submission',
+			doctype: 'EventsConnect Assignment Submission',
 			assignment: props.assignmentName,
 			member: user.data?.name,
 		}
@@ -208,7 +208,7 @@ const newSubmission = createResource({
 const submissionResource = createResource({
 	url: 'frappe.client.get_value',
 	params: {
-		doctype: 'Events Connect Assignment Submission',
+		doctype: 'EventsConnect Assignment Submission',
 		fieldname: showUploader() ? 'assignment_attachment' : 'answer',
 		filters: {
 			name: props.submissionName,

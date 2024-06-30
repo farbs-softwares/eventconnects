@@ -49,13 +49,13 @@
   },
   {
    "allow_read_on_all_link_options": 1,
-   "fieldname": "course",
+   "fieldname": "event",
    "fieldtype": "Link",
    "hidden": 0,
-   "label": "Course",
+   "label": "Event",
    "max_length": 0,
    "max_value": 0,
-   "options": "EventsConnect Course",
+   "options": "EventsConnect Event",
    "read_only": 0,
    "reqd": 1,
    "show_in_filter": 0

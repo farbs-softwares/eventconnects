@@ -15,12 +15,12 @@ class EventsConnectBatchOld(Document):
 		# self.validate_if_mentor()
 
 	def validate_if_mentor(self):
-		if not is_mentor(self.course, frappe.session.user):
-			course_title = frappe.db.get_value("EventsConnect Course", self.course, "title")
-			frappe.throw(_("You are not a mentor of the course {0}").format(course_title))
+		if not is_mentor(self.event, frappe.session.user):
+			event_title = frappe.db.get_value("EventsConnect Event", self.event, "title")
+			frappe.throw(_("You are not a mentor of the event {0}").format(event_title))
 
 	def after_insert(self):
-		create_membership(batch=self.name, course=self.course, member_type="Mentor")
+		create_membership(batch=self.name, event=self.event, member_type="Mentor")
 
 	def is_member(self, email, member_type=None):
 		"""Checks if a person is part of a batch.
@@ -61,18 +61,18 @@ def save_message(message, batch):
 	doc.save(ignore_permissions=True)
 
 
-def switch_batch(course_name, email, batch_name):
-	"""Switches the user from the current batch of the course to a new batch."""
+def switch_batch(event_name, email, batch_name):
+	"""Switches the user from the current batch of the event to a new batch."""
 	membership = frappe.get_last_doc(
-		"EventsConnect Enrollment", filters={"course": course_name, "member": email}
+		"EventsConnect Enrollment", filters={"event": event_name, "member": email}
 	)
 
 	batch = frappe.get_doc("EventsConnect Batch Old", batch_name)
 	if not batch:
 		raise ValueError(f"Invalid Batch: {batch_name}")
 
-	if batch.course != course_name:
-		raise ValueError("Can not switch batches across courses")
+	if batch.event != event_name:
+		raise ValueError("Can not switch batches across events")
 
 	if batch.is_member(email):
 		print(f"{email} is already a member of {batch.title}")

@@ -4,7 +4,7 @@
 frappe.ui.form.on("EventsConnect Timetable Template", {
 	refresh(frm) {
 		frm.set_query("reference_doctype", "timetable", function () {
-			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
+			let doctypes = ["Event Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -14,7 +14,7 @@ frappe.ui.form.on("EventsConnect Timetable Template", {
 
 		frm.set_query("reference_doctype", "timetable_legends", function () {
 			let doctypes = [
-				"Course Lesson",
+				"Event Lesson",
 				"EventsConnect Quiz",
 				"EventsConnect Assignment",
 				"EventsConnect Live Class",

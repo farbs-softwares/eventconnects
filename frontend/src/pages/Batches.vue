@@ -95,7 +95,7 @@ import { inject, ref, computed } from 'vue'
 const user = inject('$user')
 
 const batches = createListResource({
-	doctype: 'Events Connect Batch',
+	doctype: 'EventsConnect Batch',
 	url: 'eventsconnect.eventsconnect.utils.get_batches',
 	cache: ['batches', user?.data?.email],
 	auto: true,

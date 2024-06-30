@@ -1,23 +1,23 @@
 import frappe
 from frappe.utils import rounded
 
-from eventsconnect.eventsconnect.utils import get_course_progress
+from eventsconnect.eventsconnect.utils import get_event_progress
 
 
 def execute():
 	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_batch_membership")
 	memberships = frappe.get_all(
-		"EventsConnect Enrollment", ["name", "course", "member"], order_by="course"
+		"EventsConnect Enrollment", ["name", "event", "member"], order_by="event"
 	)
 
 	if len(memberships):
-		current_course = memberships[0].course
+		current_event = memberships[0].event
 		for membership in memberships:
-			if current_course != membership.course:
-				current_course = membership.course
+			if current_event != membership.event:
+				current_event = membership.event
 
-			progress = rounded(get_course_progress(current_course, membership.member))
+			progress = rounded(get_event_progress(current_event, membership.member))
 			frappe.db.set_value("EventsConnect Enrollment", membership.name, "progress", progress)
 
-	frappe.db.delete("Prepared Report", {"ref_report_doctype": "Course Progress Summary"})
-	frappe.db.set_value("Report", "Course Progress Summary", "prepared_report", 0)
+	frappe.db.delete("Prepared Report", {"ref_report_doctype": "Event Progress Summary"})
+	frappe.db.set_value("Report", "Event Progress Summary", "prepared_report", 0)

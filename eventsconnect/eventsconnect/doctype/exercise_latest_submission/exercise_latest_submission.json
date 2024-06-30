@@ -10,7 +10,7 @@
   "batch_old",
   "column_break_4",
   "exercise_title",
-  "course",
+  "event",
   "lesson",
   "section_break_8",
   "solution",
@@ -57,12 +57,12 @@
    "read_only": 1
   },
   {
-   "fetch_from": "exercise.course",
-   "fieldname": "course",
+   "fetch_from": "exercise.event",
+   "fieldname": "event",
    "fieldtype": "Link",
    "in_standard_filter": 1,
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "read_only": 1
   },
   {
@@ -70,7 +70,7 @@
    "fieldname": "lesson",
    "fieldtype": "Link",
    "label": "Lesson",
-   "options": "Course Lesson"
+   "options": "Event Lesson"
   },
   {
    "fieldname": "section_break_8",

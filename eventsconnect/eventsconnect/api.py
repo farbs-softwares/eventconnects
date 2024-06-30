@@ -33,11 +33,11 @@ def submit_solution(exercise, code):
 
 
 @frappe.whitelist()
-def save_current_lesson(course_name, lesson_name):
+def save_current_lesson(event_name, lesson_name):
 	"""Saves the current lesson for a student/mentor."""
 	name = frappe.get_value(
 		doctype="EventsConnect Enrollment",
-		filters={"course": course_name, "member": frappe.session.user},
+		filters={"event": event_name, "member": frappe.session.user},
 		fieldname="name",
 	)
 	if not name:
@@ -46,10 +46,10 @@ def save_current_lesson(course_name, lesson_name):
 
 
 @frappe.whitelist()
-def join_cohort(course, cohort, subgroup, invite_code):
+def join_cohort(event, cohort, subgroup, invite_code):
 	"""Creates a Cohort Join Request for given user."""
-	course_doc = frappe.get_doc("EventsConnect Course", course)
-	cohort_doc = course_doc and course_doc.get_cohort(cohort)
+	event_doc = frappe.get_doc("EventsConnect Event", event)
+	cohort_doc = event_doc and event_doc.get_cohort(cohort)
 	subgroup_doc = cohort_doc and cohort_doc.get_subgroup(subgroup)
 
 	if not subgroup_doc or subgroup_doc.invite_code != invite_code:
@@ -154,7 +154,7 @@ def get_user_info():
 		as_dict=1,
 	)
 	user["roles"] = frappe.get_roles(user.name)
-	user.is_instructor = "Course Creator" in user.roles
+	user.is_instructor = "Event Creator" in user.roles
 	user.is_moderator = "Moderator" in user.roles
 	user.is_evaluator = "Batch Evaluator" in user.roles
 	return user
@@ -173,13 +173,13 @@ def get_translations():
 def validate_billing_access(type, name):
 	access = True
 	message = ""
-	doctype = "EventsConnect Course" if type == "course" else "EventsConnect Batch"
+	doctype = "EventsConnect Event" if type == "event" else "EventsConnect Batch"
 
 	if frappe.session.user == "Guest":
 		access = False
 		message = _("Please login to continue with payment.")
 
-	if type not in ["course", "batch"]:
+	if type not in ["event", "batch"]:
 		access = False
 		message = _("Module is incorrect.")
 
@@ -187,13 +187,13 @@ def validate_billing_access(type, name):
 		access = False
 		message = _("Module Name is incorrect or does not exist.")
 
-	if type == "course":
+	if type == "event":
 		membership = frappe.db.exists(
-			"EventsConnect Enrollment", {"member": frappe.session.user, "course": name}
+			"EventsConnect Enrollment", {"member": frappe.session.user, "event": name}
 		)
 		if membership:
 			access = False
-			message = _("You are already enrolled for this course.")
+			message = _("You are already enrolled for this event.")
 
 	else:
 		membership = frappe.db.exists(
@@ -258,8 +258,8 @@ def get_eventjob_opportunities():
 def get_chart_details():
 	details = frappe._dict()
 	details.enrollments = frappe.db.count("EventsConnect Enrollment")
-	details.courses = frappe.db.count(
-		"EventsConnect Course",
+	details.events = frappe.db.count(
+		"EventsConnect Event",
 		{
 			"published": 1,
 			"upcoming": 0,
@@ -269,7 +269,7 @@ def get_chart_details():
 	details.completions = frappe.db.count(
 		"EventsConnect Enrollment", {"progress": ["like", "%100%"]}
 	)
-	details.lesson_completions = frappe.db.count("EventsConnect Course Progress")
+	details.lesson_completions = frappe.db.count("EventsConnect Event Progress")
 	return details
 
 
@@ -315,10 +315,10 @@ def get_evaluator_details(evaluator):
 			"Google Calendar", {"user": evaluator}, ["name", "authorization_code"], as_dict=1
 		)
 
-	if frappe.db.exists("Course Evaluator", {"evaluator": evaluator}):
-		doc = frappe.get_doc("Course Evaluator", evaluator, as_dict=1)
+	if frappe.db.exists("Event Evaluator", {"evaluator": evaluator}):
+		doc = frappe.get_doc("Event Evaluator", evaluator, as_dict=1)
 	else:
-		doc = frappe.new_doc("Course Evaluator")
+		doc = frappe.new_doc("Event Evaluator")
 		doc.evaluator = evaluator
 		doc.insert()
 
@@ -350,13 +350,13 @@ def get_certified_participants(search_query=""):
 			["name", "full_name", "username", "user_image"],
 			as_dict=True,
 		)
-		course_names = frappe.get_all(
-			"EventsConnect Certificate", {"member": participant.member}, pluck="course"
+		event_names = frappe.get_all(
+			"EventsConnect Certificate", {"member": participant.member}, pluck="event"
 		)
-		courses = []
-		for course in course_names:
-			courses.append(frappe.db.get_value("EventsConnect Course", course, "title"))
-		details["courses"] = courses
+		events = []
+		for event in event_names:
+			events.append(frappe.db.get_value("EventsConnect Event", event, "title"))
+		details["events"] = events
 		participant_details.append(details)
 	return participant_details
 
@@ -383,7 +383,7 @@ def get_certificates(member):
 	return frappe.get_all(
 		"EventsConnect Certificate",
 		filters={"member": member},
-		fields=["name", "course", "course_title", "issue_date", "template"],
+		fields=["name", "event", "event_title", "issue_date", "template"],
 		order_by="creation desc",
 	)
 
@@ -424,7 +424,7 @@ def get_sidebar_settings():
 	sidebar_items = frappe._dict()
 
 	items = [
-		"courses",
+		"events",
 		"batches",
 		"certified_participants",
 		"eventjobs",

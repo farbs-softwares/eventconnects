@@ -2,9 +2,9 @@ import frappe
 
 
 def execute():
-	courses = frappe.get_all(
-		"EventsConnect Course", filters={"published": 1}, fields=["name", "creation"]
+	events = frappe.get_all(
+		"EventsConnect Event", filters={"published": 1}, fields=["name", "creation"]
 	)
 
-	for course in courses:
-		frappe.db.set_value("EventsConnect Course", course.name, "published_on", course.creation)
+	for event in events:
+		frappe.db.set_value("EventsConnect Event", event.name, "published_on", event.creation)

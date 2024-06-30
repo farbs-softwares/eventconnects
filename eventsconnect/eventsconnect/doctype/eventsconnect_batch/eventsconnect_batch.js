@@ -12,7 +12,7 @@ frappe.ui.form.on("EventsConnect Batch", {
 		});
 
 		frm.set_query("reference_doctype", "timetable", function () {
-			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
+			let doctypes = ["Event Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -30,7 +30,7 @@ frappe.ui.form.on("EventsConnect Batch", {
 		});
 
 		frm.set_query("reference_doctype", "timetable_legends", function () {
-			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
+			let doctypes = ["Event Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -144,7 +144,7 @@ const add_legend_rows = (frm, legends) => {
 const set_default_legends = (frm) => {
 	const data = [
 		{
-			reference_doctype: "Course Lesson",
+			reference_doctype: "Event Lesson",
 			label: "Lesson",
 			color: "#449CF0",
 		},

@@ -116,7 +116,7 @@ const getStudentColumns = () => {
 		},
 		{
 			label: 'Courses Done',
-			key: 'courses_completed',
+			key: 'events_completed',
 			align: 'center',
 		},
 		{

@@ -14,7 +14,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Chapter",
-   "options": "Course Chapter",
+   "options": "Event Chapter",
    "reqd": 1
   }
  ],

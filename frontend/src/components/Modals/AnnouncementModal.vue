@@ -73,7 +73,7 @@ const announcementResource = createResource({
 			cc: announcement.replyTo,
 			subject: announcement.subject,
 			content: announcement.announcement,
-			doctype: 'Events Connect Batch',
+			doctype: 'EventsConnect Batch',
 			name: props.batch,
 			send_email: 1,
 		}

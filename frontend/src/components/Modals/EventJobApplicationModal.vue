@@ -93,7 +93,7 @@ const eventjobApplication = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Events Connect EventJob Application',
+				doctype: 'EventsConnect EventJob Application',
 				user: user.data?.name,
 				resume: resume.value?.file_name,
 				eventjob: props.eventjob,

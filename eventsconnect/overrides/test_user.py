@@ -5,7 +5,7 @@ import unittest
 
 import frappe
 
-from eventsconnect.eventsconnect.doctype.eventsconnect_course.test_eventsconnect_course import new_user
+from eventsconnect.eventsconnect.doctype.eventsconnect_event.test_eventsconnect_event import new_user
 
 
 class TestCustomUser(unittest.TestCase):

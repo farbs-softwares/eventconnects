@@ -25,7 +25,7 @@
   "comments",
   "section_break_cwaw",
   "lesson",
-  "course",
+  "event",
   "column_break_ygdu"
  ],
  "fields": [
@@ -33,7 +33,7 @@
    "fieldname": "lesson",
    "fieldtype": "Link",
    "label": "Lesson",
-   "options": "Course Lesson"
+   "options": "Event Lesson"
   },
   {
    "fieldname": "column_break_3",
@@ -64,13 +64,13 @@
    "read_only": 1
   },
   {
-   "fetch_from": "lesson.course",
-   "fieldname": "course",
+   "fetch_from": "lesson.event",
+   "fieldname": "event",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Course",
-   "options": "EventsConnect Course",
+   "label": "Event",
+   "options": "EventsConnect Event",
    "read_only": 1
   },
   {
@@ -86,7 +86,7 @@
    "label": "Comments"
   },
   {
-   "fetch_from": "course.evaluator",
+   "fetch_from": "event.evaluator",
    "fieldname": "evaluator",
    "fieldtype": "Link",
    "label": "Evaluator",

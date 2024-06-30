@@ -145,7 +145,7 @@ const createLiveClass = createResource({
 	url: 'eventsconnect.eventsconnect.doctype.eventsconnect_batch.eventsconnect_batch.create_live_class',
 	makeParams(values) {
 		return {
-			doctype: 'Events Connect Live Class',
+			doctype: 'EventsConnect Live Class',
 			batch_name: values.batch,
 			...values,
 		}

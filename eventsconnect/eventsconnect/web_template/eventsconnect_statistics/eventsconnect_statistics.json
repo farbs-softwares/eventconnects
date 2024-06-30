@@ -21,7 +21,7 @@
    "reqd": 0
   },
   {
-   "fieldname": "published_courses",
+   "fieldname": "published_events",
    "fieldtype": "Check",
    "label": "Published Courses",
    "reqd": 0

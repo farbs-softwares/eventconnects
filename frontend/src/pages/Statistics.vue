@@ -13,7 +13,7 @@
 					</div>
 					<div>
 						<div class="text-xl font-semibold mb-1">
-							{{ formatNumber(chartDetails.data.courses) }}
+							{{ formatNumber(chartDetails.data.events) }}
 						</div>
 						<div class="text-gray-700">
 							{{ __('Courses') }}
@@ -97,9 +97,9 @@
 				</div>
 				<div class="shadow rounded-md p-5">
 					<Pie
-						v-if="courseCompletion.data"
-						:data="courseCompletion.data"
-						:options="courseChartOptions()"
+						v-if="eventCompletion.data"
+						:data="eventCompletion.data"
+						:options="eventChartOptions()"
 					/>
 				</div>
 			</div>
@@ -176,7 +176,7 @@ const enrollmentChart = createResource({
 	url: 'eventsconnect.eventsconnect.utils.get_chart_data',
 	cache: ['enrollments'],
 	params: {
-		chart_name: 'Course Enrollments',
+		chart_name: 'Event Enrollments',
 	},
 	auto: true,
 })
@@ -190,10 +190,10 @@ const lessonCompletion = createResource({
 	auto: true,
 })
 
-const courseCompletion = createResource({
-	url: 'eventsconnect.eventsconnect.utils.get_course_completion_data',
+const eventCompletion = createResource({
+	url: 'eventsconnect.eventsconnect.utils.get_event_completion_data',
 	auto: true,
-	cache: ['courseCompletion'],
+	cache: ['eventCompletion'],
 })
 
 const signupChartOptions = () => {
@@ -244,7 +244,7 @@ const lessonChartOptions = () => {
 	return options
 }
 
-const courseChartOptions = () => {
+const eventChartOptions = () => {
 	let options = chartOptions(true)
 	options.plugins.title.text = 'Completions'
 	options.backgroundColor = ['#4563f0', '#f683ae']
