@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://www.frappelms.com/">
-    <img src="https://frappe.io/files/lms.png" alt="Frappe LMS" width="50px" height="50px">
+  <a href="https://www.frappeeventsconnect.com/">
+    <img src="https://frappe.io/files/eventsconnect.png" alt="Frappe Events Connect" width="50px" height="50px">
   </a>
   <p align="center">Easy to use, open source, learning management system.</p>
 </p>
@@ -9,12 +9,12 @@
 &nbsp;
 
 <p align="center">
-    <a href="https://www.producthunt.com/posts/frappe-lms?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-frappe&#0045;lms" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=396079&theme=dark&period=weekly&topic_id=204" alt="Frappe&#0032;LMS - Easy&#0032;to&#0032;use&#0044;&#0032;100&#0037;&#0032;open&#0032;source&#0032;learning&#0032;management&#0032;system | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+    <a href="https://www.producthunt.com/posts/frappe-eventsconnect?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-frappe&#0045;eventsconnect" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=396079&theme=dark&period=weekly&topic_id=204" alt="Frappe&#0032;Events Connect - Easy&#0032;to&#0032;use&#0044;&#0032;100&#0037;&#0032;open&#0032;source&#0032;learning&#0032;management&#0032;system | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
 
 
 <div align="center" style="max-height: 40px;">
-    <a href="https://frappecloud.com/lms/signup">
+    <a href="https://frappecloud.com/eventsconnect/signup">
         <img src=".github/try-on-f-cloud.svg" height="40">
     </a>
 </div>
@@ -25,12 +25,12 @@
 	<a href="https://dashboard.cypress.io/projects/vandxn/runs">
     <img alt="cypress" src="https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/vandxn/main&style=flat&logo=cypress">
   </a>
-  <a href="https://github.com/frappe/lms/blob/main/LICENSE">
+  <a href="https://github.com/frappe/eventsconnect/blob/main/LICENSE">
     <img alt="license" src="https://img.shields.io/badge/license-AGPLv3-blue">
   </a>
 </p>
 
-<img width="1402" alt="Lesson" src="https://frappelms.com/files/banner.png">
+<img width="1402" alt="Lesson" src="https://frappeeventsconnect.com/files/banner.png">
 
 <details>
 	<summary>Show more screenshots</summary>
@@ -39,7 +39,7 @@
 	<img width="941" alt="ss3" src="https://user-images.githubusercontent.com/31363128/210056134-01a7c429-1ef4-434e-9d43-128dda35d7e5.png">
 </details>
 
-Frappe LMS is an easy-to-use, open-source learning management system. You can use it to create and share online courses. The app has a clear UI that helps students focus only on what's important and assists in distraction-free learning.
+Frappe Events Connect is an easy-to-use, open-source learning management system. You can use it to create and share online courses. The app has a clear UI that helps students focus only on what's important and assists in distraction-free learning.
 
 You can create courses and lessons through simple forms. Lessons can be in the form of text, videos, quizzes or a combination of all these. You can keep your students engaged with quizzes to help revise and test the concepts learned. Course Instructors and Students can reach out to each other through the discussions section available for each lesson and get queries resolved.
 
@@ -58,7 +58,7 @@ You can create courses and lessons through simple forms. Lessons can be in the f
 
 ## Tech Stack
 
-Frappe LMS is built on [Frappe Framework](https://frappeframework.com) which is a batteries-included python web framework.
+Frappe Events Connect is built on [Frappe Framework](https://frappeframework.com) which is a batteries-included python web framework.
 These are some of the tools it's built on:
 - [Python](https://www.python.org)
 - [Redis](https://redis.io/)
@@ -70,8 +70,8 @@ These are some of the tools it's built on:
 ### Docker
 You need Docker, docker-compose, and git setup on your machine. Refer to [Docker documentation](https://docs.docker.com/). After that, run the following commands:
 ```
-git clone https://github.com/frappe/lms
-cd apps/lms/docker
+git clone https://github.com/frappe/eventsconnect
+cd apps/eventsconnect/docker
 docker-compose up
 ```
 
@@ -91,25 +91,25 @@ Currently, this app depends on the `develop` branch of [frappe](https://github.c
 1. In the frappe-bench directory, run `bench start` and keep it running. Open a new terminal session and cd into the `frappe-bench` directory.
 1. Run the following commands:
     ```sh
-    bench new-site lms.test
-    bench get-app lms
-    bench --site lms.test install-app lms
-    bench --site lms.test add-to-hosts
+    bench new-site eventsconnect.test
+    bench get-app eventsconnect
+    bench --site eventsconnect.test install-app eventsconnect
+    bench --site eventsconnect.test add-to-hosts
 
- 1. Now, you can access the site at `http://lms.test:8000`
+ 1. Now, you can access the site at `http://eventsconnect.test:8000`
 
 
 ## Deployment
-Frappe LMS is an app built on top of the Frappe Framework. So, you can follow any deployment guide for hosting a Frappe Framework-based site.
+Frappe Events Connect is an app built on top of the Frappe Framework. So, you can follow any deployment guide for hosting a Frappe Framework-based site.
 
 ### Managed Hosting
-Frappe LMS can be deployed in a few clicks on [Frappe Cloud](https://frappecloud.com/marketplace/apps/lms).
+Frappe Events Connect can be deployed in a few clicks on [Frappe Cloud](https://frappecloud.com/marketplace/apps/eventsconnect).
 
 ### Self-hosting
 If you want to self-host, you can follow official [Frappe Bench Installation](https://github.com/frappe/bench#installation) instructions.
 
 ## Bugs and Feature Requests
-If you find any bugs or have a feature idea for the app, feel free to report them here on [GitHub Issues](https://github.com/frappe/lms/issues). Make sure you share enough information (app screenshots, browser console screenshots, stack traces, etc) for project maintainers.
+If you find any bugs or have a feature idea for the app, feel free to report them here on [GitHub Issues](https://github.com/frappe/eventsconnect/issues). Make sure you share enough information (app screenshots, browser console screenshots, stack traces, etc) for project maintainers.
 
 ## License
 Distributed under [GNU AFFERO GENERAL PUBLIC LICENSE](license.txt)

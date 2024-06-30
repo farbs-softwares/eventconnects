@@ -127,7 +127,7 @@ onMounted(() => {
 })
 
 const replies = createResource({
-	url: 'lms.lms.utils.get_discussion_replies',
+	url: 'eventsconnect.eventsconnect.utils.get_discussion_replies',
 	cache: ['replies', props.topic],
 	makeParams(values) {
 		return {

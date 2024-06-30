@@ -125,7 +125,7 @@
 								{{ __('Source') }}
 							</div>
 							<Link
-								doctype="LMS Source"
+								doctype="Events Connect Source"
 								:value="billingDetails.source"
 								@change="(option) => (billingDetails.source = option)"
 							/>
@@ -155,13 +155,13 @@
 				:buttonLabel="
 					type == 'course' ? 'Checkout Courses' : 'Checkout Batches'
 				"
-				:buttonLink="type == 'course' ? '/lms/courses' : '/lms/batches'"
+				:buttonLink="type == 'course' ? '/eventsconnect/courses' : '/eventsconnect/batches'"
 			/>
 		</div>
 		<div v-else-if="!user.data?.name">
 			<NotPermitted
 				text="Please login to access this page."
-				:buttonLink="`/login?redirect-to=/lms/billing/${type}/${name}`"
+				:buttonLink="`/login?redirect-to=/eventsconnect/billing/${type}/${name}`"
 			/>
 		</div>
 	</div>
@@ -196,7 +196,7 @@ const props = defineProps({
 })
 
 const access = createResource({
-	url: 'lms.lms.api.validate_billing_access',
+	url: 'eventsconnect.eventsconnect.api.validate_billing_access',
 	params: {
 		type: props.type,
 		name: props.name,
@@ -208,10 +208,10 @@ const access = createResource({
 })
 
 const orderSummary = createResource({
-	url: 'lms.lms.utils.get_order_summary',
+	url: 'eventsconnect.eventsconnect.utils.get_order_summary',
 	makeParams(values) {
 		return {
-			doctype: props.type == 'course' ? 'LMS Course' : 'LMS Batch',
+			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
 			docname: props.name,
 			country: billingDetails.country,
 		}
@@ -238,10 +238,10 @@ const setBillingDetails = (data) => {
 }
 
 const paymentOptions = createResource({
-	url: 'lms.lms.utils.get_payment_options',
+	url: 'eventsconnect.eventsconnect.utils.get_payment_options',
 	makeParams(values) {
 		return {
-			doctype: props.type == 'course' ? 'LMS Course' : 'LMS Batch',
+			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
 			docname: props.name,
 			phone: billingDetails.phone,
 			country: billingDetails.country,
@@ -258,7 +258,7 @@ const generatePaymentLink = () => {
 			},
 			onSuccess(data) {
 				data.handler = (response) => {
-					let doctype = props.type == 'course' ? 'LMS Course' : 'LMS Batch'
+					let doctype = props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch'
 					let docname = props.name
 					handleSuccess(response, doctype, docname, data.order_id)
 				}
@@ -273,11 +273,11 @@ const generatePaymentLink = () => {
 }
 
 const paymentResource = createResource({
-	url: 'lms.lms.utils.verify_payment',
+	url: 'eventsconnect.eventsconnect.utils.verify_payment',
 	makeParams(values) {
 		return {
 			response: values.response,
-			doctype: props.type == 'course' ? 'LMS Course' : 'LMS Batch',
+			doctype: props.type == 'course' ? 'Events Connect Course' : 'Events Connect Batch',
 			docname: props.name,
 			address: billingDetails,
 			order_id: values.orderId,

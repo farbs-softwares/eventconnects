@@ -64,7 +64,7 @@
 							</div>
 							<div v-else-if="tab.label == 'Discussions'">
 								<Discussions
-									doctype="LMS Batch"
+									doctype="Events Connect Batch"
 									:docname="batch.data.name"
 									:title="__('Discussions')"
 									:key="batch.data.name"
@@ -205,7 +205,7 @@ const props = defineProps({
 })
 
 const batch = createResource({
-	url: 'lms.lms.utils.get_batch_details',
+	url: 'eventsconnect.eventsconnect.utils.get_batch_details',
 	cache: ['batch', props.batchName],
 	params: {
 		batch: props.batchName,

@@ -96,7 +96,7 @@ const createEvaluation = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'LMS Certificate Request',
+				doctype: 'Events Connect Certificate Request',
 				batch_name: values.batch,
 				...values,
 			},
@@ -154,7 +154,7 @@ const getCourses = () => {
 }
 
 const slots = createResource({
-	url: 'lms.lms.doctype.course_evaluator.course_evaluator.get_schedule',
+	url: 'eventsconnect.eventsconnect.doctype.course_evaluator.course_evaluator.get_schedule',
 	makeParams(values) {
 		return {
 			course: values.course,

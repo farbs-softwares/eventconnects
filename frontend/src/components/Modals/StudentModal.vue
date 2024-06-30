@@ -47,7 +47,7 @@ const studentResource = createResource({
 			doc: {
 				doctype: 'Batch Student',
 				parent: props.batch,
-				parenttype: 'LMS Batch',
+				parenttype: 'Events Connect Batch',
 				parentfield: 'students',
 				student: student.value,
 			},

@@ -56,7 +56,7 @@ import { updateDocumentTitle } from '@/utils'
 const user = inject('$user')
 
 const jobs = createResource({
-	url: 'lms.lms.api.get_job_opportunities',
+	url: 'eventsconnect.eventsconnect.api.get_job_opportunities',
 	cache: ['jobs'],
 	auto: true,
 })

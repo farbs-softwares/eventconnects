@@ -179,7 +179,7 @@
 							class="mb-4"
 						/>
 						<Link
-							doctype="LMS Category"
+							doctype="Events Connect Category"
 							:label="__('Category')"
 							v-model="batch.category"
 						/>
@@ -298,7 +298,7 @@ const newBatch = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'LMS Batch',
+				doctype: 'Events Connect Batch',
 				meta_image: batch.image?.file_url,
 				instructors: instructors.value.map((instructor) => ({
 					instructor: instructor,
@@ -313,7 +313,7 @@ const batchDetail = createResource({
 	url: 'frappe.client.get',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Batch',
+			doctype: 'Events Connect Batch',
 			name: props.batchName,
 		}
 	},
@@ -338,7 +338,7 @@ const editBatch = createResource({
 	url: 'frappe.client.set_value',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Batch',
+			doctype: 'Events Connect Batch',
 			name: props.batchName,
 			fieldname: {
 				meta_image: batch.image?.file_url,
@@ -352,7 +352,7 @@ const editBatch = createResource({
 })
 
 const imageResource = createResource({
-	url: 'lms.lms.api.get_file_info',
+	url: 'eventsconnect.eventsconnect.api.get_file_info',
 	makeParams(values) {
 		return {
 			file_url: values.image,

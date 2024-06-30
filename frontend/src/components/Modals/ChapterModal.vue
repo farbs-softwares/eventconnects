@@ -74,7 +74,7 @@ const chapterReference = createResource({
 				doctype: 'Chapter Reference',
 				chapter: values.name,
 				parent: props.course,
-				parenttype: 'LMS Course',
+				parenttype: 'Events Connect Course',
 				parentfield: 'chapters',
 			},
 		}

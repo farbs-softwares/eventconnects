@@ -4,7 +4,7 @@ import { usersStore } from './user'
 import router from '@/router'
 import { ref, computed } from 'vue'
 
-export const sessionStore = defineStore('lms-session', () => {
+export const sessionStore = defineStore('eventsconnect-session', () => {
 	let { userResource } = usersStore()
 
 	function sessionUser() {
@@ -42,7 +42,7 @@ export const sessionStore = defineStore('lms-session', () => {
 	})
 
 	const branding = createResource({
-		url: 'lms.lms.api.get_branding',
+		url: 'eventsconnect.eventsconnect.api.get_branding',
 		cache: 'brand',
 		auto: true,
 		onSuccess(data) {

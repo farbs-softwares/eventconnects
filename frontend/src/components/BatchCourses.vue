@@ -100,7 +100,7 @@ const props = defineProps({
 })
 
 const courses = createResource({
-	url: 'lms.lms.utils.get_batch_courses',
+	url: 'eventsconnect.eventsconnect.utils.get_batch_courses',
 	params: {
 		batch: props.batch,
 	},

@@ -16,7 +16,7 @@
 					v-html="branding.data?.brand_html"
 					class="w-8 h-8 rounded flex-shrink-0"
 				></span>
-				<LMSLogo v-else class="w-8 h-8 rounded flex-shrink-0" />
+				<EventsConnectLogo v-else class="w-8 h-8 rounded flex-shrink-0" />
 				<div
 					class="flex flex-1 flex-col text-left duration-300 ease-in-out"
 					:class="
@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import LMSLogo from '@/components/Icons/LMSLogo.vue'
+import EventsConnectLogo from '@/components/Icons/EventsConnectLogo.vue'
 import { sessionStore } from '@/stores/session'
 import { Dropdown } from 'frappe-ui'
 import {

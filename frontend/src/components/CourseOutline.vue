@@ -146,7 +146,7 @@ const props = defineProps({
 })
 
 const outline = createResource({
-	url: 'lms.lms.utils.get_course_outline',
+	url: 'eventsconnect.eventsconnect.utils.get_course_outline',
 	cache: ['course_outline', props.courseName],
 	params: {
 		course: props.courseName,

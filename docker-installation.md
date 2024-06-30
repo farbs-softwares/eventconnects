@@ -1,9 +1,9 @@
 **Step 1:** Clone the repo
 
 ```
-$ git clone https://github.com/frappe/lms.git
+$ git clone https://github.com/frappe/eventsconnect.git
 
-$ cd lms
+$ cd eventsconnect
 
 $ cd docker
 ```

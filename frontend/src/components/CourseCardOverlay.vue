@@ -139,7 +139,7 @@ function enrollStudent() {
 		}, 3000)
 	} else {
 		const enrollStudentResource = createResource({
-			url: 'lms.lms.doctype.lms_enrollment.lms_enrollment.create_membership',
+			url: 'eventsconnect.eventsconnect.doctype.eventsconnect_enrollment.eventsconnect_enrollment.create_membership',
 		})
 		enrollStudentResource
 			.submit({

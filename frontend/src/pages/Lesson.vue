@@ -213,7 +213,7 @@ const props = defineProps({
 })
 
 const lesson = createResource({
-	url: 'lms.lms.utils.get_lesson',
+	url: 'eventsconnect.eventsconnect.utils.get_lesson',
 	cache: ['lesson', props.courseName, props.chapterNumber, props.lessonNumber],
 	makeParams(values) {
 		return {
@@ -261,7 +261,7 @@ const markProgress = (data) => {
 }
 
 const progress = createResource({
-	url: 'lms.lms.doctype.course_lesson.course_lesson.save_progress',
+	url: 'eventsconnect.eventsconnect.doctype.course_lesson.course_lesson.save_progress',
 	makeParams() {
 		return {
 			lesson: lesson.data.name,
@@ -336,7 +336,7 @@ const allowInstructorContent = () => {
 }
 
 const redirectToLogin = () => {
-	window.location.href = `/login?redirect-to=/lms/courses/${props.courseName}`
+	window.location.href = `/login?redirect-to=/eventsconnect/courses/${props.courseName}`
 }
 </script>
 <style>

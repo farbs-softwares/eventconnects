@@ -24,18 +24,18 @@ bench set-redis-socketio-host redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
-bench get-app lms
+bench get-app eventsconnect
 
-bench new-site lms.localhost \
+bench new-site eventsconnect.localhost \
 --force \
 --mariadb-root-password 123 \
 --admin-password admin \
 --no-mariadb-socket
 
-bench --site lms.localhost install-app lms
-bench --site lms.localhost set-config developer_mode 1
-bench --site lms.localhost clear-cache
-bench --site lms.localhost set-config mute_emails 1
-bench use lms.localhost
+bench --site eventsconnect.localhost install-app eventsconnect
+bench --site eventsconnect.localhost set-config developer_mode 1
+bench --site eventsconnect.localhost clear-cache
+bench --site eventsconnect.localhost set-config mute_emails 1
+bench use eventsconnect.localhost
 
 bench start

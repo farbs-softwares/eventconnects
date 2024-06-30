@@ -67,7 +67,7 @@ const props = defineProps({
 })
 
 const assessments = createResource({
-	url: 'lms.lms.utils.get_assessments',
+	url: 'eventsconnect.eventsconnect.utils.get_assessments',
 	params: {
 		batch: props.batch,
 	},

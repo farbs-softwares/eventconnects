@@ -101,7 +101,7 @@ const isModerator = ref(false)
 const pageToEdit = ref(null)
 
 onMounted(() => {
-	socket.on('publish_lms_notifications', (data) => {
+	socket.on('publish_eventsconnect_notifications', (data) => {
 		unreadNotifications.reload()
 	})
 	addNotifications()
@@ -144,7 +144,7 @@ const addNotifications = () => {
 }
 
 const sidebarSettings = createResource({
-	url: 'lms.lms.api.get_sidebar_settings',
+	url: 'eventsconnect.eventsconnect.api.get_sidebar_settings',
 	cache: 'Sidebar Settings',
 	auto: true,
 	onSuccess(data) {
@@ -165,7 +165,7 @@ const openPageModal = (link) => {
 
 const deletePage = (link) => {
 	createResource({
-		url: 'lms.lms.api.delete_sidebar_item',
+		url: 'eventsconnect.eventsconnect.api.delete_sidebar_item',
 		makeParams(values) {
 			return {
 				webpage: link.web_page,

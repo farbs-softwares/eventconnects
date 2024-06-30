@@ -2,7 +2,7 @@ describe("Course Creation", () => {
 	it("creates a new course", () => {
 		cy.login();
 		cy.wait(1000);
-		cy.visit("/lms/courses");
+		cy.visit("/eventsconnect/courses");
 
 		// Create a course
 		cy.get("a").contains("New Course").click();
@@ -83,9 +83,9 @@ describe("Course Creation", () => {
 
 		// View Course
 		cy.wait(1000);
-		cy.visit("/lms");
+		cy.visit("/eventsconnect");
 		cy.wait(500);
-		cy.url().should("include", "/lms/courses");
+		cy.url().should("include", "/eventsconnect/courses");
 		cy.get(".grid a:first").within(() => {
 			cy.get("div").contains("Test Course");
 			cy.get("div").contains(
@@ -96,7 +96,7 @@ describe("Course Creation", () => {
 				.should("include", "/files/profile");
 		});
 		cy.get(".grid a:first").click();
-		cy.url().should("include", "/lms/courses/test-course");
+		cy.url().should("include", "/eventsconnect/courses/test-course");
 		cy.get("div").contains("Test Course");
 		cy.get("div").contains("Test Course Short Introduction to test the UI");
 		cy.get("div").contains("Learning");

@@ -34,7 +34,7 @@ const props = defineProps({
 })
 
 const certificates = createResource({
-	url: 'lms.lms.api.get_certificates',
+	url: 'eventsconnect.eventsconnect.api.get_certificates',
 	params: {
 		member: props.profile.data.name,
 	},
@@ -43,7 +43,7 @@ const certificates = createResource({
 
 const openCertificate = (certificate) => {
 	window.open(
-		`/api/method/frappe.utils.print_format.download_pdf?doctype=LMS+Certificate&name=${
+		`/api/method/frappe.utils.print_format.download_pdf?doctype=Events Connect+Certificate&name=${
 			certificate.name
 		}&format=${encodeURIComponent(certificate.template)}`
 	)

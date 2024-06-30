@@ -56,7 +56,7 @@ import { Search } from 'lucide-vue-next'
 const searchQuery = ref('')
 
 const participants = createResource({
-	url: 'lms.lms.api.get_certified_participants',
+	url: 'eventsconnect.eventsconnect.api.get_certified_participants',
 	method: 'GET',
 	debounce: 300,
 	makeParams(values) {

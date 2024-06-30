@@ -3,13 +3,13 @@ from setuptools import find_packages, setup
 with open("requirements.txt") as f:
 	install_requires = f.read().strip().split("\n")
 
-# get version from __version__ variable in lms/__init__.py
-from lms import __version__ as version
+# get version from __version__ variable in eventsconnect/__init__.py
+from eventsconnect import __version__ as version
 
 setup(
-	name="lms",
+	name="eventsconnect",
 	version=version,
-	description="LMS App",
+	description="Events Connect App",
 	author="Frappe",
 	author_email="school@frappe.io",
 	packages=find_packages(),

@@ -40,7 +40,7 @@ const props = defineProps({
 })
 
 const badge = createDocumentResource({
-	doctype: 'LMS Badge',
+	doctype: 'Events Connect Badge',
 	name: props.badgeName,
 })
 
@@ -55,7 +55,7 @@ const issuedOn = createResource({
 	url: 'frappe.client.get_value',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Badge Assignment',
+			doctype: 'Events Connect Badge Assignment',
 			filters: {
 				member: props.email,
 				badge: props.badgeName,

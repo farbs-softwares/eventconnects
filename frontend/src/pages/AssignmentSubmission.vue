@@ -146,7 +146,7 @@ const props = defineProps({
 const assignment = createResource({
 	url: 'frappe.client.get',
 	params: {
-		doctype: 'LMS Assignment',
+		doctype: 'Events Connect Assignment',
 		name: props.assignmentName,
 	},
 	auto: true,
@@ -166,7 +166,7 @@ const updateSubmission = createResource({
 			fieldname.answer = answer.value
 		}
 		return {
-			doctype: 'LMS Assignment Submission',
+			doctype: 'Events Connect Assignment Submission',
 			name: props.submissionName,
 			fieldname: fieldname,
 		}
@@ -174,7 +174,7 @@ const updateSubmission = createResource({
 })
 
 const imageResource = createResource({
-	url: 'lms.lms.api.get_file_info',
+	url: 'eventsconnect.eventsconnect.api.get_file_info',
 	makeParams(values) {
 		return {
 			file_url: values.image,
@@ -190,7 +190,7 @@ const newSubmission = createResource({
 	url: 'frappe.client.insert',
 	makeParams(values) {
 		let doc = {
-			doctype: 'LMS Assignment Submission',
+			doctype: 'Events Connect Assignment Submission',
 			assignment: props.assignmentName,
 			member: user.data?.name,
 		}
@@ -208,7 +208,7 @@ const newSubmission = createResource({
 const submissionResource = createResource({
 	url: 'frappe.client.get_value',
 	params: {
-		doctype: 'LMS Assignment Submission',
+		doctype: 'Events Connect Assignment Submission',
 		fieldname: showUploader() ? 'assignment_attachment' : 'answer',
 		filters: {
 			name: props.submissionName,

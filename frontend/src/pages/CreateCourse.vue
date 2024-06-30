@@ -292,7 +292,7 @@ const courseCreationResource = createResource({
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'LMS Course',
+				doctype: 'Events Connect Course',
 				image: course.course_image?.file_url || '',
 				instructors: instructors.value.map((instructor) => ({
 					instructor: instructor,
@@ -308,7 +308,7 @@ const courseEditResource = createResource({
 	auto: false,
 	makeParams(values) {
 		return {
-			doctype: 'LMS Course',
+			doctype: 'Events Connect Course',
 			name: values.course,
 			fieldname: {
 				image: course.course_image?.file_url || '',
@@ -325,7 +325,7 @@ const courseResource = createResource({
 	url: 'frappe.client.get',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Course',
+			doctype: 'Events Connect Course',
 			name: props.courseName,
 		}
 	},
@@ -356,7 +356,7 @@ const courseResource = createResource({
 })
 
 const imageResource = createResource({
-	url: 'lms.lms.api.get_file_info',
+	url: 'eventsconnect.eventsconnect.api.get_file_info',
 	makeParams(values) {
 		return {
 			file_url: values.image,

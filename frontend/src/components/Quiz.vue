@@ -260,7 +260,7 @@ const quiz = createResource({
 	url: 'frappe.client.get',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Quiz',
+			doctype: 'Events Connect Quiz',
 			name: props.quizName,
 		}
 	},
@@ -280,7 +280,7 @@ const attempts = createResource({
 	url: 'frappe.client.get_list',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Quiz Submission',
+			doctype: 'Events Connect Quiz Submission',
 			filters: {
 				member: user.data?.name,
 				quiz: quiz.data?.name,
@@ -315,7 +315,7 @@ watch(
 )
 
 const quizSubmission = createResource({
-	url: 'lms.lms.doctype.lms_quiz.lms_quiz.quiz_summary',
+	url: 'eventsconnect.eventsconnect.doctype.eventsconnect_quiz.eventsconnect_quiz.quiz_summary',
 	makeParams(values) {
 		return {
 			quiz: quiz.data.name,
@@ -325,7 +325,7 @@ const quizSubmission = createResource({
 })
 
 const questionDetails = createResource({
-	url: 'lms.lms.utils.get_question_details',
+	url: 'eventsconnect.eventsconnect.utils.get_question_details',
 	makeParams(values) {
 		return {
 			question: currentQuestion.value,
@@ -389,7 +389,7 @@ const checkAnswer = () => {
 	}
 
 	createResource({
-		url: 'lms.lms.doctype.lms_quiz.lms_quiz.check_answer',
+		url: 'eventsconnect.eventsconnect.doctype.eventsconnect_quiz.eventsconnect_quiz.check_answer',
 		params: {
 			question: currentQuestion.value,
 			type: questionDetails.data.type,

@@ -79,7 +79,7 @@ const router = useRouter()
 onMounted(() => {
 	if (!user.data) router.push({ name: 'Courses' })
 
-	socket.on('publish_lms_notifications', (data) => {
+	socket.on('publish_eventsconnect_notifications', (data) => {
 		unReadNotifications.reload()
 	})
 })
@@ -115,7 +115,7 @@ const readNotifications = createListResource({
 })
 
 const markAsRead = createResource({
-	url: 'lms.lms.api.mark_as_read',
+	url: 'eventsconnect.eventsconnect.api.mark_as_read',
 	makeParams(values) {
 		return {
 			name: values.name,
@@ -128,7 +128,7 @@ const markAsRead = createResource({
 })
 
 const markAllAsRead = createResource({
-	url: 'lms.lms.api.mark_all_as_read',
+	url: 'eventsconnect.eventsconnect.api.mark_all_as_read',
 	onSuccess(data) {
 		unReadNotifications.reload()
 		readNotifications.reload()

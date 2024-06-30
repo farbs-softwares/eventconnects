@@ -7,7 +7,7 @@ repos:
     rev: v4.3.0
     hooks:
       - id: trailing-whitespace
-        files: "lms.*"
+        files: "eventsconnect.*"
         exclude: ".*json$|.*txt$|.*csv|.*md|.*svg"
       - id: check-yaml
       - id: check-merge-conflict
@@ -36,12 +36,12 @@ repos:
         # Ignore any files that might contain jinja / bundles
         exclude: |
             (?x)^(
-                lms/public/dist/.*|
+                eventsconnect/public/dist/.*|
                 .*node_modules.*|
                 .*boilerplate.*|
-                lms/www/website_script.js|
-                lms/templates/includes/.*|
-                lms/public/js/lib/.*
+                eventsconnect/www/website_script.js|
+                eventsconnect/templates/includes/.*|
+                eventsconnect/public/js/lib/.*
             )$
 
   - repo: https://github.com/PyCQA/flake8

@@ -87,7 +87,7 @@ const props = defineProps({
 })
 
 const liveClasses = createListResource({
-	doctype: 'LMS Live Class',
+	doctype: 'Events Connect Live Class',
 	filters: {
 		batch_name: props.batch,
 		date: ['>=', new Date()],

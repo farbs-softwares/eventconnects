@@ -144,7 +144,7 @@ const routes = [
 ]
 
 let router = createRouter({
-	history: createWebHistory('/lms'),
+	history: createWebHistory('/eventsconnect'),
 	routes,
 })
 

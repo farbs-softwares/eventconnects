@@ -3,12 +3,12 @@
 *.egg-info
 *.swp
 tags
-lms/docs/current
-lms/public/dist
+eventsconnect/docs/current
+eventsconnect/public/dist
 __pycache__/
 *.py[cod]
 *$py.class
 node_modules
 package-lock.json
-lms/public/frontend
-lms/www/lms.html
+eventsconnect/public/frontend
+eventsconnect/www/eventsconnect.html

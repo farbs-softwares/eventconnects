@@ -20,7 +20,7 @@ export default defineConfig({
 		},
 	},
 	build: {
-		outDir: `../lms/public/frontend`,
+		outDir: `../eventsconnect/public/frontend`,
 		emptyOutDir: true,
 		commonjsOptions: {
 			include: [/tailwind.config.js/, /node_modules/],

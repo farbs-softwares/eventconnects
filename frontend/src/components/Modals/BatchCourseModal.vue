@@ -14,7 +14,7 @@
 		}"
 	>
 		<template #body-content>
-			<Link doctype="LMS Course" v-model="course" :label="__('Course')" />
+			<Link doctype="Events Connect Course" v-model="course" :label="__('Course')" />
 			<Link
 				doctype="Course Evaluator"
 				v-model="evaluator"
@@ -49,7 +49,7 @@ const createBatchCourse = createResource({
 			doc: {
 				doctype: 'Batch Course',
 				parent: props.batch,
-				parenttype: 'LMS Batch',
+				parenttype: 'Events Connect Batch',
 				parentfield: 'courses',
 				course: course.value,
 				evaluator: evaluator.value,

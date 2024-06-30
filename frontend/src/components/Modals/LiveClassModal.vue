@@ -142,10 +142,10 @@ const getRecordingOptions = () => {
 }
 
 const createLiveClass = createResource({
-	url: 'lms.lms.doctype.lms_batch.lms_batch.create_live_class',
+	url: 'eventsconnect.eventsconnect.doctype.eventsconnect_batch.eventsconnect_batch.create_live_class',
 	makeParams(values) {
 		return {
-			doctype: 'LMS Live Class',
+			doctype: 'Events Connect Live Class',
 			batch_name: values.batch,
 			...values,
 		}

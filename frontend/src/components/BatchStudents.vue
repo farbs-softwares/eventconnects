@@ -99,7 +99,7 @@ const props = defineProps({
 })
 
 const students = createResource({
-	url: 'lms.lms.utils.get_batch_students',
+	url: 'eventsconnect.eventsconnect.utils.get_batch_students',
 	cache: ['students', props.batch],
 	params: {
 		batch: props.batch,

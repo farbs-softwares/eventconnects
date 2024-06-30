@@ -29,7 +29,7 @@ function translate(message) {
 
 function fetchTranslations(lang) {
 	createResource({
-		url: 'lms.lms.api.get_translations',
+		url: 'eventsconnect.eventsconnect.api.get_translations',
 		cache: 'translations',
 		auto: true,
 		transform: (data) => {
