@@ -1,6 +1,6 @@
 from . import __version__ as app_version
 
-app_name = "frappe_eventsconnect"
+app_name = "eventsconnect"
 app_title = "Frappe Events Connect"
 app_publisher = "Frappe"
 app_description = "Frappe Events Connect App"
