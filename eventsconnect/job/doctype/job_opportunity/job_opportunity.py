@@ -10,7 +10,7 @@ from frappe.utils.user import get_system_managers
 from eventsconnect.eventsconnect.utils import validate_image
 
 
-class JobOpportunity(Document):
+class EventJobOpportunity(Document):
 	def validate(self):
 		self.validate_urls()
 		self.company_logo = validate_image(self.company_logo)
@@ -19,25 +19,25 @@ class JobOpportunity(Document):
 		frappe.utils.validate_url(self.company_website, True)
 
 
-def update_job_openings():
-	old_jobs = frappe.get_all(
-		"Job Opportunity",
+def update_eventjob_openings():
+	old_eventjobs = frappe.get_all(
+		"EventJob Opportunity",
 		filters={"status": "Open", "creation": ["<=", add_months(getdate(), -3)]},
 		pluck="name",
 	)
 
-	for job in old_jobs:
-		frappe.db.set_value("Job Opportunity", job, "status", "Closed")
+	for eventjob in old_eventjobs:
+		frappe.db.set_value("EventJob Opportunity", eventjob, "status", "Closed")
 
 
 @frappe.whitelist()
-def report(job, reason):
+def report(eventjob, reason):
 	system_managers = get_system_managers(only_name=True)
 	user = frappe.db.get_value("User", frappe.session.user, "full_name")
-	subject = _("User {0} has reported the job post {1}").format(user, job)
+	subject = _("User {0} has reported the eventjob post {1}").format(user, eventjob)
 	args = {
-		"job": job,
-		"job_url": get_link_to_form("Job Opportunity", job),
+		"eventjob": eventjob,
+		"eventjob_url": get_link_to_form("EventJob Opportunity", eventjob),
 		"user": user,
 		"reason": reason,
 	}
@@ -45,7 +45,7 @@ def report(job, reason):
 		recipients=system_managers,
 		subject=subject,
 		header=[subject, "green"],
-		template="job_report",
+		template="eventjob_report",
 		args=args,
 		now=True,
 	)

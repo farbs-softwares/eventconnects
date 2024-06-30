@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class JobSettings(Document):
+class EventJobSettings(Document):
 	pass

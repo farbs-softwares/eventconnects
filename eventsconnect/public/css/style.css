@@ -1353,7 +1353,7 @@ pre {
 	align-items: center;
 }
 
-.job-card {
+.eventjob-card {
 	position: relative;
 	padding: 1rem;
 }
@@ -1369,23 +1369,23 @@ pre {
 	margin-right: 1rem;
 }
 
-.job-card-parent {
+.eventjob-card-parent {
   display: grid;
   row-gap: 1rem;
 }
 
-.job-card-logo-section {
+.eventjob-card-logo-section {
 	display: flex;
 	align-items: center;
 	margin-top: 0.5rem;
 }
 
-.job-detail-card {
+.eventjob-detail-card {
   padding: 1rem;
   flex-direction: column;
 }
 
-.job-subtitle {
+.eventjob-subtitle {
   font-size: var(--text-base);
   margin-bottom: 1.875rem;
 }
@@ -1661,7 +1661,7 @@ li {
 	color: var(--gray-600);
 }
 
-.job-cards-parent {
+.eventjob-cards-parent {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 	-moz-column-gap: 40px;
@@ -1669,45 +1669,45 @@ li {
 	align-items: center;
 }
 
-.job-company {
+.eventjob-company {
 	display: flex;
 	align-items: center;
 }
 
-.job-actions {
+.eventjob-actions {
 	display: flex;
 	align-items: flex-start;
 	margin-left: auto;
 	margin-bottom: 1rem;
 }
 
-.job-detail-header {
+.eventjob-detail-header {
 	display: flex;
 }
 
 @media (max-width: 600px) {
-	.job-company {
+	.eventjob-company {
 		flex-direction: column;
 		align-items: inherit;
 	}
 }
 
 @media (max-width: 1200px) {
-	.job-cards-parent {
+	.eventjob-cards-parent {
 		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 	}
 }
 
 @media (max-width: 500px) {
-	.job-cards-parent {
+	.eventjob-cards-parent {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	}
 
-	.job-detail-header {
+	.eventjob-detail-header {
 		flex-wrap: wrap;
 	}
 
-	.job-actions {
+	.eventjob-actions {
 		margin-top: 1rem;
 	}
 }

@@ -15,17 +15,17 @@
    "default": "0",
    "fieldname": "allow_posting",
    "fieldtype": "Check",
-   "label": "Allow Job Posting From Website"
+   "label": "Allow EventJob Posting From Website"
   },
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Job Board Title"
+   "label": "EventJob Board Title"
   },
   {
    "fieldname": "subtitle",
    "fieldtype": "Data",
-   "label": "Job Board Subtitle"
+   "label": "EventJob Board Subtitle"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -33,8 +33,8 @@
  "links": [],
  "modified": "2022-02-11 15:56:38.958317",
  "modified_by": "Administrator",
- "module": "Job",
- "name": "Job Settings",
+ "module": "EventJob",
+ "name": "EventJob Settings",
  "owner": "Administrator",
  "permissions": [
   {

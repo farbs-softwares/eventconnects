@@ -372,10 +372,10 @@ export function getSidebarLinks() {
 			activeFor: ['CertifiedParticipants'],
 		},
 		{
-			label: 'Jobs',
+			label: 'EventJobs',
 			icon: 'Briefcase',
-			to: 'Jobs',
-			activeFor: ['Jobs', 'JobDetail'],
+			to: 'EventJobs',
+			activeFor: ['EventJobs', 'EventJobDetail'],
 		},
 		{
 			label: 'Statistics',

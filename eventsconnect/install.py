@@ -19,7 +19,7 @@ def add_pages_to_nav():
 		{"label": "Courses", "url": "/eventsconnect/courses", "parent": "Explore", "idx": 2},
 		{"label": "Batches", "url": "/eventsconnect/batches", "parent": "Explore", "idx": 3},
 		{"label": "Statistics", "url": "/eventsconnect/statistics", "parent": "Explore", "idx": 4},
-		{"label": "Jobs", "url": "/eventsconnect/job-openings", "parent": "Explore", "idx": 5},
+		{"label": "EventJobs", "url": "/eventsconnect/eventjob-openings", "parent": "Explore", "idx": 5},
 	]
 
 	for page in pages:
@@ -157,7 +157,7 @@ def delete_custom_fields():
 		"medium",
 		"linkedin",
 		"profession",
-		"looking_for_job",
+		"looking_for_eventjob",
 		"cover_image" "work_environment",
 		"dream_companies",
 		"career_preference_column",

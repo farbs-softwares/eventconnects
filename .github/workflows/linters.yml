@@ -6,7 +6,7 @@ on:
   push:
     branches: [ main ]
 
-jobs:
+eventjobs:
   linters:
     name: Semantic Commits
     runs-on: ubuntu-latest

@@ -50,7 +50,7 @@ You can create courses and lessons through simple forms. Lessons can be in the f
 - Discussions section below each lesson where instructors and students can interact with each other. 💬
 - Create batches to group your students based on courses and track their progress 🏛
 - Statistics dashboard that provides all important numbers at a glimpse. 📈
-- Job Board where users can post and look for jobs. 💼
+- EventJob Board where users can post and look for eventjobs. 💼
 - People directory with each person's profile page 👨‍👩‍👧‍👦
 - Set cover image, profile photo, short bio, and other professional information. 🦹🏼‍♀️
 - Simple layout that optimizes readability 🤓

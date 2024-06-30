@@ -5,15 +5,15 @@
 		>
 			<Breadcrumbs
 				class="h-7"
-				:items="[{ label: __('Jobs'), route: { name: 'Jobs' } }]"
+				:items="[{ label: __('EventJobs'), route: { name: 'EventJobs' } }]"
 			/>
 			<div class="flex">
 				<router-link
 					v-if="user.data?.name"
 					:to="{
-						name: 'JobCreation',
+						name: 'EventJobCreation',
 						params: {
-							jobName: 'new',
+							eventjobName: 'new',
 						},
 					}"
 				>
@@ -21,28 +21,28 @@
 						<template #prefix>
 							<Plus class="h-4 w-4" />
 						</template>
-						{{ __('New Job') }}
+						{{ __('New EventJob') }}
 					</Button>
 				</router-link>
 			</div>
 		</header>
-		<div v-if="jobs.data?.length">
+		<div v-if="eventjobs.data?.length">
 			<div class="divide-y lg:w-3/4 mx-auto p-5">
-				<div v-for="job in jobs.data">
+				<div v-for="eventjob in eventjobs.data">
 					<router-link
 						:to="{
-							name: 'JobDetail',
-							params: { job: job.name },
+							name: 'EventJobDetail',
+							params: { eventjob: eventjob.name },
 						}"
-						:key="job.name"
+						:key="eventjob.name"
 					>
-						<JobCard :job="job" />
+						<EventJobCard :eventjob="eventjob" />
 					</router-link>
 				</div>
 			</div>
 		</div>
 		<div v-else class="text-gray-700 italic p-5 w-fit mx-auto">
-			{{ __('No jobs posted') }}
+			{{ __('No eventjobs posted') }}
 		</div>
 	</div>
 </template>
@@ -50,21 +50,21 @@
 import { Button, Breadcrumbs, createResource } from 'frappe-ui'
 import { Plus } from 'lucide-vue-next'
 import { inject, computed } from 'vue'
-import JobCard from '@/components/JobCard.vue'
+import EventJobCard from '@/components/EventJobCard.vue'
 import { updateDocumentTitle } from '@/utils'
 
 const user = inject('$user')
 
-const jobs = createResource({
-	url: 'eventsconnect.eventsconnect.api.get_job_opportunities',
-	cache: ['jobs'],
+const eventjobs = createResource({
+	url: 'eventsconnect.eventsconnect.api.get_eventjob_opportunities',
+	cache: ['eventjobs'],
 	auto: true,
 })
 
 const pageMeta = computed(() => {
 	return {
-		title: 'Jobs',
-		description: 'An open job board for the community',
+		title: 'EventJobs',
+		description: 'An open eventjob board for the community',
 	}
 })
 

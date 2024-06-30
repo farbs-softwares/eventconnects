@@ -5,5 +5,5 @@
 import unittest
 
 
-class TestJobOpportunity(unittest.TestCase):
+class TestEventJobOpportunity(unittest.TestCase):
 	pass

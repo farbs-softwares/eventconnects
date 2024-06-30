@@ -6,7 +6,7 @@ from frappe import _
 from frappe.model.document import Document
 
 
-class EventsConnectJobApplication(Document):
+class EventsConnectEventJobApplication(Document):
 	def validate(self):
 		self.validate_duplicate()
 
@@ -18,17 +18,17 @@ class EventsConnectJobApplication(Document):
 			self.send_email_to_employer()
 
 	def validate_duplicate(self):
-		if frappe.db.exists("Events Connect Job Application", {"job": self.job, "user": self.user}):
-			frappe.throw(_("You have already applied for this job."))
+		if frappe.db.exists("Events Connect EventJob Application", {"eventjob": self.eventjob, "user": self.user}):
+			frappe.throw(_("You have already applied for this eventjob."))
 
 	def send_email_to_employer(self):
-		company_email = frappe.get_value("Job Opportunity", self.job, "company_email_address")
+		company_email = frappe.get_value("EventJob Opportunity", self.eventjob, "company_email_address")
 		if company_email:
-			subject = _("New Job Applicant")
+			subject = _("New EventJob Applicant")
 
 			args = {
 				"full_name": frappe.db.get_value("User", self.user, "full_name"),
-				"job_title": self.job_title,
+				"eventjob_title": self.eventjob_title,
 			}
 			resume = frappe.get_doc(
 				"File",
@@ -39,7 +39,7 @@ class EventsConnectJobApplication(Document):
 			frappe.sendmail(
 				recipients=company_email,
 				subject=subject,
-				template="job_application",
+				template="eventjob_application",
 				args=args,
 				attachments=[
 					{

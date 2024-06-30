@@ -2,13 +2,13 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format: JOB-{#####}",
+ "autoname": "format: EJOB-{#####}",
  "creation": "2022-02-07 12:01:41.074418",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "job_title",
+  "eventjob_title",
   "location",
   "disabled",
   "column_break_5",
@@ -25,11 +25,11 @@
  ],
  "fields": [
   {
-   "fieldname": "job_title",
+   "fieldname": "eventjob_title",
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Job Title",
+   "label": "EventJob Title",
    "reqd": 1
   },
   {
@@ -119,8 +119,8 @@
  "make_attachments_public": 1,
  "modified": "2024-02-07 23:02:06.102120",
  "modified_by": "Administrator",
- "module": "Job",
- "name": "Job Opportunity",
+ "module": "EventJob",
+ "name": "EventJob Opportunity",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
@@ -162,5 +162,5 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "job_title"
+ "title_field": "eventjob_title"
 }

@@ -112,7 +112,7 @@ scheduler_events = {
 	"hourly": [
 		"eventsconnect.eventsconnect.doctype.eventsconnect_certificate_request.eventsconnect_certificate_request.schedule_evals"
 	],
-	"daily": ["eventsconnect.job.doctype.job_opportunity.job_opportunity.update_job_openings"],
+	"daily": ["eventsconnect.eventjob.doctype.eventjob_opportunity.eventjob_opportunity.update_eventjob_openings"],
 }
 
 fixtures = ["Custom Field", "Function", "Industry"]
@@ -162,10 +162,10 @@ website_redirects = [
 		"target": "/eventsconnect/batches",
 		"match_with_query_string": True,
 	},
-	{"source": "/job-openings", "target": "/eventsconnect/job-openings"},
+	{"source": "/eventjob-openings", "target": "/eventsconnect/eventjob-openings"},
 	{
-		"source": r"/job-openings/(.*)",
-		"target": "/eventsconnect/job-openings",
+		"source": r"/eventjob-openings/(.*)",
+		"target": "/eventsconnect/eventjob-openings",
 		"match_with_query_string": True,
 	},
 	{"source": "/statistics", "target": "/eventsconnect/statistics"},

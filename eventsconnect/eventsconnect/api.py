@@ -224,12 +224,12 @@ def validate_billing_access(type, name):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_job_details(job):
+def get_eventjob_details(eventjob):
 	return frappe.db.get_value(
-		"Job Opportunity",
-		job,
+		"EventJob Opportunity",
+		eventjob,
 		[
-			"job_title",
+			"eventjob_title",
 			"location",
 			"type",
 			"company_name",
@@ -244,14 +244,14 @@ def get_job_details(job):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_job_opportunities():
-	jobs = frappe.get_all(
-		"Job Opportunity",
+def get_eventjob_opportunities():
+	eventjobs = frappe.get_all(
+		"EventJob Opportunity",
 		{"status": "Open", "disabled": False},
-		["job_title", "location", "type", "company_name", "company_logo", "name", "creation"],
+		["eventjob_title", "location", "type", "company_name", "company_logo", "name", "creation"],
 		order_by="creation desc",
 	)
-	return jobs
+	return eventjobs
 
 
 @frappe.whitelist(allow_guest=True)
@@ -427,7 +427,7 @@ def get_sidebar_settings():
 		"courses",
 		"batches",
 		"certified_participants",
-		"jobs",
+		"eventjobs",
 		"statistics",
 		"notifications",
 	]

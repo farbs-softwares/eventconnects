@@ -85,14 +85,14 @@ const routes = [
 		],
 	},
 	{
-		path: '/job-openings',
-		name: 'Jobs',
-		component: () => import('@/pages/Jobs.vue'),
+		path: '/eventjob-openings',
+		name: 'EventJobs',
+		component: () => import('@/pages/EventJobs.vue'),
 	},
 	{
-		path: '/job-openings/:job',
-		name: 'JobDetail',
-		component: () => import('@/pages/JobDetail.vue'),
+		path: '/eventjob-openings/:eventjob',
+		name: 'EventJobDetail',
+		component: () => import('@/pages/EventJobDetail.vue'),
 		props: true,
 	},
 	{
@@ -114,9 +114,9 @@ const routes = [
 		props: true,
 	},
 	{
-		path: '/job-opening/:jobName/edit',
-		name: 'JobCreation',
-		component: () => import('@/pages/JobCreation.vue'),
+		path: '/eventjob-opening/:eventjobName/edit',
+		name: 'EventJobCreation',
+		component: () => import('@/pages/EventJobCreation.vue'),
 		props: true,
 	},
 	{

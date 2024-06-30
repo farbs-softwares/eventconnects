@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestEventsConnectJobApplication(FrappeTestCase):
+class TestEventsConnectEventJobApplication(FrappeTestCase):
 	pass

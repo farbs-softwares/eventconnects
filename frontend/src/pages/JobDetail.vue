@@ -7,21 +7,21 @@
 				class="h-7"
 				:items="[
 					{
-						label: __('Jobs'),
-						route: { name: 'Jobs' },
+						label: __('EventJobs'),
+						route: { name: 'EventJobs' },
 					},
 					{
-						label: job.data?.job_title,
-						route: { name: 'JobDetail', params: { job: job.data?.name } },
+						label: eventjob.data?.eventjob_title,
+						route: { name: 'EventJobDetail', params: { eventjob: eventjob.data?.name } },
 					},
 				]"
 			/>
 			<div v-if="user.data?.name" class="flex">
 				<router-link
-					v-if="user.data.name == job.data?.owner"
+					v-if="user.data.name == eventjob.data?.owner"
 					:to="{
-						name: 'JobCreation',
-						params: { jobName: job.data?.name },
+						name: 'EventJobCreation',
+						params: { eventjobName: eventjob.data?.name },
 					}"
 				>
 					<Button class="mr-2">
@@ -32,7 +32,7 @@
 					</Button>
 				</router-link>
 				<Button
-					v-if="!jobApplication.data?.length"
+					v-if="!eventjobApplication.data?.length"
 					variant="solid"
 					@click="openApplicationModal()"
 				>
@@ -43,45 +43,45 @@
 				</Button>
 			</div>
 			<div v-else>
-				<Button @click="redirectToLogin(job.data?.name)">
+				<Button @click="redirectToLogin(eventjob.data?.name)">
 					<span>
 						{{ __('Login to apply') }}
 					</span>
 				</Button>
 			</div>
 		</header>
-		<div v-if="job.data" class="w-3/4 mx-auto">
+		<div v-if="eventjob.data" class="w-3/4 mx-auto">
 			<div class="p-4">
 				<div class="flex mb-4">
 					<img
-						:src="job.data.company_logo"
+						:src="eventjob.data.company_logo"
 						class="w-16 h-16 rounded-lg object-contain mr-4"
-						:alt="job.data.company_name"
+						:alt="eventjob.data.company_name"
 					/>
 					<div>
 						<div class="text-2xl font-semibold mb-4">
-							{{ job.data.job_title }}
+							{{ eventjob.data.eventjob_title }}
 						</div>
 						<div class="grid grid-cols-3 gap-8">
 							<div class="grid grid-cols-1 gap-2">
 								<div class="flex items-center space-x-2">
 									<Building2 class="h-4 w-4 stroke-1.5" />
-									<span>{{ job.data.company_name }}</span>
+									<span>{{ eventjob.data.company_name }}</span>
 								</div>
 								<div class="flex items-center space-x-2">
 									<MapPin class="h-4 w-4 stroke-1.5" />
-									<span>{{ job.data.location }}</span>
+									<span>{{ eventjob.data.location }}</span>
 								</div>
 							</div>
 							<div class="grid grid-cols-1 gap-2">
 								<div class="flex items-center space-x-2">
 									<ClipboardType class="h-4 w-4 stroke-1.5" />
-									<span>{{ job.data.type }}</span>
+									<span>{{ eventjob.data.type }}</span>
 								</div>
 								<div class="flex items-center space-x-2">
 									<CalendarDays class="h-4 w-4 stroke-1.5" />
 									<span>{{
-										dayjs(job.data.creation).format('DD MMM YYYY')
+										dayjs(eventjob.data.creation).format('DD MMM YYYY')
 									}}</span>
 								</div>
 							</div>
@@ -101,14 +101,14 @@
 					</div>
 				</div>
 				<p
-					v-html="job.data.description"
+					v-html="eventjob.data.description"
 					class="ProseMirror prose prose-table:table-fixed prose-td:p-2 prose-th:p-2 prose-td:border prose-th:border prose-td:border-gray-300 prose-th:border-gray-300 prose-td:relative prose-th:relative prose-th:bg-gray-100 prose-sm max-w-none !whitespace-normal mt-6"
 				></p>
 			</div>
-			<JobApplicationModal
+			<EventJobApplicationModal
 				v-model="showApplicationModal"
-				v-model:application="jobApplication"
-				:job="job.data.name"
+				v-model:application="eventjobApplication"
+				:eventjob="eventjob.data.name"
 			/>
 		</div>
 	</div>
@@ -117,7 +117,7 @@
 import { Button, Breadcrumbs, createResource } from 'frappe-ui'
 import { inject, ref, computed } from 'vue'
 import { updateDocumentTitle } from '@/utils'
-import JobApplicationModal from '@/components/Modals/JobApplicationModal.vue'
+import EventJobApplicationModal from '@/components/Modals/EventJobApplicationModal.vue'
 import {
 	MapPin,
 	SendHorizonal,
@@ -133,34 +133,34 @@ const dayjs = inject('$dayjs')
 const showApplicationModal = ref(false)
 
 const props = defineProps({
-	job: {
+	eventjob: {
 		type: String,
 		required: true,
 	},
 })
 
-const job = createResource({
-	url: 'eventsconnect.eventsconnect.api.get_job_details',
+const eventjob = createResource({
+	url: 'eventsconnect.eventsconnect.api.get_eventjob_details',
 	params: {
-		job: props.job,
+		eventjob: props.eventjob,
 	},
-	cache: ['job', props.job],
+	cache: ['eventjob', props.eventjob],
 	auto: true,
 	onSuccess: (data) => {
 		if (user.data?.name) {
-			jobApplication.submit()
+			eventjobApplication.submit()
 		}
 		applicationCount.submit()
 	},
 })
 
-const jobApplication = createResource({
+const eventjobApplication = createResource({
 	url: 'frappe.client.get_list',
 	makeParams(values) {
 		return {
-			doctype: 'Events Connect Job Application',
+			doctype: 'Events Connect EventJob Application',
 			filters: {
-				job: job.data?.name,
+				eventjob: eventjob.data?.name,
 				user: user.data?.name,
 			},
 		}
@@ -171,9 +171,9 @@ const applicationCount = createResource({
 	url: 'frappe.client.get_count',
 	makeParams(values) {
 		return {
-			doctype: 'Events Connect Job Application',
+			doctype: 'Events Connect EventJob Application',
 			filters: {
-				job: job.data?.name,
+				eventjob: eventjob.data?.name,
 			},
 		}
 	},
@@ -183,14 +183,14 @@ const openApplicationModal = () => {
 	showApplicationModal.value = true
 }
 
-const redirectToLogin = (job) => {
-	window.location.href = `/login?redirect-to=/job-openings/${job}`
+const redirectToLogin = (eventjob) => {
+	window.location.href = `/login?redirect-to=/eventjob-openings/${eventjob}`
 }
 
 const pageMeta = computed(() => {
 	return {
-		title: job.data?.job_title,
-		description: job.data?.description,
+		title: eventjob.data?.eventjob_title,
+		description: eventjob.data?.description,
 	}
 })
 

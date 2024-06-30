@@ -5,5 +5,5 @@
 import unittest
 
 
-class TestJobSettings(unittest.TestCase):
+class TestEventJobSettings(unittest.TestCase):
 	pass

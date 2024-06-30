@@ -186,10 +186,10 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "fieldname": "looking_for_job",
+   "fieldname": "looking_for_eventjob",
    "fieldtype": "Check",
    "hidden": 0,
-   "label": "I am looking for a job",
+   "label": "I am looking for a eventjob",
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,

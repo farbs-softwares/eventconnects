@@ -43,7 +43,7 @@
   "batches",
   "certified_participants",
   "column_break_exdz",
-  "jobs",
+  "eventjobs",
   "statistics",
   "notifications",
   "section_break_qlss",
@@ -384,9 +384,9 @@
   },
   {
    "default": "1",
-   "fieldname": "jobs",
+   "fieldname": "eventjobs",
    "fieldtype": "Check",
-   "label": "Jobs"
+   "label": "EventJobs"
   },
   {
    "default": "1",

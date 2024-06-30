@@ -3,7 +3,7 @@
 		v-model="show"
 		class="text-base"
 		:options="{
-			title: __('Apply for this job'),
+			title: __('Apply for this eventjob'),
 			size: 'lg',
 			actions: [
 				{
@@ -21,7 +21,7 @@
 				<p>
 					{{
 						__(
-							'Submit your resume to proceed with your application for this position. Upon submission, it will be shared with the job poster.'
+							'Submit your resume to proceed with your application for this position. Upon submission, it will be shared with the eventjob poster.'
 						)
 					}}
 				</p>
@@ -75,7 +75,7 @@ const user = inject('$user')
 const application = defineModel('application')
 
 const props = defineProps({
-	job: {
+	eventjob: {
 		type: String,
 		required: true,
 	},
@@ -88,22 +88,22 @@ const validateFile = (file) => {
 	}
 }
 
-const jobApplication = createResource({
+const eventjobApplication = createResource({
 	url: 'frappe.client.insert',
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Events Connect Job Application',
+				doctype: 'Events Connect EventJob Application',
 				user: user.data?.name,
 				resume: resume.value?.file_name,
-				job: props.job,
+				eventjob: props.eventjob,
 			},
 		}
 	},
 })
 
 const submitResume = (close) => {
-	jobApplication.submit(
+	eventjobApplication.submit(
 		{},
 		{
 			validate() {

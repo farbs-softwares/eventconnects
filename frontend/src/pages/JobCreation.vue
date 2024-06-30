@@ -4,37 +4,37 @@
 			class="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-3 py-2.5 sm:px-5"
 		>
 			<Breadcrumbs :items="breadcrumbs" />
-			<Button variant="solid" @click="saveJob()">
+			<Button variant="solid" @click="saveEventJob()">
 				{{ __('Save') }}
 			</Button>
 		</header>
 		<div class="py-5">
 			<div class="container border-b mb-4 pb-4">
 				<div class="text-lg font-semibold mb-4">
-					{{ __('Job Details') }}
+					{{ __('EventJob Details') }}
 				</div>
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<FormControl
-							v-model="job.job_title"
+							v-model="eventjob.eventjob_title"
 							:label="__('Title')"
 							class="mb-4"
 						/>
-						<FormControl v-model="job.location" :label="__('Location')" />
+						<FormControl v-model="eventjob.location" :label="__('Location')" />
 					</div>
 					<div>
 						<FormControl
-							v-model="job.type"
+							v-model="eventjob.type"
 							:label="__('Type')"
 							type="select"
-							:options="jobTypes"
+							:options="eventjobTypes"
 							class="mb-4"
 						/>
 						<FormControl
-							v-model="job.status"
+							v-model="eventjob.status"
 							:label="__('Status')"
 							type="select"
-							:options="jobStatuses"
+							:options="eventjobStatuses"
 						/>
 					</div>
 				</div>
@@ -43,8 +43,8 @@
 						{{ __('Description') }}
 					</label>
 					<TextEditor
-						:content="job.description"
-						@change="(val) => (job.description = val)"
+						:content="eventjob.description"
+						@change="(val) => (eventjob.description = val)"
 						:editable="true"
 						:fixedMenu="true"
 						editorClass="prose-sm max-w-none border-b border-x bg-gray-100 rounded-b-md py-1 px-2 min-h-[7rem] mb-4"
@@ -58,18 +58,18 @@
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<FormControl
-							v-model="job.company_name"
+							v-model="eventjob.company_name"
 							:label="__('Company Name')"
 							class="mb-4"
 						/>
 						<FormControl
-							v-model="job.company_website"
+							v-model="eventjob.company_website"
 							:label="__('Company Website')"
 						/>
 					</div>
 					<div>
 						<FormControl
-							v-model="job.company_email_address"
+							v-model="eventjob.company_email_address"
 							:label="__('Company Email Address')"
 							class="mb-4"
 						/>
@@ -77,7 +77,7 @@
 							{{ __('Company Logo') }}
 						</label>
 						<FileUploader
-							v-if="!job.image"
+							v-if="!eventjob.image"
 							:fileTypes="['image/*']"
 							:validateFile="validateFile"
 							@success="(file) => saveImage(file)"
@@ -101,10 +101,10 @@
 								</div>
 								<div class="flex flex-col">
 									<span>
-										{{ job.image.file_name }}
+										{{ eventjob.image.file_name }}
 									</span>
 									<span class="text-sm text-gray-500 mt-1">
-										{{ getFileSize(job.image.file_size) }}
+										{{ getFileSize(eventjob.image.file_size) }}
 									</span>
 								</div>
 								<X
@@ -137,50 +137,50 @@ const user = inject('$user')
 const router = useRouter()
 
 const props = defineProps({
-	jobName: {
+	eventjobName: {
 		type: String,
 		default: 'new',
 	},
 })
 
-const newJob = createResource({
+const newEventJob = createResource({
 	url: 'frappe.client.insert',
 	makeParams(values) {
 		return {
 			doc: {
-				doctype: 'Job Opportunity',
-				company_logo: job.image.file_url,
-				...job,
+				doctype: 'EventJob Opportunity',
+				company_logo: eventjob.image.file_url,
+				...eventjob,
 			},
 		}
 	},
 })
 
-const updateJob = createResource({
+const updateEventJob = createResource({
 	url: 'frappe.client.set_value',
 	makeParams(values) {
 		return {
-			doctype: 'Job Opportunity',
-			name: props.jobName,
+			doctype: 'EventJob Opportunity',
+			name: props.eventjobName,
 			fieldname: {
-				company_logo: job.image.file_url,
-				...job,
+				company_logo: eventjob.image.file_url,
+				...eventjob,
 			},
 		}
 	},
 })
 
-const jobDetail = createResource({
+const eventjobDetail = createResource({
 	url: 'frappe.client.get',
 	makeParams(values) {
 		return {
-			doctype: 'Job Opportunity',
-			name: props.jobName,
+			doctype: 'EventJob Opportunity',
+			name: props.eventjobName,
 		}
 	},
 	onSuccess(data) {
 		Object.keys(data).forEach((key) => {
-			if (Object.hasOwn(job, key)) job[key] = data[key]
+			if (Object.hasOwn(eventjob, key)) eventjob[key] = data[key]
 		})
 		if (data.company_logo) imageResource.reload({ image: data.company_logo })
 	},
@@ -195,12 +195,12 @@ const imageResource = createResource({
 	},
 	auto: false,
 	onSuccess(data) {
-		job.image = data
+		eventjob.image = data
 	},
 })
 
-const job = reactive({
-	job_title: '',
+const eventjob = reactive({
+	eventjob_title: '',
 	location: '',
 	type: 'Full Time',
 	status: 'Open',
@@ -214,26 +214,26 @@ const job = reactive({
 onMounted(() => {
 	if (!user.data) window.location.href = '/login'
 
-	if (props.jobName != 'new') jobDetail.reload()
+	if (props.eventjobName != 'new') eventjobDetail.reload()
 })
 
-const saveJob = () => {
-	if (jobDetail.data) {
-		editJobDetails()
+const saveEventJob = () => {
+	if (eventjobDetail.data) {
+		editEventJobDetails()
 	} else {
-		createNewJob()
+		createNewEventJob()
 	}
 }
 
-const createNewJob = () => {
-	newJob.submit(
+const createNewEventJob = () => {
+	newEventJob.submit(
 		{},
 		{
 			onSuccess(data) {
 				router.push({
-					name: 'JobDetail',
+					name: 'EventJobDetail',
 					params: {
-						job: data.name,
+						eventjob: data.name,
 					},
 				})
 			},
@@ -244,15 +244,15 @@ const createNewJob = () => {
 	)
 }
 
-const editJobDetails = () => {
-	updateJob.submit(
+const editEventJobDetails = () => {
+	updateEventJob.submit(
 		{},
 		{
 			onSuccess(data) {
 				router.push({
-					name: 'JobDetail',
+					name: 'EventJobDetail',
 					params: {
-						job: data.name,
+						eventjob: data.name,
 					},
 				})
 			},
@@ -264,11 +264,11 @@ const editJobDetails = () => {
 }
 
 const saveImage = (file) => {
-	job.image = file
+	eventjob.image = file
 }
 
 const removeImage = () => {
-	job.image = null
+	eventjob.image = null
 }
 
 const validateFile = (file) => {
@@ -278,7 +278,7 @@ const validateFile = (file) => {
 	}
 }
 
-const jobTypes = computed(() => {
+const eventjobTypes = computed(() => {
 	return [
 		{ label: 'Full Time', value: 'Full Time' },
 		{ label: 'Part Time', value: 'Part Time' },
@@ -287,7 +287,7 @@ const jobTypes = computed(() => {
 	]
 })
 
-const jobStatuses = computed(() => {
+const eventjobStatuses = computed(() => {
 	return [
 		{ label: 'Open', value: 'Open' },
 		{ label: 'Closed', value: 'Closed' },
@@ -297,12 +297,12 @@ const jobStatuses = computed(() => {
 const breadcrumbs = computed(() => {
 	let crumbs = [
 		{
-			label: 'Jobs',
-			route: { name: 'Jobs' },
+			label: 'EventJobs',
+			route: { name: 'EventJobs' },
 		},
 		{
-			label: props.jobName == 'new' ? 'New Job' : 'Edit Job',
-			route: { name: 'JobCreation' },
+			label: props.eventjobName == 'new' ? 'New EventJob' : 'Edit EventJob',
+			route: { name: 'EventJobCreation' },
 		},
 	]
 	return crumbs

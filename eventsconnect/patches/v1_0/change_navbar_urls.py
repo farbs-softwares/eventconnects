@@ -5,7 +5,7 @@ def execute():
 	rename_link("/courses", "/eventsconnect/courses")
 	rename_link("/batches", "/eventsconnect/batches")
 	rename_link("/statistics", "/eventsconnect/statistics")
-	rename_link("/job-openings", "/eventsconnect/job-openings")
+	rename_link("/eventjob-openings", "/eventsconnect/eventjob-openings")
 	delete_link("/people")
 
 

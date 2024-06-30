@@ -8,8 +8,8 @@
   "user",
   "resume",
   "column_break_deax",
-  "job",
-  "job_title",
+  "eventjob",
+  "eventjob_title",
   "company"
  ],
  "fields": [
@@ -33,24 +33,24 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "job",
+   "fieldname": "eventjob",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Job",
-   "options": "Job Opportunity",
+   "label": "EventJob",
+   "options": "EventJob Opportunity",
    "reqd": 1
   },
   {
-   "fetch_from": "job.job_title",
-   "fieldname": "job_title",
+   "fetch_from": "eventjob.eventjob_title",
+   "fieldname": "eventjob_title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Job Title",
+   "label": "EventJob Title",
    "read_only": 1
   },
   {
-   "fetch_from": "job.company_name",
+   "fetch_from": "eventjob.company_name",
    "fieldname": "company",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -62,8 +62,8 @@
  "links": [],
  "modified": "2024-02-20 20:10:46.943871",
  "modified_by": "Administrator",
- "module": "Job",
- "name": "Events Connect Job Application",
+ "module": "EventJob",
+ "name": "Events Connect EventJob Application",
  "owner": "Administrator",
  "permissions": [
   {

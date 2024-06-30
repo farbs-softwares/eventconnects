@@ -104,29 +104,29 @@ def get_meta(app_path):
 			"link": f"/batches/{batch_name}",
 		}
 
-	if app_path == "job-openings":
+	if app_path == "eventjob-openings":
 		return {
-			"title": _("Job Openings"),
+			"title": _("EventJob Openings"),
 			"image": frappe.db.get_single_value("Website Settings", "banner_image"),
-			"description": "This page lists all the job openings published on our website",
-			"keywords": "Job Openings, Jobs, Vacancies",
-			"link": "/job-openings",
+			"description": "This page lists all the eventjob openings published on our website",
+			"keywords": "EventJob Openings, EventJobs, Vacancies",
+			"link": "/eventjob-openings",
 		}
 
-	if re.match(r"^job-openings/.*$", app_path):
-		job_opening_name = app_path.split("/")[1]
-		job_opening = frappe.db.get_value(
-			"Job Opportunity",
-			job_opening_name,
-			["job_title", "company_logo", "company_name"],
+	if re.match(r"^eventjob-openings/.*$", app_path):
+		eventjob_opening_name = app_path.split("/")[1]
+		eventjob_opening = frappe.db.get_value(
+			"EventJob Opportunity",
+			eventjob_opening_name,
+			["eventjob_title", "company_logo", "company_name"],
 			as_dict=True,
 		)
 		return {
-			"title": job_opening.job_title,
-			"image": job_opening.company_logo,
-			"description": job_opening.company_name,
-			"keywords": "Job Openings, Jobs, Vacancies",
-			"link": f"/job-openings/{job_opening_name}",
+			"title": eventjob_opening.eventjob_title,
+			"image": eventjob_opening.company_logo,
+			"description": eventjob_opening.company_name,
+			"keywords": "EventJob Openings, EventJobs, Vacancies",
+			"link": f"/eventjob-openings/{eventjob_opening_name}",
 		}
 
 	if app_path == "statistics":
