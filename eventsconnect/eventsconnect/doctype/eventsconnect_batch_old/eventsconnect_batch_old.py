@@ -16,7 +16,7 @@ class EventsConnectBatchOld(Document):
 
 	def validate_if_mentor(self):
 		if not is_mentor(self.course, frappe.session.user):
-			course_title = frappe.db.get_value("Events Connect Course", self.course, "title")
+			course_title = frappe.db.get_value("EventsConnect Course", self.course, "title")
 			frappe.throw(_("You are not a mentor of the course {0}").format(course_title))
 
 	def after_insert(self):
@@ -31,16 +31,16 @@ class EventsConnectBatchOld(Document):
 		filters = {"batch_old": self.name, "member": email}
 		if member_type:
 			filters["member_type"] = member_type
-		return frappe.db.exists("Events Connect Enrollment", filters)
+		return frappe.db.exists("EventsConnect Enrollment", filters)
 
 	def get_membership(self, email):
 		"""Returns the membership document of given user."""
 		name = frappe.get_value(
-			doctype="Events Connect Enrollment",
+			doctype="EventsConnect Enrollment",
 			filters={"batch_old": self.name, "member": email},
 			fieldname="name",
 		)
-		return frappe.get_doc("Events Connect Enrollment", name)
+		return frappe.get_doc("EventsConnect Enrollment", name)
 
 	def get_current_lesson(self, user):
 		"""Returns the name of the current lesson for the given user."""
@@ -52,7 +52,7 @@ class EventsConnectBatchOld(Document):
 def save_message(message, batch):
 	doc = frappe.get_doc(
 		{
-			"doctype": "Events Connect Message",
+			"doctype": "EventsConnect Message",
 			"batch_old": batch,
 			"author": frappe.session.user,
 			"message": message,
@@ -64,10 +64,10 @@ def save_message(message, batch):
 def switch_batch(course_name, email, batch_name):
 	"""Switches the user from the current batch of the course to a new batch."""
 	membership = frappe.get_last_doc(
-		"Events Connect Enrollment", filters={"course": course_name, "member": email}
+		"EventsConnect Enrollment", filters={"course": course_name, "member": email}
 	)
 
-	batch = frappe.get_doc("Events Connect Batch Old", batch_name)
+	batch = frappe.get_doc("EventsConnect Batch Old", batch_name)
 	if not batch:
 		raise ValueError(f"Invalid Batch: {batch_name}")
 
@@ -78,7 +78,7 @@ def switch_batch(course_name, email, batch_name):
 		print(f"{email} is already a member of {batch.title}")
 		return
 
-	old_batch = frappe.get_doc("Events Connect Batch Old", membership.batch_old)
+	old_batch = frappe.get_doc("EventsConnect Batch Old", membership.batch_old)
 
 	membership.batch_old = batch_name
 	membership.save()

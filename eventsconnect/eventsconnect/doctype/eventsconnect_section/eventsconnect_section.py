@@ -11,11 +11,11 @@ class EventsConnectSection(Document):
 
 	def get_exercise(self):
 		if self.type == "exercise":
-			return frappe.get_doc("Events Connect Exercise", self.id)
+			return frappe.get_doc("EventsConnect Exercise", self.id)
 
 	def get_quiz(self):
 		if self.type == "quiz":
-			return frappe.get_doc("Events Connect Quiz", self.id)
+			return frappe.get_doc("EventsConnect Quiz", self.id)
 
 	def get_latest_code_for_user(self):
 		"""Returns the latest code for the logged in user."""

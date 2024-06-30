@@ -26,5 +26,5 @@ class TestEventsConnectCertificate(unittest.TestCase):
 		self.assertEqual(certificate.issue_date, nowdate())
 		self.assertEqual(certificate.expiry_date, add_years(nowdate(), cint(course.expiry)))
 
-		frappe.db.delete("Events Connect Certificate", certificate.name)
-		frappe.db.delete("Events Connect Course", course.name)
+		frappe.db.delete("EventsConnect Certificate", certificate.name)
+		frappe.db.delete("EventsConnect Course", course.name)

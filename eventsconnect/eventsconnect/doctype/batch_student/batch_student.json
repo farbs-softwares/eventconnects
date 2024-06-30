@@ -53,7 +53,7 @@
    "fieldname": "payment",
    "fieldtype": "Link",
    "label": "Payment",
-   "options": "Events Connect Payment"
+   "options": "EventsConnect Payment"
   },
   {
    "default": "0",
@@ -65,7 +65,7 @@
    "fieldname": "source",
    "fieldtype": "Link",
    "label": "Source",
-   "options": "Events Connect Source"
+   "options": "EventsConnect Source"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -73,7 +73,7 @@
  "links": [],
  "modified": "2023-10-26 16:52:04.266693",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Batch Student",
  "owner": "Administrator",
  "permissions": [],

@@ -1,7 +1,7 @@
 // Copyright (c) 2021, FOSS United and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Course", {
+frappe.ui.form.on("EventsConnect Course", {
 	onload: function (frm) {
 		frm.set_query("chapter", "chapters", function () {
 			return {
@@ -24,7 +24,7 @@ frappe.ui.form.on("Events Connect Course", {
 
 		if (!frm.doc.currency)
 			frappe.db
-				.get_single_value("Events Connect Settings", "default_currency")
+				.get_single_value("EventsConnect Settings", "default_currency")
 				.then((value) => {
 					frm.set_value("currency", value);
 				});

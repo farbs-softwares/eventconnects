@@ -50,7 +50,7 @@ class EventsConnectQuiz(Document):
 
 	def autoname(self):
 		if not self.name:
-			self.name = generate_slug(self.title, "Events Connect Quiz")
+			self.name = generate_slug(self.title, "EventsConnect Quiz")
 
 	def get_last_submission_details(self):
 		"""Returns the latest submission for this user."""
@@ -59,7 +59,7 @@ class EventsConnectQuiz(Document):
 			return
 
 		result = frappe.get_all(
-			"Events Connect Quiz Submission",
+			"EventsConnect Quiz Submission",
 			fields="*",
 			filters={"owner": user, "quiz": self.name},
 			order_by="creation desc",
@@ -89,7 +89,7 @@ def quiz_summary(quiz, results):
 		result["is_correct"] = correct
 
 		question_details = frappe.db.get_value(
-			"Events Connect Quiz Question",
+			"EventsConnect Quiz Question",
 			{"parent": quiz, "idx": result["question_index"]},
 			["question", "marks"],
 			as_dict=1,
@@ -97,7 +97,7 @@ def quiz_summary(quiz, results):
 
 		result["question_name"] = question_details.question
 		result["question"] = frappe.db.get_value(
-			"Events Connect Question", question_details.question, "question"
+			"EventsConnect Question", question_details.question, "question"
 		)
 		marks = question_details.marks if correct else 0
 
@@ -107,14 +107,14 @@ def quiz_summary(quiz, results):
 		del result["question_index"]
 
 	quiz_details = frappe.db.get_value(
-		"Events Connect Quiz", quiz, ["total_marks", "passing_percentage", "lesson", "course"], as_dict=1
+		"EventsConnect Quiz", quiz, ["total_marks", "passing_percentage", "lesson", "course"], as_dict=1
 	)
 	score_out_of = quiz_details.total_marks
 	percentage = (score / score_out_of) * 100
 
 	submission = frappe.get_doc(
 		{
-			"doctype": "Events Connect Quiz Submission",
+			"doctype": "EventsConnect Quiz Submission",
 			"quiz": quiz,
 			"result": results,
 			"score": score,
@@ -166,11 +166,11 @@ def save_quiz(
 	}
 
 	if quiz:
-		frappe.db.set_value("Events Connect Quiz", quiz, values)
+		frappe.db.set_value("EventsConnect Quiz", quiz, values)
 		update_questions(quiz, questions)
 		return quiz
 	else:
-		doc = frappe.new_doc("Events Connect Quiz")
+		doc = frappe.new_doc("EventsConnect Quiz")
 		doc.update(values)
 		doc.save()
 		update_questions(doc.name, questions)
@@ -182,12 +182,12 @@ def update_questions(quiz, questions):
 
 	delete_questions(quiz, questions)
 	add_questions(quiz, questions)
-	frappe.db.set_value("Events Connect Quiz", quiz, "total_marks", set_total_marks(quiz, questions))
+	frappe.db.set_value("EventsConnect Quiz", quiz, "total_marks", set_total_marks(quiz, questions))
 
 
 def delete_questions(quiz, questions):
 	existing_questions = frappe.get_all(
-		"Events Connect Quiz Question",
+		"EventsConnect Quiz Question",
 		{
 			"parent": quiz,
 		},
@@ -198,20 +198,20 @@ def delete_questions(quiz, questions):
 
 	for question in existing_questions:
 		if question not in current_questions:
-			frappe.db.delete("Events Connect Quiz Question", question)
+			frappe.db.delete("EventsConnect Quiz Question", question)
 
 
 def add_questions(quiz, questions):
 	for index, question in enumerate(questions):
 		question = frappe._dict(question)
 		if question.question_name:
-			doc = frappe.get_doc("Events Connect Quiz Question", question.question_name)
+			doc = frappe.get_doc("EventsConnect Quiz Question", question.question_name)
 		else:
-			doc = frappe.new_doc("Events Connect Quiz Question")
+			doc = frappe.new_doc("EventsConnect Quiz Question")
 			doc.update(
 				{
 					"parent": quiz,
-					"parenttype": "Events Connect Quiz",
+					"parenttype": "EventsConnect Quiz",
 					"parentfield": "questions",
 					"idx": index + 1,
 				}
@@ -227,9 +227,9 @@ def save_question(quiz, values, index):
 	values = frappe._dict(json.loads(values))
 
 	if values.get("name"):
-		doc = frappe.get_doc("Events Connect Question", values.get("name"))
+		doc = frappe.get_doc("EventsConnect Question", values.get("name"))
 	else:
-		doc = frappe.new_doc("Events Connect Question")
+		doc = frappe.new_doc("EventsConnect Question")
 
 	doc.update(
 		{
@@ -267,7 +267,7 @@ def save_question(quiz, values, index):
 
 @frappe.whitelist()
 def get_question_details(question):
-	if frappe.db.exists("Events Connect Quiz Question", question):
+	if frappe.db.exists("EventsConnect Quiz Question", question):
 		fields = ["name", "question", "type"]
 		for num in range(1, 5):
 			fields.append(f"option_{cstr(num)}")
@@ -275,7 +275,7 @@ def get_question_details(question):
 			fields.append(f"explanation_{cstr(num)}")
 			fields.append(f"possibility_{cstr(num)}")
 
-		return frappe.db.get_value("Events Connect Quiz Question", question, fields, as_dict=1)
+		return frappe.db.get_value("EventsConnect Quiz Question", question, fields, as_dict=1)
 	return
 
 
@@ -295,7 +295,7 @@ def check_choice_answers(question, answers):
 		fields.append(f"option_{cstr(num)}")
 		fields.append(f"is_correct_{cstr(num)}")
 
-	question_details = frappe.db.get_value("Events Connect Question", question, fields, as_dict=1)
+	question_details = frappe.db.get_value("EventsConnect Question", question, fields, as_dict=1)
 
 	""" if question_details.multiple:
 		correct_answers = [ question_details[f"option_{num}"] for num in range(1,5) if question_details[f"is_correct_{num}"]]
@@ -322,7 +322,7 @@ def check_input_answers(question, answer):
 	for num in range(1, 5):
 		fields.append(f"possibility_{cstr(num)}")
 
-	question_details = frappe.db.get_value("Events Connect Question", question, fields, as_dict=1)
+	question_details = frappe.db.get_value("EventsConnect Question", question, fields, as_dict=1)
 	for num in range(1, 5):
 		current_possibility = question_details[f"possibility_{num}"]
 		if current_possibility and fuzz.token_sort_ratio(current_possibility, answer) > 85:
@@ -334,4 +334,4 @@ def check_input_answers(question, answer):
 @frappe.whitelist()
 def get_user_quizzes():
 	filters = {} if has_course_moderator_role() else {"owner": frappe.session.user}
-	return frappe.get_all("Events Connect Quiz", filters=filters, fields=["name", "title"])
+	return frappe.get_all("EventsConnect Quiz", filters=filters, fields=["name", "title"])

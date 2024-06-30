@@ -13,9 +13,9 @@ def execute():
 
 
 def update_chapters():
-	courses = frappe.get_all("Events Connect Course", pluck="name")
+	courses = frappe.get_all("EventsConnect Course", pluck="name")
 	for course in courses:
-		course_details = frappe.get_doc("Events Connect Course", course)
+		course_details = frappe.get_doc("EventsConnect Course", course)
 		chapters = frappe.get_all("Chapter", {"course": course}, ["name"], order_by="index_")
 		for chapter in chapters:
 			course_details.append("chapters", {"chapter": chapter.name})

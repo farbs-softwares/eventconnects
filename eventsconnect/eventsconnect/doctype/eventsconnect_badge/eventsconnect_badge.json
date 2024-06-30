@@ -94,14 +94,14 @@
  "index_web_pages_for_search": 1,
  "links": [
   {
-   "link_doctype": "Events Connect Badge Assignment",
+   "link_doctype": "EventsConnect Badge Assignment",
    "link_fieldname": "badge"
   }
  ],
  "modified": "2024-05-27 17:25:55.399830",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Badge",
+ "module": "EventsConnect",
+ "name": "EventsConnect Badge",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

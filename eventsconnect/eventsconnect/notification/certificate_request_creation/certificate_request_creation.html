@@ -1,5 +1,5 @@
-{% set title = frappe.db.get_value("Events Connect Course", doc.course, "title") %}
-{% set timezone = frappe.db.get_value("Events Connect Batch", doc.batch, "timezone") %}
+{% set title = frappe.db.get_value("EventsConnect Course", doc.course, "title") %}
+{% set timezone = frappe.db.get_value("EventsConnect Batch", doc.batch, "timezone") %}
 {% set timezone = timezone if timezone else '' %}
 
 <p> {{ _("Hey {0}").format(doc.member_name) }} </p>

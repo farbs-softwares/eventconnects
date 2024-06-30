@@ -8,7 +8,7 @@
 			{{ _("Get Started") }}
 		</div>
 		<div class="onboarding-subtitle">
-			{{ _("Lets start setting up your content on the Events Connect so that you can reclaim time and focus on growth.") }}
+			{{ _("Lets start setting up your content on the EventsConnect so that you can reclaim time and focus on growth.") }}
 		</div>
 		<div class="onboarding-steps">
 			<a class="onboarding-steps-link" href="/courses/new-course/edit">
@@ -51,8 +51,8 @@
 		frappe.call({
 			method: "frappe.client.set_value",
 			args: {
-				doctype: "Events Connect Settings",
-				name: "Events Connect Settings",
+				doctype: "EventsConnect Settings",
+				name: "EventsConnect Settings",
 				fieldname: "is_onboarding_complete",
 				value: 1,
 			},

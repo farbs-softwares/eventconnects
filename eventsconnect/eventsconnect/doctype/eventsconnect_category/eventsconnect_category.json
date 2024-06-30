@@ -22,8 +22,8 @@
  "links": [],
  "modified": "2023-06-15 15:14:11.341961",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Category",
+ "module": "EventsConnect",
+ "name": "EventsConnect Category",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

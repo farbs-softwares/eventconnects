@@ -1,9 +1,9 @@
 from . import __version__ as app_version
 
 app_name = "eventsconnect"
-app_title = "Frappe Events Connect"
+app_title = "Frappe EventsConnect"
 app_publisher = "Frappe"
-app_description = "Frappe Events Connect App"
+app_description = "Frappe EventsConnect App"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "school@frappe.io"
@@ -238,8 +238,8 @@ jinja = {
 # ]
 
 has_website_permission = {
-	"Events Connect Certificate Evaluation": "eventsconnect.eventsconnect.doctype.eventsconnect_certificate_evaluation.eventsconnect_certificate_evaluation.has_website_permission",
-	"Events Connect Certificate": "eventsconnect.eventsconnect.doctype.eventsconnect_certificate.eventsconnect_certificate.has_website_permission",
+	"EventsConnect Certificate Evaluation": "eventsconnect.eventsconnect.doctype.eventsconnect_certificate_evaluation.eventsconnect_certificate_evaluation.has_website_permission",
+	"EventsConnect Certificate": "eventsconnect.eventsconnect.doctype.eventsconnect_certificate.eventsconnect_certificate.has_website_permission",
 }
 
 ## Markdown Macros for Lessons

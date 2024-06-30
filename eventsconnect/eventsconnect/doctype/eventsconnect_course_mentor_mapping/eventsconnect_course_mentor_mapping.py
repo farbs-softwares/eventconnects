@@ -9,7 +9,7 @@ from frappe.model.document import Document
 class EventsConnectCourseMentorMapping(Document):
 	def validate(self):
 		duplicate_mapping = frappe.get_all(
-			"Events Connect Course Mentor Mapping", filters={"course": self.course, "mentor": self.mentor}
+			"EventsConnect Course Mentor Mapping", filters={"course": self.course, "mentor": self.mentor}
 		)
 		if len(duplicate_mapping):
 			frappe.throw(

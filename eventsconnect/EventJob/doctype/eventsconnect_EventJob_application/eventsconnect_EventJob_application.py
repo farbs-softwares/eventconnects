@@ -18,7 +18,7 @@ class EventsConnectEventJobApplication(Document):
 			self.send_email_to_employer()
 
 	def validate_duplicate(self):
-		if frappe.db.exists("Events Connect EventJob Application", {"eventjob": self.eventjob, "user": self.user}):
+		if frappe.db.exists("EventsConnect EventJob Application", {"eventjob": self.eventjob, "user": self.user}):
 			frappe.throw(_("You have already applied for this eventjob."))
 
 	def send_email_to_employer(self):

@@ -197,8 +197,8 @@
  "links": [],
  "modified": "2024-05-24 16:12:26.331351",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Question",
+ "module": "EventsConnect",
+ "name": "EventsConnect Question",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [

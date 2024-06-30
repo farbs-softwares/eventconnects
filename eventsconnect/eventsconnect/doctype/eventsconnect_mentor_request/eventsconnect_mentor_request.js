@@ -1,7 +1,7 @@
 // Copyright (c) 2021, FOSS United and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Mentor Request", {
+frappe.ui.form.on("EventsConnect Mentor Request", {
 	// refresh: function(frm) {
 	// }
 });

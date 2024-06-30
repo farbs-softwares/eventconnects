@@ -23,7 +23,7 @@ class EventsConnectAssignmentSubmission(Document):
 
 	def validate_duplicates(self):
 		if frappe.db.exists(
-			"Events Connect Assignment Submission",
+			"EventsConnect Assignment Submission",
 			{"assignment": self.assignment, "member": self.member, "name": ["!=", self.name]},
 		):
 			lesson_title = frappe.db.get_value("Course Lesson", self.lesson, "title")
@@ -41,7 +41,7 @@ class EventsConnectAssignmentSubmission(Document):
 		subject = _("New Assignment Submission")
 		template = "assignment_submission"
 		custom_template = frappe.db.get_single_value(
-			"Events Connect Settings", "assignment_submission_template"
+			"EventsConnect Settings", "assignment_submission_template"
 		)
 
 		args = {
@@ -84,7 +84,7 @@ def upload_assignment(
 		return
 
 	assignment_details = frappe.db.get_value(
-		"Events Connect Assignment", assignment, ["type", "grade_assignment"], as_dict=1
+		"EventsConnect Assignment", assignment, ["type", "grade_assignment"], as_dict=1
 	)
 	assignment_type = assignment_details.type
 
@@ -98,11 +98,11 @@ def upload_assignment(
 		frappe.throw(_("Please enter a valid URL."))
 
 	if submission:
-		doc = frappe.get_doc("Events Connect Assignment Submission", submission)
+		doc = frappe.get_doc("EventsConnect Assignment Submission", submission)
 	else:
 		doc = frappe.get_doc(
 			{
-				"doctype": "Events Connect Assignment Submission",
+				"doctype": "EventsConnect Assignment Submission",
 				"assignment": assignment,
 				"lesson": lesson,
 				"member": frappe.session.user,
@@ -127,7 +127,7 @@ def upload_assignment(
 @frappe.whitelist()
 def get_assignment(lesson):
 	assignment = frappe.db.get_value(
-		"Events Connect Assignment Submission",
+		"EventsConnect Assignment Submission",
 		{"lesson": lesson, "member": frappe.session.user},
 		["name", "lesson", "member", "assignment_attachment", "comments", "status"],
 		as_dict=True,
@@ -140,7 +140,7 @@ def get_assignment(lesson):
 
 @frappe.whitelist()
 def grade_assignment(name, result, comments):
-	doc = frappe.get_doc("Events Connect Assignment Submission", name)
+	doc = frappe.get_doc("EventsConnect Assignment Submission", name)
 	doc.status = result
 	doc.comments = comments
 	doc.save(ignore_permissions=True)

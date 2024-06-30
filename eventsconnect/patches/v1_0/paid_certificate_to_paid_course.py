@@ -4,14 +4,14 @@ import frappe
 def execute():
 	frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_course")
 	courses = frappe.get_all(
-		"Events Connect Course",
+		"EventsConnect Course",
 		{"paid_certificate": ["is", "set"]},
 		["name", "price_certificate", "currency"],
 	)
 
 	for course in courses:
 		frappe.db.set_value(
-			"Events Connect Course",
+			"EventsConnect Course",
 			course.name,
 			{
 				"paid_course": 1,

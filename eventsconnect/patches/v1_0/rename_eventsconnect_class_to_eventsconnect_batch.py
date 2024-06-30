@@ -3,7 +3,7 @@ from frappe.model.rename_doc import rename_doc
 
 
 def execute():
-	if frappe.db.exists("DocField", {"fieldname": "students", "parent": "Events Connect Batch"}):
+	if frappe.db.exists("DocField", {"fieldname": "students", "parent": "EventsConnect Batch"}):
 		return
 
 	rename_eventsconnect_class()
@@ -13,9 +13,9 @@ def execute():
 
 def rename_eventsconnect_class():
 	frappe.flags.ignore_route_conflict_validation = True
-	rename_doc("DocType", "Events Connect Class", "Events Connect Batch")
+	rename_doc("DocType", "EventsConnect Class", "EventsConnect Batch")
 	frappe.flags.ignore_route_conflict_validation = False
-	frappe.reload_doctype("Events Connect Batch", force=True)
+	frappe.reload_doctype("EventsConnect Batch", force=True)
 
 
 def rename_class_student():

@@ -13,7 +13,7 @@ class CohortJoinRequest(Document):
 	def ensure_student(self):
 		# case 1 - user is already a member
 		q = {
-			"doctype": "Events Connect Enrollment",
+			"doctype": "EventsConnect Enrollment",
 			"cohort": self.cohort,
 			"subgroup": self.subgroup,
 			"member": self.email,
@@ -26,21 +26,21 @@ class CohortJoinRequest(Document):
 		cohort = frappe.get_doc("Cohort", self.cohort)
 
 		q = {
-			"doctype": "Events Connect Enrollment",
+			"doctype": "EventsConnect Enrollment",
 			"course": cohort.course,
 			"member": self.email,
 			"member_type": "Student",
 		}
 		name = frappe.db.exists(q)
 		if name:
-			doc = frappe.get_doc("Events Connect Enrollment", name)
+			doc = frappe.get_doc("EventsConnect Enrollment", name)
 			doc.cohort = self.cohort
 			doc.subgroup = self.subgroup
 			doc.save(ignore_permissions=True)
 		else:
 			# case 3 - user has not signed up for this course yet
 			data = {
-				"doctype": "Events Connect Enrollment",
+				"doctype": "EventsConnect Enrollment",
 				"course": cohort.course,
 				"cohort": self.cohort,
 				"subgroup": self.subgroup,

@@ -43,7 +43,7 @@ def get_meta(app_path):
 			}
 		course_name = app_path.split("/")[1]
 		course = frappe.db.get_value(
-			"Events Connect Course",
+			"EventsConnect Course",
 			course_name,
 			["title", "image", "short_introduction", "tags"],
 			as_dict=True,
@@ -67,7 +67,7 @@ def get_meta(app_path):
 	if re.match(r"^batches/details/.*$", app_path):
 		batch_name = app_path.split("/")[2]
 		batch = frappe.db.get_value(
-			"Events Connect Batch",
+			"EventsConnect Batch",
 			batch_name,
 			["title", "meta_image", "description", "category", "medium"],
 			as_dict=True,
@@ -91,7 +91,7 @@ def get_meta(app_path):
 				"link": "/eventsconnect/batches/new/edit",
 			}
 		batch = frappe.db.get_value(
-			"Events Connect Batch",
+			"EventsConnect Batch",
 			batch_name,
 			["title", "meta_image", "description", "category", "medium"],
 			as_dict=True,
@@ -164,7 +164,7 @@ def get_meta(app_path):
 		badgeName = app_path.split("/")[1]
 		email = app_path.split("/")[2]
 		badge = frappe.db.get_value(
-			"Events Connect Badge",
+			"EventsConnect Badge",
 			badgeName,
 			["title", "image", "description"],
 			as_dict=True,

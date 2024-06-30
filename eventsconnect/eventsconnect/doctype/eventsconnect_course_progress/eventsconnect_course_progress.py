@@ -10,11 +10,11 @@ class EventsConnectCourseProgress(Document):
 	def after_delete(self):
 		progress = get_course_progress(self.course, self.member)
 		membership = frappe.db.get_value(
-			"Events Connect Enrollment",
+			"EventsConnect Enrollment",
 			{
 				"member": self.member,
 				"course": self.course,
 			},
 			"name",
 		)
-		frappe.db.set_value("Events Connect Enrollment", membership, "progress", progress)
+		frappe.db.set_value("EventsConnect Enrollment", membership, "progress", progress)

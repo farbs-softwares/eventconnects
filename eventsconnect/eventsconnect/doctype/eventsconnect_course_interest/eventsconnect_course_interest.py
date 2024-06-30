@@ -12,7 +12,7 @@ class EventsConnectCourseInterest(Document):
 @frappe.whitelist()
 def capture_interest(course):
 	data = {
-		"doctype": "Events Connect Course Interest",
+		"doctype": "EventsConnect Course Interest",
 		"course": course,
 		"user": frappe.session.user,
 	}

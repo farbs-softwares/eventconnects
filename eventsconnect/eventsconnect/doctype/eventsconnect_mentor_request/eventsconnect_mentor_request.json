@@ -27,7 +27,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course"
+   "options": "EventsConnect Course"
   },
   {
    "fieldname": "column_break_3",
@@ -64,8 +64,8 @@
  "links": [],
  "modified": "2021-05-21 11:49:12.543502",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Mentor Request",
+ "module": "EventsConnect",
+ "name": "EventsConnect Mentor Request",
  "owner": "Administrator",
  "permissions": [
   {

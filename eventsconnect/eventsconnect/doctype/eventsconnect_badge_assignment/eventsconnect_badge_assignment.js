@@ -1,7 +1,7 @@
 // Copyright (c) 2024, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Badge Assignment", {
+frappe.ui.form.on("EventsConnect Badge Assignment", {
 	refresh(frm) {
 		frm.set_query("member", function (doc) {
 			return {

@@ -12,7 +12,7 @@ class EventsConnectCourseReview(Document):
 
 	def validate_if_already_reviewed(self):
 		if frappe.db.exists(
-			"Events Connect Course Review", {"course": self.course, "owner": self.owner}
+			"EventsConnect Course Review", {"course": self.course, "owner": self.owner}
 		):
 			frappe.throw(frappe._("You have already reviewed this course"))
 
@@ -20,11 +20,11 @@ class EventsConnectCourseReview(Document):
 @frappe.whitelist()
 def submit_review(rating, review, course):
 	out_of_ratings = frappe.db.get_all(
-		"DocField", {"parent": "Events Connect Course Review", "fieldtype": "Rating"}, ["options"]
+		"DocField", {"parent": "EventsConnect Course Review", "fieldtype": "Rating"}, ["options"]
 	)
 	out_of_ratings = (len(out_of_ratings) and out_of_ratings[0].options) or 5
 	rating = cint(rating) / out_of_ratings
 	frappe.get_doc(
-		{"doctype": "Events Connect Course Review", "rating": rating, "review": review, "course": course}
+		{"doctype": "EventsConnect Course Review", "rating": rating, "review": review, "course": course}
 	).save(ignore_permissions=True)
 	return "OK"

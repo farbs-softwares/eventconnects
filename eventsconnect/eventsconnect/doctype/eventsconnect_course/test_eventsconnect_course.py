@@ -31,18 +31,18 @@ class TestEventsConnectCourse(unittest.TestCase):
 		if frappe.db.exists("User", "tester@example.com"):
 			frappe.delete_doc("User", "tester@example.com")
 
-		if frappe.db.exists("Events Connect Course", "test-course"):
+		if frappe.db.exists("EventsConnect Course", "test-course"):
 			frappe.db.delete("Exercise Submission", {"course": "test-course"})
 			frappe.db.delete("Exercise Latest Submission", {"course": "test-course"})
-			frappe.db.delete("Events Connect Exercise", {"course": "test-course"})
-			frappe.db.delete("Events Connect Enrollment", {"course": "test-course"})
+			frappe.db.delete("EventsConnect Exercise", {"course": "test-course"})
+			frappe.db.delete("EventsConnect Enrollment", {"course": "test-course"})
 			frappe.db.delete("Course Lesson", {"course": "test-course"})
 			frappe.db.delete("Course Chapter", {"course": "test-course"})
-			frappe.db.delete("Events Connect Batch Old", {"course": "test-course"})
-			frappe.db.delete("Events Connect Course Mentor Mapping", {"course": "test-course"})
+			frappe.db.delete("EventsConnect Batch Old", {"course": "test-course"})
+			frappe.db.delete("EventsConnect Course Mentor Mapping", {"course": "test-course"})
 			frappe.db.delete("Course Instructor", {"parent": "test-course"})
 			frappe.db.sql("delete from `tabCourse Instructor`")
-			frappe.delete_doc("Events Connect Course", "test-course")
+			frappe.delete_doc("EventsConnect Course", "test-course")
 
 
 def new_user(name, email):
@@ -63,9 +63,9 @@ def new_user(name, email):
 
 
 def new_course(title, additional_filters=None):
-	course = frappe.db.exists("Events Connect Course", {"title": title})
+	course = frappe.db.exists("EventsConnect Course", {"title": title})
 	if course:
-		return frappe.get_doc("Events Connect Course", course)
+		return frappe.get_doc("EventsConnect Course", course)
 	else:
 		create_evaluator()
 		user = frappe.db.get_value(
@@ -86,7 +86,7 @@ def new_course(title, additional_filters=None):
 		if additional_filters:
 			filters.update(additional_filters)
 
-		doc = frappe.new_doc("Events Connect Course")
+		doc = frappe.new_doc("EventsConnect Course")
 		doc.update(filters)
 		doc.save()
 		return doc

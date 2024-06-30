@@ -24,7 +24,7 @@
  "max_attachment_size": 0,
  "modified": "2023-01-09 15:45:11.411692",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "profile",
  "owner": "Administrator",
  "payment_button_label": "Buy Now",

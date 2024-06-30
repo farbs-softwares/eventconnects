@@ -21,7 +21,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -69,8 +69,8 @@
  "links": [],
  "modified": "2024-02-27 11:43:08.326886",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Course Progress",
+ "module": "EventsConnect",
+ "name": "EventsConnect Course Progress",
  "owner": "Administrator",
  "permissions": [
   {
@@ -92,7 +92,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

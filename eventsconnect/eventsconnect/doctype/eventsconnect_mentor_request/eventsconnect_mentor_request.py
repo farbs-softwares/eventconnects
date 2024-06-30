@@ -19,7 +19,7 @@ class EventsConnectMentorRequest(Document):
 	def create_course_mentor_mapping(self):
 		mapping = frappe.get_doc(
 			{
-				"doctype": "Events Connect Course Mentor Mapping",
+				"doctype": "EventsConnect Course Mentor Mapping",
 				"mentor": self.member,
 				"course": self.course,
 			}
@@ -32,7 +32,7 @@ class EventsConnectMentorRequest(Document):
 			return
 
 		course_details = frappe.db.get_value(
-			"Events Connect Course", self.course, ["owner", "slug", "title"], as_dict=True
+			"EventsConnect Course", self.course, ["owner", "slug", "title"], as_dict=True
 		)
 		message = frappe.render_template(
 			email_template.response,
@@ -59,7 +59,7 @@ class EventsConnectMentorRequest(Document):
 			return
 
 		course_details = frappe.db.get_value(
-			"Events Connect Course", self.course, ["owner", "title"], as_dict=True
+			"EventsConnect Course", self.course, ["owner", "title"], as_dict=True
 		)
 		message = frappe.render_template(
 			email_template.response,
@@ -94,7 +94,7 @@ class EventsConnectMentorRequest(Document):
 			)
 
 	def get_email_template(self, template_name):
-		template = frappe.db.get_single_value("Events Connect Settings", template_name)
+		template = frappe.db.get_single_value("EventsConnect Settings", template_name)
 		if template:
 			return frappe.get_doc("Email Template", template)
 
@@ -102,7 +102,7 @@ class EventsConnectMentorRequest(Document):
 @frappe.whitelist()
 def has_requested(course):
 	return frappe.db.count(
-		"Events Connect Mentor Request",
+		"EventsConnect Mentor Request",
 		filters={
 			"member": frappe.session.user,
 			"course": course,
@@ -116,7 +116,7 @@ def create_request(course):
 	if not has_requested(course):
 		request = frappe.get_doc(
 			{
-				"doctype": "Events Connect Mentor Request",
+				"doctype": "EventsConnect Mentor Request",
 				"member": frappe.session.user,
 				"course": course,
 				"status": "Pending",
@@ -133,7 +133,7 @@ def create_request(course):
 @frappe.whitelist()
 def cancel_request(course):
 	request = frappe.get_doc(
-		"Events Connect Mentor Request",
+		"EventsConnect Mentor Request",
 		{
 			"member": frappe.session.user,
 			"course": course,

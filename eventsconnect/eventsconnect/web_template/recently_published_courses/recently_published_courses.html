@@ -5,7 +5,7 @@
     {% endif %}
 
     <div class="cards-parent mt-10">
-      {% set courses = frappe.db.get_list('Events Connect Course',
+      {% set courses = frappe.db.get_list('EventsConnect Course',
       fields=["name", "short_introduction", "upcoming", "title", "image", "currency", "enable_certification", "paid_course"], order_by="published_on desc", page_length=courses_count) %}
       {% for course in courses %}
       {{ widgets.CourseCard(course=course, read_only=False) }}

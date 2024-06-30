@@ -21,7 +21,7 @@ class CohortSubgroup(Document):
 
 	def has_student(self, email):
 		"""Check if given user is a student of this subgroup."""
-		q = {"doctype": "Events Connect Enrollment", "subgroup": self.name, "member": email}
+		q = {"doctype": "EventsConnect Enrollment", "subgroup": self.name, "member": email}
 		return frappe.db.exists(q)
 
 	def has_join_request(self, email):
@@ -43,7 +43,7 @@ class CohortSubgroup(Document):
 
 	def get_students(self):
 		emails = frappe.get_all(
-			"Events Connect Enrollment",
+			"EventsConnect Enrollment",
 			filters={"subgroup": self.name},
 			fields=["member"],
 			pluck="member",

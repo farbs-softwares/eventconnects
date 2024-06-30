@@ -103,11 +103,11 @@ def create_evaluator_role():
 
 
 def create_eventsconnect_student_role():
-	if not frappe.db.exists("Role", "Events Connect Student"):
+	if not frappe.db.exists("Role", "EventsConnect Student"):
 		role = frappe.new_doc("Role")
 		role.update(
 			{
-				"role_name": "Events Connect Student",
+				"role_name": "EventsConnect Student",
 				"home_page": "",
 				"desk_access": 0,
 			}
@@ -117,7 +117,7 @@ def create_eventsconnect_student_role():
 
 def set_default_certificate_print_format():
 	filters = {
-		"doc_type": "Events Connect Certificate",
+		"doc_type": "EventsConnect Certificate",
 		"property": "default_print_format",
 	}
 	if not frappe.db.exists("Property Setter", filters):
@@ -190,7 +190,7 @@ def create_batch_source():
 	]
 
 	for source in sources:
-		if not frappe.db.exists("Events Connect Source", source):
-			doc = frappe.new_doc("Events Connect Source")
+		if not frappe.db.exists("EventsConnect Source", source):
+			doc = frappe.new_doc("EventsConnect Source")
 			doc.source = source
 			doc.save()

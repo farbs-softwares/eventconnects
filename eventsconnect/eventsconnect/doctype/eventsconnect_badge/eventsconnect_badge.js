@@ -1,7 +1,7 @@
 // Copyright (c) 2024, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Badge", {
+frappe.ui.form.on("EventsConnect Badge", {
 	refresh: (frm) => {
 		frm.events.set_field_options(frm);
 

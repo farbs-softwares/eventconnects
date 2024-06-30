@@ -89,4 +89,4 @@ def get_question_details(question):
 		fields.append(f"explanation_{i}")
 		fields.append(f"possibility_{i}")
 
-	return frappe.db.get_value("Events Connect Question", question, fields, as_dict=1)
+	return frappe.db.get_value("EventsConnect Question", question, fields, as_dict=1)

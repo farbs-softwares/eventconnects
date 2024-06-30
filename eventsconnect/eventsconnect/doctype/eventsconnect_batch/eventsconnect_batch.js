@@ -1,7 +1,7 @@
 // Copyright (c) 2022, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Batch", {
+frappe.ui.form.on("EventsConnect Batch", {
 	onload: function (frm) {
 		frm.set_query("student", "students", function (doc) {
 			return {
@@ -12,7 +12,7 @@ frappe.ui.form.on("Events Connect Batch", {
 		});
 
 		frm.set_query("reference_doctype", "timetable", function () {
-			let doctypes = ["Course Lesson", "Events Connect Quiz", "Events Connect Assignment"];
+			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -21,7 +21,7 @@ frappe.ui.form.on("Events Connect Batch", {
 		});
 
 		frm.set_query("assessment_type", "assessment", function () {
-			let doctypes = ["Events Connect Quiz", "Events Connect Assignment"];
+			let doctypes = ["EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -30,7 +30,7 @@ frappe.ui.form.on("Events Connect Batch", {
 		});
 
 		frm.set_query("reference_doctype", "timetable_legends", function () {
-			let doctypes = ["Course Lesson", "Events Connect Quiz", "Events Connect Assignment"];
+			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -60,8 +60,8 @@ const set_timetable = (frm) => {
 		frappe.call({
 			method: "frappe.client.get_list",
 			args: {
-				doctype: "Events Connect Batch Timetable",
-				parent: "Events Connect Timetable Template",
+				doctype: "EventsConnect Batch Timetable",
+				parent: "EventsConnect Timetable Template",
 				fields: [
 					"reference_doctype",
 					"reference_docname",
@@ -73,7 +73,7 @@ const set_timetable = (frm) => {
 				],
 				filters: {
 					parent: frm.doc.timetable_template,
-					parenttype: "Events Connect Timetable Template",
+					parenttype: "EventsConnect Timetable Template",
 				},
 				order_by: "idx",
 			},
@@ -114,12 +114,12 @@ const set_legends = (frm) => {
 		frappe.call({
 			method: "frappe.client.get_list",
 			args: {
-				doctype: "Events Connect Timetable Legend",
-				parent: "Events Connect Timetable Template",
+				doctype: "EventsConnect Timetable Legend",
+				parent: "EventsConnect Timetable Template",
 				fields: ["reference_doctype", "label", "color"],
 				filters: {
 					parent: frm.doc.timetable_template,
-					parenttype: "Events Connect Timetable Template",
+					parenttype: "EventsConnect Timetable Template",
 				},
 				order_by: "idx",
 			},
@@ -149,18 +149,18 @@ const set_default_legends = (frm) => {
 			color: "#449CF0",
 		},
 		{
-			reference_doctype: "Events Connect Quiz",
-			label: "Events Connect Quiz",
+			reference_doctype: "EventsConnect Quiz",
+			label: "EventsConnect Quiz",
 			color: "#39E4A5",
 		},
 		{
-			reference_doctype: "Events Connect Assignment",
-			label: "Events Connect Assignment",
+			reference_doctype: "EventsConnect Assignment",
+			label: "EventsConnect Assignment",
 			color: "#ECAD4B",
 		},
 		{
-			reference_doctype: "Events Connect Live Class",
-			label: "Events Connect Live Class",
+			reference_doctype: "EventsConnect Live Class",
+			label: "EventsConnect Live Class",
 			color: "#bb8be8",
 		},
 	];

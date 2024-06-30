@@ -1,2 +1,2 @@
-Events Connect
+EventsConnect
 EventJob

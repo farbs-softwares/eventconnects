@@ -1,5 +1,5 @@
 {% if frappe.session.user != "Guest" %}
-{% set membership = frappe.db.get_value("Events Connect Enrollment",
+{% set membership = frappe.db.get_value("EventsConnect Enrollment",
 	{"member": frappe.session.user, "course": course.name},
 	["name", "course", "batch_old", "current_lesson", "member_type", "progress"], as_dict=1) %}
 {% set progress = frappe.utils.cint(membership.progress) %}

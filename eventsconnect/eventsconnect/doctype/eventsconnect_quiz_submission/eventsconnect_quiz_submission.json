@@ -26,13 +26,13 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Quiz",
-   "options": "Events Connect Quiz"
+   "options": "EventsConnect Quiz"
   },
   {
    "fieldname": "result",
    "fieldtype": "Table",
    "label": "Result",
-   "options": "Events Connect Quiz Result"
+   "options": "EventsConnect Quiz Result"
   },
   {
    "fieldname": "score",
@@ -70,7 +70,7 @@
    "fieldname": "course",
    "fieldtype": "Link",
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -112,8 +112,8 @@
  "links": [],
  "modified": "2024-02-27 13:01:53.611726",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Quiz Submission",
+ "module": "EventsConnect",
+ "name": "EventsConnect Quiz Submission",
  "owner": "Administrator",
  "permissions": [
   {
@@ -135,7 +135,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

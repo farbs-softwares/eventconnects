@@ -2,7 +2,7 @@ import frappe
 
 
 def execute():
-	roles = ["Events Connect Student", "Moderator", "Course Creator", "Class Evaluator"]
+	roles = ["EventsConnect Student", "Moderator", "Course Creator", "Class Evaluator"]
 	for role in roles:
 		add_perm_for_discussion_topic(role)
 		add_perm_for_discussion_reply(role)

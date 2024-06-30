@@ -50,7 +50,7 @@ class EventsConnectBatch(Document):
 		courses = [row.course for row in self.courses]
 		duplicates = {course for course in courses if courses.count(course) > 1}
 		if len(duplicates):
-			title = frappe.db.get_value("Events Connect Course", next(iter(duplicates)), "title")
+			title = frappe.db.get_value("EventsConnect Course", next(iter(duplicates)), "title")
 			frappe.throw(
 				_("Course {0} has already been added to this batch.").format(frappe.bold(title))
 			)
@@ -87,7 +87,7 @@ class EventsConnectBatch(Document):
 		subject = _("Enrollment Confirmation for the Next Training Batch")
 		template = "batch_confirmation"
 		custom_template = frappe.db.get_single_value(
-			"Events Connect Settings", "batch_confirmation_template"
+			"EventsConnect Settings", "batch_confirmation_template"
 		)
 
 		args = {
@@ -117,7 +117,7 @@ class EventsConnectBatch(Document):
 		for course in self.courses:
 			for student in self.students:
 				filters = {
-					"doctype": "Events Connect Enrollment",
+					"doctype": "EventsConnect Enrollment",
 					"member": student.student,
 					"course": course.course,
 				}
@@ -177,7 +177,7 @@ def remove_course(course, parent):
 @frappe.whitelist()
 def remove_assessment(assessment, parent):
 	frappe.only_for("Moderator")
-	frappe.db.delete("Events Connect Assessment", {"assessment_name": assessment, "parent": parent})
+	frappe.db.delete("EventsConnect Assessment", {"assessment_name": assessment, "parent": parent})
 
 
 @frappe.whitelist()
@@ -208,7 +208,7 @@ def create_live_class(
 		data = json.loads(response.text)
 		payload.update(
 			{
-				"doctype": "Events Connect Live Class",
+				"doctype": "EventsConnect Live Class",
 				"start_url": data.get("start_url"),
 				"join_url": data.get("join_url"),
 				"title": title,
@@ -272,9 +272,9 @@ def create_batch(
 ):
 	frappe.only_for("Moderator")
 	if name:
-		doc = frappe.get_doc("Events Connect Batch", name)
+		doc = frappe.get_doc("EventsConnect Batch", name)
 	else:
-		doc = frappe.get_doc({"doctype": "Events Connect Batch"})
+		doc = frappe.get_doc({"doctype": "EventsConnect Batch"})
 
 	doc.update(
 		{
@@ -331,7 +331,7 @@ def add_course(course, parent, name=None, evaluator=None):
 			"evaluator": evaluator,
 			"parent": parent,
 			"parentfield": "courses",
-			"parenttype": "Events Connect Batch",
+			"parenttype": "EventsConnect Batch",
 		}
 	)
 	doc.save()
@@ -342,7 +342,7 @@ def add_course(course, parent, name=None, evaluator=None):
 @frappe.whitelist()
 def get_batch_timetable(batch):
 	timetable = frappe.get_all(
-		"Events Connect Batch Timetable",
+		"EventsConnect Batch Timetable",
 		filters={"parent": batch},
 		fields=[
 			"reference_doctype",
@@ -358,7 +358,7 @@ def get_batch_timetable(batch):
 		order_by="date",
 	)
 
-	show_live_class = frappe.db.get_value("Events Connect Batch", batch, "show_live_class")
+	show_live_class = frappe.db.get_value("EventsConnect Batch", batch, "show_live_class")
 	if show_live_class:
 		live_classes = get_live_classes(batch)
 		timetable.extend(live_classes)
@@ -369,14 +369,14 @@ def get_batch_timetable(batch):
 
 def get_live_classes(batch):
 	live_classes = frappe.get_all(
-		"Events Connect Live Class",
+		"EventsConnect Live Class",
 		{"batch_name": batch},
 		["name", "title", "date", "time as start_time", "duration", "join_url as url"],
 		order_by="date",
 	)
 	for class_ in live_classes:
 		class_.end_time = class_.start_time + timedelta(minutes=class_.duration)
-		class_.reference_doctype = "Events Connect Live Class"
+		class_.reference_doctype = "EventsConnect Live Class"
 		class_.reference_docname = class_.name
 		class_.icon = "icon-call"
 
@@ -399,18 +399,18 @@ def get_timetable_details(timetable):
 			entry.completed = (
 				True
 				if frappe.db.exists(
-					"Events Connect Course Progress",
+					"EventsConnect Course Progress",
 					{"lesson": entry.reference_docname, "member": frappe.session.user},
 				)
 				else False
 			)
 
-		elif entry.reference_doctype == "Events Connect Quiz":
+		elif entry.reference_doctype == "EventsConnect Quiz":
 			entry.url = "/quizzes"
 			details = get_quiz_details(assessment, frappe.session.user)
 			entry.update(details)
 
-		elif entry.reference_doctype == "Events Connect Assignment":
+		elif entry.reference_doctype == "EventsConnect Assignment":
 			details = get_assignment_details(assessment, frappe.session.user)
 			entry.update(details)
 
@@ -421,7 +421,7 @@ def get_timetable_details(timetable):
 @frappe.whitelist()
 def is_milestone_complete(idx, batch):
 	previous_rows = frappe.get_all(
-		"Events Connect Batch Timetable",
+		"EventsConnect Batch Timetable",
 		filters={"parent": batch, "idx": ["<", cint(idx)]},
 		fields=["reference_doctype", "reference_docname", "idx"],
 		order_by="idx",
@@ -430,24 +430,24 @@ def is_milestone_complete(idx, batch):
 	for row in previous_rows:
 		if row.reference_doctype == "Course Lesson":
 			if not frappe.db.exists(
-				"Events Connect Course Progress",
+				"EventsConnect Course Progress",
 				{"member": frappe.session.user, "lesson": row.reference_docname},
 			):
 				return False
 
-		if row.reference_doctype == "Events Connect Quiz":
+		if row.reference_doctype == "EventsConnect Quiz":
 			passing_percentage = frappe.db.get_value(
 				row.reference_doctype, row.reference_docname, "passing_percentage"
 			)
 			if not frappe.db.exists(
-				"Events Connect Quiz Submission",
+				"EventsConnect Quiz Submission",
 				{"quiz": row.reference_docname, "member": frappe.session.user},
 			):
 				return False
 
-		if row.reference_doctype == "Events Connect Assignment":
+		if row.reference_doctype == "EventsConnect Assignment":
 			if not frappe.db.exists(
-				"Events Connect Assignment Submission",
+				"EventsConnect Assignment Submission",
 				{"assignment": row.reference_docname, "member": frappe.session.user},
 			):
 				return False

@@ -26,9 +26,9 @@ def has_website_permission(doc, ptype, user, verbose=False):
 @frappe.whitelist()
 def create_eventsconnect_certificate(source_name, target_doc=None):
 	doc = get_mapped_doc(
-		"Events Connect Certificate Evaluation",
+		"EventsConnect Certificate Evaluation",
 		source_name,
-		{"Events Connect Certificate Evaluation": {"doctype": "Events Connect Certificate"}},
+		{"EventsConnect Certificate Evaluation": {"doctype": "EventsConnect Certificate"}},
 		target_doc,
 	)
 	return doc

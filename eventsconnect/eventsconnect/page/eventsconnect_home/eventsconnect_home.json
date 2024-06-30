@@ -6,7 +6,7 @@
  "idx": 0,
  "modified": "2022-12-15 13:45:06.602567",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "eventsconnect-home",
  "owner": "Administrator",
  "page_name": "eventsconnect-home",
@@ -15,5 +15,5 @@
  "standard": "Yes",
  "style": null,
  "system_page": 1,
- "title": "Events Connect"
+ "title": "EventsConnect"
 }

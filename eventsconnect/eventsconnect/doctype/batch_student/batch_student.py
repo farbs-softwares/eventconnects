@@ -19,5 +19,5 @@ def enroll_batch(batch_name):
 	enrollment.student = frappe.session.user
 	enrollment.parent = batch_name
 	enrollment.parentfield = "students"
-	enrollment.parenttype = "Events Connect Batch"
+	enrollment.parenttype = "EventsConnect Batch"
 	enrollment.save(ignore_permissions=True)

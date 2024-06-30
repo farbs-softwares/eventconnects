@@ -23,7 +23,7 @@ def get_random(params=None):
 
 
 def make_unsplash_request(path):
-	unsplash_access_key = frappe.db.get_single_value("Events Connect Settings", "unsplash_access_key")
+	unsplash_access_key = frappe.db.get_single_value("EventsConnect Settings", "unsplash_access_key")
 	if not unsplash_access_key:
 		return
 

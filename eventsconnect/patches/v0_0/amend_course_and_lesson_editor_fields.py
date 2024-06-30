@@ -23,15 +23,15 @@ def amend_lesson_content():
 
 def amend_course_description():
 	course_description_field = frappe.db.get_value(
-		"DocField", {"parent": "Events Connect Course", "fieldname": "description"}, "fieldtype"
+		"DocField", {"parent": "EventsConnect Course", "fieldname": "description"}, "fieldtype"
 	)
 
 	if course_description_field == "Text Editor":
-		courses = frappe.get_all("Events Connect Course", fields=["name", "description"])
+		courses = frappe.get_all("EventsConnect Course", fields=["name", "description"])
 
 		for course in courses:
 			frappe.db.set_value(
-				"Events Connect Course", course.name, "description", to_markdown(course.description)
+				"EventsConnect Course", course.name, "description", to_markdown(course.description)
 			)
 
 		frappe.reload_doc("eventsconnect", "doctype", "eventsconnect_course")

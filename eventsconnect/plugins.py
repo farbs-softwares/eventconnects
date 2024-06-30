@@ -81,12 +81,12 @@ class ProfileTab:
 
 class LiveCodeExtension(PageExtension):
 	def render_header(self):
-		livecode_url = frappe.get_value("Events Connect Settings", None, "livecode_url")
+		livecode_url = frappe.get_value("EventsConnect Settings", None, "livecode_url")
 		context = {"livecode_url": livecode_url}
 		return frappe.render_template("templates/livecode/extension_header.html", context)
 
 	def render_footer(self):
-		livecode_url = frappe.get_value("Events Connect Settings", None, "livecode_url")
+		livecode_url = frappe.get_value("EventsConnect Settings", None, "livecode_url")
 		context = {"livecode_url": livecode_url}
 		return frappe.render_template("templates/livecode/extension_footer.html", context)
 
@@ -99,7 +99,7 @@ def quiz_renderer(quiz_name):
 		+"</div>"
 
 	quiz = frappe.db.get_value(
-		"Events Connect Quiz",
+		"EventsConnect Quiz",
 		quiz_name,
 		[
 			"name",
@@ -120,24 +120,24 @@ def quiz_renderer(quiz_name):
 		fields.append(f"possibility_{num}")
 
 	questions = frappe.get_all(
-		"Events Connect Quiz Question",
+		"EventsConnect Quiz Question",
 		filters={"parent": quiz.name},
 		fields=["question", "marks"],
 		order_by="idx",
 	)
 
 	for question in questions:
-		details = frappe.db.get_value("Events Connect Question", question.question, fields, as_dict=1)
+		details = frappe.db.get_value("EventsConnect Question", question.question, fields, as_dict=1)
 		details["marks"] = question.marks
 		quiz.questions.append(details)
 
 	no_of_attempts = frappe.db.count(
-		"Events Connect Quiz Submission", {"owner": frappe.session.user, "quiz": quiz_name}
+		"EventsConnect Quiz Submission", {"owner": frappe.session.user, "quiz": quiz_name}
 	)
 
 	if quiz.show_submission_history:
 		all_submissions = frappe.get_all(
-			"Events Connect Quiz Submission",
+			"EventsConnect Quiz Submission",
 			{
 				"quiz": quiz.name,
 				"member": frappe.session.user,
@@ -158,7 +158,7 @@ def quiz_renderer(quiz_name):
 
 
 def exercise_renderer(argument):
-	exercise = frappe.get_doc("Events Connect Exercise", argument)
+	exercise = frappe.get_doc("EventsConnect Exercise", argument)
 	context = dict(exercise=exercise)
 	return frappe.render_template("templates/exercise.html", context)
 
@@ -228,7 +228,7 @@ def assignment_renderer(detail):
 
 def show_custom_signup():
 	if frappe.db.get_single_value(
-		"Events Connect Settings", "terms_of_use"
-	) or frappe.db.get_single_value("Events Connect Settings", "privacy_policy"):
+		"EventsConnect Settings", "terms_of_use"
+	) or frappe.db.get_single_value("EventsConnect Settings", "privacy_policy"):
 		return "eventsconnect/templates/signup-form.html"
 	return "frappe/templates/signup.html"

@@ -1,12 +1,12 @@
 // Copyright (c) 2021, FOSS United and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Quiz", {
+frappe.ui.form.on("EventsConnect Quiz", {
 	// refresh: function(frm) {
 	// }
 });
 
-frappe.ui.form.on("Events Connect Quiz Question", {
+frappe.ui.form.on("EventsConnect Quiz Question", {
 	marks: function (frm) {
 		total_marks = 0;
 		frm.doc.questions.forEach((question) => {

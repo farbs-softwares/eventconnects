@@ -3,11 +3,11 @@ from frappe.model.rename_doc import rename_doc
 
 
 def execute():
-	if frappe.db.exists("DocType", "Events Connect Exercise"):
+	if frappe.db.exists("DocType", "EventsConnect Exercise"):
 		return
 
 	frappe.flags.ignore_route_conflict_validation = True
-	rename_doc("DocType", "Exercise", "Events Connect Exercise")
+	rename_doc("DocType", "Exercise", "EventsConnect Exercise")
 	frappe.flags.ignore_route_conflict_validation = False
 
-	frappe.reload_doctype("Events Connect Exercise", force=True)
+	frappe.reload_doctype("EventsConnect Exercise", force=True)

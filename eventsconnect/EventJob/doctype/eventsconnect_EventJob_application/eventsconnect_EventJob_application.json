@@ -63,7 +63,7 @@
  "modified": "2024-02-20 20:10:46.943871",
  "modified_by": "Administrator",
  "module": "EventJob",
- "name": "Events Connect EventJob Application",
+ "name": "EventsConnect EventJob Application",
  "owner": "Administrator",
  "permissions": [
   {
@@ -85,7 +85,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1,
    "write": 1
   }

@@ -42,7 +42,7 @@
    "fieldname": "course",
    "fieldtype": "Link",
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -54,7 +54,7 @@
  "links": [],
  "modified": "2021-12-16 15:16:04.042372",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Cohort Staff",
  "owner": "Administrator",
  "permissions": [

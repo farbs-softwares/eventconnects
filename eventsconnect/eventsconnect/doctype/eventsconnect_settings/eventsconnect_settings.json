@@ -181,7 +181,7 @@
    "default": "0",
    "fieldname": "default_home",
    "fieldtype": "Check",
-   "label": "Make Events Connect the default home"
+   "label": "Make EventsConnect the default home"
   },
   {
    "fieldname": "column_break_zdel",
@@ -417,7 +417,7 @@
    "fieldname": "sidebar_items",
    "fieldtype": "Table",
    "label": "Sidebar Items",
-   "options": "Events Connect Sidebar Item"
+   "options": "EventsConnect Sidebar Item"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -425,8 +425,8 @@
  "links": [],
  "modified": "2024-06-27 21:57:02.193336",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Settings",
+ "module": "EventsConnect",
+ "name": "EventsConnect Settings",
  "owner": "Administrator",
  "permissions": [
   {

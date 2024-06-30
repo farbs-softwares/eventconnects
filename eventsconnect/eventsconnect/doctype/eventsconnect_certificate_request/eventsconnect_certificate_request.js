@@ -1,11 +1,11 @@
 // Copyright (c) 2022, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Certificate Request", {
+frappe.ui.form.on("EventsConnect Certificate Request", {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button(
-				__("Create Events Connect Certificate Evaluation"),
+				__("Create EventsConnect Certificate Evaluation"),
 				() => {
 					frappe.model.open_mapped_doc({
 						method: "eventsconnect.eventsconnect.doctype.eventsconnect_certificate_request.eventsconnect_certificate_request.create_eventsconnect_certificate_evaluation",

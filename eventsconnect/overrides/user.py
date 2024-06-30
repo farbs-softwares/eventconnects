@@ -40,18 +40,18 @@ class CustomUser(User):
 	def get_batch_count(self) -> int:
 		"""Returns the number of batches authored by this user."""
 		return frappe.db.count(
-			"Events Connect Enrollment", {"member": self.name, "member_type": "Mentor"}
+			"EventsConnect Enrollment", {"member": self.name, "member_type": "Mentor"}
 		)
 
 	def get_user_reviews(self):
 		"""Returns the reviews created by user"""
-		return frappe.get_all("Events Connect Course Review", {"owner": self.name})
+		return frappe.get_all("EventsConnect Course Review", {"owner": self.name})
 
 	def get_mentored_courses(self):
 		"""Returns all courses mentored by this user"""
 		mentored_courses = []
 		mapping = frappe.get_all(
-			"Events Connect Course Mentor Mapping",
+			"EventsConnect Course Mentor Mapping",
 			{
 				"mentor": self.name,
 			},
@@ -59,9 +59,9 @@ class CustomUser(User):
 		)
 
 		for map in mapping:
-			if frappe.db.get_value("Events Connect Course", map.course, "published"):
+			if frappe.db.get_value("EventsConnect Course", map.course, "published"):
 				course = frappe.db.get_value(
-					"Events Connect Course",
+					"EventsConnect Course",
 					map.course,
 					["name", "upcoming", "title", "image", "enable_certification"],
 					as_dict=True,
@@ -78,7 +78,7 @@ def get_enrolled_courses():
 
 	for membership in memberships:
 		course = frappe.db.get_value(
-			"Events Connect Course",
+			"EventsConnect Course",
 			membership.course,
 			[
 				"name",
@@ -98,7 +98,7 @@ def get_enrolled_courses():
 		if not course.published:
 			continue
 		course.enrollment_count = frappe.db.count(
-			"Events Connect Enrollment", {"course": course.name, "member_type": "Student"}
+			"EventsConnect Enrollment", {"course": course.name, "member_type": "Student"}
 		)
 		course.avg_rating = get_average_rating(course.name) or 0
 		progress = cint(membership.progress)
@@ -120,7 +120,7 @@ def get_course_membership(member=None, member_type=None):
 	if member_type:
 		filters["member_type"] = member_type
 
-	return frappe.get_all("Events Connect Enrollment", filters, ["name", "course", "progress"])
+	return frappe.get_all("EventsConnect Enrollment", filters, ["name", "course", "progress"])
 
 
 def get_authored_courses(member=None, only_published=True):
@@ -132,7 +132,7 @@ def get_authored_courses(member=None, only_published=True):
 
 	for course in courses:
 		detail = frappe.db.get_value(
-			"Events Connect Course",
+			"EventsConnect Course",
 			course.parent,
 			[
 				"name",
@@ -153,7 +153,7 @@ def get_authored_courses(member=None, only_published=True):
 		if only_published and detail and not detail.published:
 			continue
 		detail.enrollment_count = frappe.db.count(
-			"Events Connect Enrollment", {"course": detail.name, "member_type": "Student"}
+			"EventsConnect Enrollment", {"course": detail.name, "member_type": "Student"}
 		)
 		detail.avg_rating = get_average_rating(detail.name) or 0
 		course_details.append(detail)
@@ -227,7 +227,7 @@ def sign_up(email, full_name, verify_terms, user_category):
 	if default_role:
 		user.add_roles(default_role)
 
-	user.add_roles("Events Connect Student")
+	user.add_roles("EventsConnect Student")
 	set_country_from_ip(None, user.name)
 
 	if user.flags.email_sent:
@@ -249,7 +249,7 @@ def set_country_from_ip(login_manager=None, user=None):
 def on_session_creation(login_manager):
 	if frappe.db.get_single_value(
 		"System Settings", "setup_complete"
-	) and frappe.db.get_single_value("Events Connect Settings", "default_home"):
+	) and frappe.db.get_single_value("EventsConnect Settings", "default_home"):
 		frappe.local.response["home_page"] = "/eventsconnect"
 
 

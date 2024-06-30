@@ -16,7 +16,7 @@ class CourseLesson(Document):
 		self.validate_quiz_id()
 
 	def validate_quiz_id(self):
-		if self.quiz_id and not frappe.db.exists("Events Connect Quiz", self.quiz_id):
+		if self.quiz_id and not frappe.db.exists("EventsConnect Quiz", self.quiz_id):
 			frappe.throw(_("Invalid Quiz ID"))
 
 	def on_update(self):
@@ -28,7 +28,7 @@ class CourseLesson(Document):
 		capture("lesson_created", "eventsconnect")
 
 	def update_lesson_name_in_document(self, section):
-		doctype_map = {"Exercise": "Events Connect Exercise", "Quiz": "Events Connect Quiz"}
+		doctype_map = {"Exercise": "EventsConnect Exercise", "Quiz": "EventsConnect Quiz"}
 		macros = find_macros(self.body)
 		documents = [value for name, value in macros if name == section]
 		index = 1
@@ -74,11 +74,11 @@ class CourseLesson(Document):
 
 		macros = find_macros(self.body)
 		exercises = [value for name, value in macros if name == "Exercise"]
-		return [frappe.get_doc("Events Connect Exercise", name) for name in exercises]
+		return [frappe.get_doc("EventsConnect Exercise", name) for name in exercises]
 
 	def get_progress(self):
 		return frappe.db.get_value(
-			"Events Connect Course Progress", {"lesson": self.name, "owner": frappe.session.user}, "status"
+			"EventsConnect Course Progress", {"lesson": self.name, "owner": frappe.session.user}, "status"
 		)
 
 	def get_slugified_class(self):
@@ -90,25 +90,25 @@ class CourseLesson(Document):
 @frappe.whitelist()
 def save_progress(lesson, course):
 	membership = frappe.db.exists(
-		"Events Connect Enrollment", {"course": course, "member": frappe.session.user}
+		"EventsConnect Enrollment", {"course": course, "member": frappe.session.user}
 	)
 	if not membership:
 		return 0
 
-	frappe.db.set_value("Events Connect Enrollment", membership, "current_lesson", lesson)
+	frappe.db.set_value("EventsConnect Enrollment", membership, "current_lesson", lesson)
 
 	quiz_completed = get_quiz_progress(lesson)
 	if not quiz_completed:
 		return 0
 
 	if frappe.db.exists(
-		"Events Connect Course Progress", {"lesson": lesson, "member": frappe.session.user}
+		"EventsConnect Course Progress", {"lesson": lesson, "member": frappe.session.user}
 	):
 		return 0
 
 	frappe.get_doc(
 		{
-			"doctype": "Events Connect Course Progress",
+			"doctype": "EventsConnect Course Progress",
 			"lesson": lesson,
 			"status": "Complete",
 			"member": frappe.session.user,
@@ -116,8 +116,8 @@ def save_progress(lesson, course):
 	).save(ignore_permissions=True)
 
 	progress = get_course_progress(course)
-	frappe.db.set_value("Events Connect Enrollment", membership, "progress", progress)
-	enrollment = frappe.get_doc("Events Connect Enrollment", membership)
+	frappe.db.set_value("EventsConnect Enrollment", membership, "progress", progress)
+	enrollment = frappe.get_doc("EventsConnect Enrollment", membership)
 	enrollment.run_method("on_change")
 	return progress
 
@@ -141,12 +141,12 @@ def get_quiz_progress(lesson):
 
 	for quiz in quizzes:
 		print(quiz)
-		passing_percentage = frappe.db.get_value("Events Connect Quiz", quiz, "passing_percentage")
+		passing_percentage = frappe.db.get_value("EventsConnect Quiz", quiz, "passing_percentage")
 		print(frappe.session.user)
 		print(passing_percentage)
 		print(
 			frappe.db.exists(
-				"Events Connect Quiz Submission",
+				"EventsConnect Quiz Submission",
 				{
 					"quiz": quiz,
 					"member": frappe.session.user,
@@ -155,7 +155,7 @@ def get_quiz_progress(lesson):
 			)
 		)
 		if not frappe.db.exists(
-			"Events Connect Quiz Submission",
+			"EventsConnect Quiz Submission",
 			{
 				"quiz": quiz,
 				"member": frappe.session.user,

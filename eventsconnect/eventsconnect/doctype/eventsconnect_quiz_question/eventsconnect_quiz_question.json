@@ -14,7 +14,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Question",
-   "options": "Events Connect Question",
+   "options": "EventsConnect Question",
    "reqd": 1
   },
   {
@@ -32,8 +32,8 @@
  "links": [],
  "modified": "2023-10-16 19:51:03.893144",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Quiz Question",
+ "module": "EventsConnect",
+ "name": "EventsConnect Quiz Question",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

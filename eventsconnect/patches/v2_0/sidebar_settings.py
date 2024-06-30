@@ -12,4 +12,4 @@ def execute():
 	]
 
 	for field in fields:
-		frappe.db.set_single_value("Events Connect Settings", field, 1)
+		frappe.db.set_single_value("EventsConnect Settings", field, 1)

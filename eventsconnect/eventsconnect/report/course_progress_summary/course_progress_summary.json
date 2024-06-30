@@ -11,11 +11,11 @@
  "is_standard": "Yes",
  "modified": "2021-09-28 17:09:40.761810",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Course Progress Summary",
  "owner": "Administrator",
  "prepared_report": 0,
- "ref_doctype": "Events Connect Enrollment",
+ "ref_doctype": "EventsConnect Enrollment",
  "report_name": "Course Progress Summary",
  "report_type": "Script Report",
  "roles": [

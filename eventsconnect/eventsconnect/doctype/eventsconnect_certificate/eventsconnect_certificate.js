@@ -1,7 +1,7 @@
 // Copyright (c) 2021, FOSS United and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Certificate", {
+frappe.ui.form.on("EventsConnect Certificate", {
 	onload: (frm) => {
 		frm.set_query("member", function (doc) {
 			return {
@@ -14,7 +14,7 @@ frappe.ui.form.on("Events Connect Certificate", {
 		frm.set_query("template", function (doc) {
 			return {
 				filters: {
-					doc_type: "Events Connect Certificate",
+					doc_type: "EventsConnect Certificate",
 				},
 			};
 		});
@@ -22,7 +22,7 @@ frappe.ui.form.on("Events Connect Certificate", {
 	refresh: (frm) => {
 		if (frm.doc.name)
 			frm.add_web_link(
-				`/api/method/frappe.utils.print_format.download_pdf?doctype=Events Connect+Certificate&name=${
+				`/api/method/frappe.utils.print_format.download_pdf?doctype=EventsConnect+Certificate&name=${
 					frm.doc.name
 				}&format=${encodeURIComponent(frm.doc.template)}`,
 				"See on Website"

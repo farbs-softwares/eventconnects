@@ -14,7 +14,7 @@ def get_common_context(context):
 		batch_name = None
 
 	course = frappe.db.get_value(
-		"Events Connect Course",
+		"EventsConnect Course",
 		frappe.form_dict["course"],
 		["name", "title", "video_link", "enable_certification", "status"],
 		as_dict=True,
@@ -37,7 +37,7 @@ def get_common_context(context):
 
 
 def get_livecode_url():
-	return frappe.db.get_single_value("Events Connect Settings", "livecode_url")
+	return frappe.db.get_single_value("EventsConnect Settings", "livecode_url")
 
 
 def redirect_to_lesson(course, index_="1.1"):

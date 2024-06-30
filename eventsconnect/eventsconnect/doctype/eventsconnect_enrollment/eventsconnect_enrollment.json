@@ -27,7 +27,7 @@
    "fieldname": "batch_old",
    "fieldtype": "Link",
    "label": "Batch Old",
-   "options": "Events Connect Batch Old"
+   "options": "EventsConnect Batch Old"
   },
   {
    "fieldname": "member",
@@ -74,7 +74,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "reqd": 1
   },
   {
@@ -121,15 +121,15 @@
    "fieldname": "payment",
    "fieldtype": "Link",
    "label": "Payment",
-   "options": "Events Connect Payment"
+   "options": "EventsConnect Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
  "modified": "2024-05-14 14:50:08.405033",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Enrollment",
+ "module": "EventsConnect",
+ "name": "EventsConnect Enrollment",
  "owner": "Administrator",
  "permissions": [
   {
@@ -151,7 +151,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "select": 1,
    "share": 1,
    "write": 1

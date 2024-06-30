@@ -27,12 +27,12 @@
 					{{ assessment.title }}
 				</a>
 				<div class="col grid-static-col col-xs-2">
-					{{ (assessment.assessment_type).split("Events Connect ")[1] }}
+					{{ (assessment.assessment_type).split("EventsConnect ")[1] }}
 				</div>
 
 				<div class="col grid-static-col col-xs-2 mb-2">
 					{% if assessment.submission %}
-						{% if assessment.assessment_type == "Events Connect Assignment" %}
+						{% if assessment.assessment_type == "EventsConnect Assignment" %}
 							{% set status = assessment.submission.status %}
 							{% set color = "green" if status == "Pass" else "red" if status == "Fail" else "orange"  %}
 							<div class="indicator-pill {{ color }}">

@@ -16,12 +16,12 @@ class EventsConnectEnrollment(Document):
 		if self.batch_old:
 			filters["batch_old"] = self.batch_old
 		previous_membership = frappe.db.get_value(
-			"Events Connect Enrollment", filters, fieldname=["member_type", "member"], as_dict=1
+			"EventsConnect Enrollment", filters, fieldname=["member_type", "member"], as_dict=1
 		)
 
 		if previous_membership:
 			member_name = frappe.db.get_value("User", self.member, "full_name")
-			course_title = frappe.db.get_value("Events Connect Course", self.course, "title")
+			course_title = frappe.db.get_value("EventsConnect Course", self.course, "title")
 			frappe.throw(
 				_("{0} is already a {1} of the course {2}").format(
 					member_name, previous_membership.member_type, course_title
@@ -34,9 +34,9 @@ class EventsConnectEnrollment(Document):
 		if self.member_type != "Student":
 			return
 
-		course = frappe.db.get_value("Events Connect Batch Old", self.batch_old, "course")
+		course = frappe.db.get_value("EventsConnect Batch Old", self.batch_old, "course")
 		memberships = frappe.get_all(
-			"Events Connect Enrollment",
+			"EventsConnect Enrollment",
 			filters={
 				"member": self.member,
 				"name": ["!=", self.name],
@@ -62,7 +62,7 @@ def create_membership(
 ):
 	frappe.get_doc(
 		{
-			"doctype": "Events Connect Enrollment",
+			"doctype": "EventsConnect Enrollment",
 			"batch_old": batch,
 			"course": course,
 			"role": role,
@@ -76,13 +76,13 @@ def create_membership(
 @frappe.whitelist()
 def update_current_membership(batch, course, member):
 	all_memberships = frappe.get_all(
-		"Events Connect Enrollment", {"member": member, "course": course}
+		"EventsConnect Enrollment", {"member": member, "course": course}
 	)
 	for membership in all_memberships:
-		frappe.db.set_value("Events Connect Enrollment", membership.name, "is_current", 0)
+		frappe.db.set_value("EventsConnect Enrollment", membership.name, "is_current", 0)
 
 	current_membership = frappe.get_all(
-		"Events Connect Enrollment", {"batch_old": batch, "member": member}
+		"EventsConnect Enrollment", {"batch_old": batch, "member": member}
 	)
 	if len(current_membership):
-		frappe.db.set_value("Events Connect Enrollment", current_membership[0].name, "is_current", 1)
+		frappe.db.set_value("EventsConnect Enrollment", current_membership[0].name, "is_current", 1)

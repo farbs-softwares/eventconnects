@@ -1,10 +1,10 @@
 // Copyright (c) 2023, Frappe and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Events Connect Timetable Template", {
+frappe.ui.form.on("EventsConnect Timetable Template", {
 	refresh(frm) {
 		frm.set_query("reference_doctype", "timetable", function () {
-			let doctypes = ["Course Lesson", "Events Connect Quiz", "Events Connect Assignment"];
+			let doctypes = ["Course Lesson", "EventsConnect Quiz", "EventsConnect Assignment"];
 			return {
 				filters: {
 					name: ["in", doctypes],
@@ -15,9 +15,9 @@ frappe.ui.form.on("Events Connect Timetable Template", {
 		frm.set_query("reference_doctype", "timetable_legends", function () {
 			let doctypes = [
 				"Course Lesson",
-				"Events Connect Quiz",
-				"Events Connect Assignment",
-				"Events Connect Live Class",
+				"EventsConnect Quiz",
+				"EventsConnect Assignment",
+				"EventsConnect Live Class",
 			];
 			return {
 				filters: {

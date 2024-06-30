@@ -16,7 +16,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "reqd": 1
   },
   {
@@ -40,7 +40,7 @@
  "links": [],
  "modified": "2023-08-28 10:03:02.960844",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Batch Course",
  "naming_rule": "Autoincrement",
  "owner": "Administrator",

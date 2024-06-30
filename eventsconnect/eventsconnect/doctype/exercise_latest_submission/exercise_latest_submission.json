@@ -30,7 +30,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Exercise",
-   "options": "Events Connect Exercise",
+   "options": "EventsConnect Exercise",
    "search_index": 1
   },
   {
@@ -43,7 +43,7 @@
    "fieldname": "batch_old",
    "fieldtype": "Link",
    "label": "Batch Old",
-   "options": "Events Connect Batch Old"
+   "options": "EventsConnect Batch Old"
   },
   {
    "fieldname": "column_break_4",
@@ -62,7 +62,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -110,7 +110,7 @@
    "fieldname": "member",
    "fieldtype": "Link",
    "label": "Member",
-   "options": "Events Connect Enrollment"
+   "options": "EventsConnect Enrollment"
   },
   {
    "fetch_from": "member.member",
@@ -143,7 +143,7 @@
  "links": [],
  "modified": "2021-12-08 22:58:46.312863",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Exercise Latest Submission",
  "owner": "Administrator",
  "permissions": [

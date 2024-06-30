@@ -14,7 +14,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Course",
-   "options": "Events Connect Course"
+   "options": "EventsConnect Course"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -22,7 +22,7 @@
  "links": [],
  "modified": "2022-02-16 11:48:30.964916",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Related Courses",
  "owner": "Administrator",
  "permissions": [],

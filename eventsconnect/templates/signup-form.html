@@ -11,7 +11,7 @@
             placeholder="{{ _('jane@example.com') }}" required>
         </div>
 
-        {% if frappe.db.get_single_value("Events Connect Settings", "user_category") %}
+        {% if frappe.db.get_single_value("EventsConnect Settings", "user_category") %}
         <div class="form-group">
             <label class="form-label sr-only"> {{ _("User Category") }} </label>
             <div class="control-input-wrapper">

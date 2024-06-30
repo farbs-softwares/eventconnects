@@ -11,11 +11,11 @@ class TestEventsConnectQuiz(unittest.TestCase):
 	@classmethod
 	def setUpClass(cls) -> None:
 		frappe.get_doc(
-			{"doctype": "Events Connect Quiz", "title": "Test Quiz", "passing_percentage": 90}
+			{"doctype": "EventsConnect Quiz", "title": "Test Quiz", "passing_percentage": 90}
 		).save(ignore_permissions=True)
 
 	def test_with_multiple_options(self):
-		question = frappe.new_doc("Events Connect Question")
+		question = frappe.new_doc("EventsConnect Question")
 		question.question = "Question Multiple"
 		question.type = "Choices"
 		question.option_1 = "Option 1"
@@ -26,7 +26,7 @@ class TestEventsConnectQuiz(unittest.TestCase):
 		self.assertTrue(question.multiple)
 
 	def test_with_no_correct_option(self):
-		question = frappe.new_doc("Events Connect Question")
+		question = frappe.new_doc("EventsConnect Question")
 		question.question = "Question Multiple"
 		question.type = "Choices"
 		question.option_1 = "Option 1"
@@ -34,12 +34,12 @@ class TestEventsConnectQuiz(unittest.TestCase):
 		self.assertRaises(frappe.ValidationError, question.save)
 
 	def test_with_no_possible_answers(self):
-		question = frappe.new_doc("Events Connect Question")
+		question = frappe.new_doc("EventsConnect Question")
 		question.question = "Question Multiple"
 		question.type = "User Input"
 		self.assertRaises(frappe.ValidationError, question.save)
 
 	@classmethod
 	def tearDownClass(cls) -> None:
-		frappe.db.delete("Events Connect Quiz", "test-quiz")
-		frappe.db.delete("Events Connect Question")
+		frappe.db.delete("EventsConnect Quiz", "test-quiz")
+		frappe.db.delete("EventsConnect Question")

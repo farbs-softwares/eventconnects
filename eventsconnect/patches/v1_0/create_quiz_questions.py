@@ -12,12 +12,12 @@ def execute():
 		fields.append(f"possibility_{num}")
 
 	questions = frappe.get_all(
-		"Events Connect Quiz Question",
+		"EventsConnect Quiz Question",
 		fields=fields,
 	)
 
 	for question in questions:
-		doc = frappe.new_doc("Events Connect Question")
+		doc = frappe.new_doc("EventsConnect Question")
 		doc.update(
 			{
 				"question": question.question,
@@ -38,4 +38,4 @@ def execute():
 				)
 
 		doc.save()
-		frappe.db.set_value("Events Connect Quiz Question", question.name, "question", doc.name)
+		frappe.db.set_value("EventsConnect Quiz Question", question.name, "question", doc.name)

@@ -261,25 +261,25 @@
   },
   {
    "group": "Batches",
-   "link_doctype": "Events Connect Batch Old",
+   "link_doctype": "EventsConnect Batch Old",
    "link_fieldname": "course"
   },
   {
    "group": "Mentors",
-   "link_doctype": "Events Connect Course Mentor Mapping",
+   "link_doctype": "EventsConnect Course Mentor Mapping",
    "link_fieldname": "course"
   },
   {
    "group": "Interests",
-   "link_doctype": "Events Connect Course Interest",
+   "link_doctype": "EventsConnect Course Interest",
    "link_fieldname": "course"
   }
  ],
  "make_attachments_public": 1,
  "modified": "2024-06-24 17:44:45.903164",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Course",
+ "module": "EventsConnect",
+ "name": "EventsConnect Course",
  "owner": "Administrator",
  "permissions": [
   {

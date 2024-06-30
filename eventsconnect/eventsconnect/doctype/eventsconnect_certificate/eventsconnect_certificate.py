@@ -24,12 +24,12 @@ class EventsConnectCertificate(Document):
 	def send_mail(self):
 		subject = _("Congratulations on getting certified!")
 		template = "certification"
-		custom_template = frappe.db.get_single_value("Events Connect Settings", "certification_template")
+		custom_template = frappe.db.get_single_value("EventsConnect Settings", "certification_template")
 
 		args = {
 			"student_name": self.member_name,
 			"course_name": self.course,
-			"course_title": frappe.db.get_value("Events Connect Course", self.course, "title"),
+			"course_title": frappe.db.get_value("EventsConnect Course", self.course, "title"),
 			"certificate_name": self.name,
 			"template": self.template,
 		}
@@ -49,12 +49,12 @@ class EventsConnectCertificate(Document):
 
 	def validate_duplicate_certificate(self):
 		certificates = frappe.get_all(
-			"Events Connect Certificate",
+			"EventsConnect Certificate",
 			{"member": self.member, "course": self.course, "name": ["!=", self.name]},
 		)
 		if len(certificates):
 			full_name = frappe.db.get_value("User", self.member, "full_name")
-			course_name = frappe.db.get_value("Events Connect Course", self.course, "title")
+			course_name = frappe.db.get_value("EventsConnect Course", self.course, "title")
 			frappe.throw(
 				_("{0} is already certified for the course {1}").format(full_name, course_name)
 			)
@@ -84,7 +84,7 @@ def create_certificate(course):
 		return certificate
 
 	else:
-		expires_after_yrs = int(frappe.db.get_value("Events Connect Course", course, "expiry"))
+		expires_after_yrs = int(frappe.db.get_value("EventsConnect Course", course, "expiry"))
 		expiry_date = None
 		if expires_after_yrs:
 			expiry_date = add_years(nowdate(), expires_after_yrs)
@@ -92,7 +92,7 @@ def create_certificate(course):
 		default_certificate_template = frappe.db.get_value(
 			"Property Setter",
 			{
-				"doc_type": "Events Connect Certificate",
+				"doc_type": "EventsConnect Certificate",
 				"property": "default_print_format",
 			},
 			"value",
@@ -101,12 +101,12 @@ def create_certificate(course):
 			default_certificate_template = frappe.db.get_value(
 				"Print Format",
 				{
-					"doc_type": "Events Connect Certificate",
+					"doc_type": "EventsConnect Certificate",
 				},
 			)
 		certificate = frappe.get_doc(
 			{
-				"doctype": "Events Connect Certificate",
+				"doctype": "EventsConnect Certificate",
 				"member": frappe.session.user,
 				"course": course,
 				"issue_date": nowdate(),

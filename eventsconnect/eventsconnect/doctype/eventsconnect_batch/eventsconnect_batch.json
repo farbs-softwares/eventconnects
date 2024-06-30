@@ -145,7 +145,7 @@
    "fieldname": "assessment",
    "fieldtype": "Table",
    "label": "Assessment",
-   "options": "Events Connect Assessment"
+   "options": "EventsConnect Assessment"
   },
   {
    "fieldname": "section_break_rgfj",
@@ -166,7 +166,7 @@
    "fieldname": "category",
    "fieldtype": "Link",
    "label": "Category",
-   "options": "Events Connect Category"
+   "options": "EventsConnect Category"
   },
   {
    "description": "These customisations will work on the main batch page.",
@@ -215,13 +215,13 @@
    "fieldname": "timetable",
    "fieldtype": "Table",
    "label": "Timetable",
-   "options": "Events Connect Batch Timetable"
+   "options": "EventsConnect Batch Timetable"
   },
   {
    "fieldname": "timetable_template",
    "fieldtype": "Link",
    "label": "Timetable Template",
-   "options": "Events Connect Timetable Template"
+   "options": "EventsConnect Timetable Template"
   },
   {
    "fieldname": "column_break_anya",
@@ -279,7 +279,7 @@
    "fieldname": "timetable_legends",
    "fieldtype": "Table",
    "label": "Timetable Legends",
-   "options": "Events Connect Timetable Legend"
+   "options": "EventsConnect Timetable Legend"
   },
   {
    "default": "1",
@@ -327,8 +327,8 @@
  "links": [],
  "modified": "2024-06-24 16:24:45.536453",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Batch",
+ "module": "EventsConnect",
+ "name": "EventsConnect Batch",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [

@@ -88,7 +88,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "reqd": 1
   },
   {
@@ -108,7 +108,7 @@
  ],
  "modified": "2022-10-13 15:46:32.322926",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Cohort",
  "naming_rule": "Expression",
  "owner": "Administrator",

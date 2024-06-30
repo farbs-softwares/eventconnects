@@ -21,7 +21,7 @@
  "links": [],
  "modified": "2023-09-29 17:04:58.167481",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Function",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
@@ -44,7 +44,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "select": 1,
    "share": 1
   }

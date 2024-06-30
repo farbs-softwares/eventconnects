@@ -32,7 +32,7 @@ class EventsConnectCourse(Document):
 					"instructor": self.owner,
 					"parent": self.name,
 					"parentfield": "instructors",
-					"parenttype": "Events Connect Course",
+					"parenttype": "EventsConnect Course",
 				}
 			).save(ignore_permissions=True)
 
@@ -53,7 +53,7 @@ class EventsConnectCourse(Document):
 
 	def send_email_to_interested_users(self):
 		interested_users = frappe.get_all(
-			"Events Connect Course Interest", {"course": self.name}, ["name", "user"]
+			"EventsConnect Course Interest", {"course": self.name}, ["name", "user"]
 		)
 		subject = self.title + " is available!"
 		args = {
@@ -76,14 +76,14 @@ class EventsConnectCourse(Document):
 			frappe.enqueue(
 				method=frappe.sendmail, queue="short", timeout=300, is_async=True, **email_args
 			)
-			frappe.db.set_value("Events Connect Course Interest", user.name, "email_sent", True)
+			frappe.db.set_value("EventsConnect Course Interest", user.name, "email_sent", True)
 
 	def autoname(self):
 		if not self.name:
 			title = self.title
 			if self.title == "New Course":
 				title = self.title + str(random.randint(0, 99))
-			self.name = generate_slug(title, "Events Connect Course")
+			self.name = generate_slug(title, "EventsConnect Course")
 
 	def __repr__(self):
 		return f"<Course#{self.name}>"
@@ -94,7 +94,7 @@ class EventsConnectCourse(Document):
 			return False
 
 		mapping = frappe.get_all(
-			"Events Connect Course Mentor Mapping", {"course": self.name, "mentor": email}
+			"EventsConnect Course Mentor Mapping", {"course": self.name, "mentor": email}
 		)
 		return mapping != []
 
@@ -110,7 +110,7 @@ class EventsConnectCourse(Document):
 			return
 
 		doc = frappe.get_doc(
-			{"doctype": "Events Connect Course Mentor Mapping", "course": self.name, "mentor": email}
+			{"doctype": "EventsConnect Course Mentor Mapping", "course": self.name, "mentor": email}
 		)
 		doc.insert()
 
@@ -123,17 +123,17 @@ class EventsConnectCourse(Document):
 			return
 
 		batch_name = frappe.get_value(
-			doctype="Events Connect Enrollment",
+			doctype="EventsConnect Enrollment",
 			filters={"course": self.name, "member_type": "Student", "member": email},
 			fieldname="batch_old",
 		)
-		return batch_name and frappe.get_doc("Events Connect Batch Old", batch_name)
+		return batch_name and frappe.get_doc("EventsConnect Batch Old", batch_name)
 
 	def get_batches(self, mentor=None):
-		batches = frappe.get_all("Events Connect Batch Old", {"course": self.name})
+		batches = frappe.get_all("EventsConnect Batch Old", {"course": self.name})
 		if mentor:
 			# TODO: optimize this
-			memberships = frappe.db.get_all("Events Connect Enrollment", {"member": mentor}, ["batch_old"])
+			memberships = frappe.db.get_all("EventsConnect Enrollment", {"member": mentor}, ["batch_old"])
 			batch_names = {m.batch_old for m in memberships}
 			return [b for b in batches if b.name in batch_names]
 
@@ -164,11 +164,11 @@ class EventsConnectCourse(Document):
 
 	def get_all_memberships(self, member):
 		all_memberships = frappe.get_all(
-			"Events Connect Enrollment", {"member": member, "course": self.name}, ["batch_old"]
+			"EventsConnect Enrollment", {"member": member, "course": self.name}, ["batch_old"]
 		)
 		for membership in all_memberships:
 			membership.batch_title = frappe.db.get_value(
-				"Events Connect Batch Old", membership.batch_old, "title"
+				"EventsConnect Batch Old", membership.batch_old, "title"
 			)
 		return all_memberships
 
@@ -176,7 +176,7 @@ class EventsConnectCourse(Document):
 @frappe.whitelist()
 def reindex_exercises(doc):
 	course_data = json.loads(doc)
-	course = frappe.get_doc("Events Connect Course", course_data["name"])
+	course = frappe.get_doc("EventsConnect Course", course_data["name"])
 	course.reindex_exercises()
 	frappe.msgprint("All exercises in this course have been re-indexed.")
 
@@ -184,7 +184,7 @@ def reindex_exercises(doc):
 @frappe.whitelist(allow_guest=True)
 def search_course(text):
 	courses = frappe.get_all(
-		"Events Connect Course",
+		"EventsConnect Course",
 		filters={"published": True},
 		or_filters={
 			"title": ["like", f"%{text}%"],
@@ -202,7 +202,7 @@ def submit_for_review(course):
 	chapters = frappe.get_all("Chapter Reference", {"parent": course})
 	if not len(chapters):
 		return "No Chp"
-	frappe.db.set_value("Events Connect Course", course, "status", "Under Review")
+	frappe.db.set_value("EventsConnect Course", course, "status", "Under Review")
 	return "OK"
 
 
@@ -225,9 +225,9 @@ def save_course(
 		return
 
 	if course:
-		doc = frappe.get_doc("Events Connect Course", course)
+		doc = frappe.get_doc("EventsConnect Course", course)
 	else:
-		doc = frappe.get_doc({"doctype": "Events Connect Course"})
+		doc = frappe.get_doc({"doctype": "EventsConnect Course"})
 
 	doc.update(
 		{
@@ -265,7 +265,7 @@ def save_chapter(course, title, chapter_description, idx, chapter):
 			{
 				"doctype": "Chapter Reference",
 				"parent": course,
-				"parenttype": "Events Connect Course",
+				"parenttype": "EventsConnect Course",
 				"parentfield": "chapters",
 				"idx": idx,
 			}

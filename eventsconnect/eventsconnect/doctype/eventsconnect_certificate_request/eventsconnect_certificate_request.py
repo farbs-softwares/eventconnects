@@ -51,7 +51,7 @@ class EventsConnectCertificateRequest(Document):
 
 	def validate_slot(self):
 		if frappe.db.exists(
-			"Events Connect Certificate Request",
+			"EventsConnect Certificate Request",
 			{
 				"evaluator": self.evaluator,
 				"date": self.date,
@@ -62,7 +62,7 @@ class EventsConnectCertificateRequest(Document):
 
 	def validate_if_existing_requests(self):
 		existing_requests = frappe.get_all(
-			"Events Connect Certificate Request",
+			"EventsConnect Certificate Request",
 			{
 				"member": self.member,
 				"course": self.course,
@@ -80,7 +80,7 @@ class EventsConnectCertificateRequest(Document):
 					and getdate(self.start_time) < getdate(req.start_time)
 				)
 			):
-				course_title = frappe.db.get_value("Events Connect Course", req.course, "title")
+				course_title = frappe.db.get_value("EventsConnect Course", req.course, "title")
 				frappe.throw(
 					_("You already have an evaluation on {0} at {1} for the course {2}.").format(
 						format_date(req.date, "medium"),
@@ -96,7 +96,7 @@ class EventsConnectCertificateRequest(Document):
 	def validate_evaluation_end_date(self):
 		if self.batch_name:
 			evaluation_end_date = frappe.db.get_value(
-				"Events Connect Batch", self.batch_name, "evaluation_end_date"
+				"EventsConnect Batch", self.batch_name, "evaluation_end_date"
 			)
 
 			if evaluation_end_date:
@@ -109,10 +109,10 @@ class EventsConnectCertificateRequest(Document):
 
 
 def schedule_evals():
-	if frappe.db.get_single_value("Events Connect Settings", "send_calendar_invite_for_evaluations"):
+	if frappe.db.get_single_value("EventsConnect Settings", "send_calendar_invite_for_evaluations"):
 		timelapse = add_to_date(get_datetime(), hours=-5)
 		evals = frappe.get_all(
-			"Events Connect Certificate Request",
+			"EventsConnect Certificate Request",
 			{"creation": [">=", timelapse], "google_meet_link": ["is", "not set"]},
 			["name", "member", "member_name", "evaluator", "date", "start_time", "end_time"],
 		)
@@ -178,7 +178,7 @@ def update_meeting_details(eval, event, calendar):
 	event.save()
 	event.reload()
 	frappe.db.set_value(
-		"Events Connect Certificate Request", eval.name, "google_meet_link", event.google_meet_link
+		"EventsConnect Certificate Request", eval.name, "google_meet_link", event.google_meet_link
 	)
 
 
@@ -187,12 +187,12 @@ def create_certificate_request(
 	course, date, day, start_time, end_time, batch_name=None
 ):
 	is_member = frappe.db.exists(
-		{"doctype": "Events Connect Enrollment", "course": course, "member": frappe.session.user}
+		{"doctype": "EventsConnect Enrollment", "course": course, "member": frappe.session.user}
 	)
 
 	if not is_member:
 		return
-	eval = frappe.new_doc("Events Connect Certificate Request")
+	eval = frappe.new_doc("EventsConnect Certificate Request")
 	eval.update(
 		{
 			"course": course,
@@ -211,9 +211,9 @@ def create_certificate_request(
 @frappe.whitelist()
 def create_eventsconnect_certificate_evaluation(source_name, target_doc=None):
 	doc = get_mapped_doc(
-		"Events Connect Certificate Request",
+		"EventsConnect Certificate Request",
 		source_name,
-		{"Events Connect Certificate Request": {"doctype": "Events Connect Certificate Evaluation"}},
+		{"EventsConnect Certificate Request": {"doctype": "EventsConnect Certificate Evaluation"}},
 		target_doc,
 	)
 	return doc

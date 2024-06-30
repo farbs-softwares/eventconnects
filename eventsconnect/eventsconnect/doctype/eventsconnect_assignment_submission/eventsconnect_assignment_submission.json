@@ -43,7 +43,7 @@
    "fieldname": "assignment",
    "fieldtype": "Link",
    "label": "Assignment",
-   "options": "Events Connect Assignment"
+   "options": "EventsConnect Assignment"
   },
   {
    "fieldname": "member",
@@ -70,7 +70,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -158,8 +158,8 @@
  "make_attachments_public": 1,
  "modified": "2024-04-05 15:57:22.758563",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Assignment Submission",
+ "module": "EventsConnect",
+ "name": "EventsConnect Assignment Submission",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
@@ -183,7 +183,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1,
    "write": 1
   }

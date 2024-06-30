@@ -21,7 +21,7 @@
         <div class="cards-parent">
             {% for course in recommended_courses %}
                 {% if course %}
-                    {% set course_details = frappe.get_doc("Events Connect Course", course.course) %}
+                    {% set course_details = frappe.get_doc("EventsConnect Course", course.course) %}
                     {{ widgets.CourseCard(course=course_details) }}
                 {% endif %}
             {% endfor %}

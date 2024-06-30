@@ -53,7 +53,7 @@
  "links": [],
  "modified": "2023-09-29 17:08:18.950560",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Cohort Join Request",
  "owner": "Administrator",
  "permissions": [
@@ -76,7 +76,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1,
    "write": 1
   }

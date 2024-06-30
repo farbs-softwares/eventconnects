@@ -16,9 +16,9 @@ def save_assignment(assignment, title, type, question):
 		return
 
 	if assignment:
-		doc = frappe.get_doc("Events Connect Assignment", assignment)
+		doc = frappe.get_doc("EventsConnect Assignment", assignment)
 	else:
-		doc = frappe.get_doc({"doctype": "Events Connect Assignment"})
+		doc = frappe.get_doc({"doctype": "EventsConnect Assignment"})
 
 	doc.update({"title": title, "type": type, "question": question})
 	doc.save(ignore_permissions=True)

@@ -35,7 +35,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "reqd": 1
   },
   {
@@ -64,7 +64,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Batch",
-   "options": "Events Connect Batch"
+   "options": "EventsConnect Batch"
   },
   {
    "default": "0",
@@ -91,8 +91,8 @@
  "links": [],
  "modified": "2024-06-21 18:14:30.491841",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Certificate",
+ "module": "EventsConnect",
+ "name": "EventsConnect Certificate",
  "owner": "Administrator",
  "permissions": [
   {
@@ -125,7 +125,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

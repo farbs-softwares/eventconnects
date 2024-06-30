@@ -46,12 +46,12 @@ class EventsConnectBadge(Document):
 def award(doc, member):
 	if doc.grant_only_once:
 		if frappe.db.exists(
-			"Events Connect Badge Assignment",
+			"EventsConnect Badge Assignment",
 			{"badge": doc.name, "member": member},
 		):
 			return
 
-	assignment = frappe.new_doc("Events Connect Badge Assignment")
+	assignment = frappe.new_doc("EventsConnect Badge Assignment")
 	assignment.update(
 		{
 			"badge": doc.name,
@@ -92,6 +92,6 @@ def process_badges(doc, state):
 		return
 
 	for d in frappe.cache_manager.get_doctype_map(
-		"Events Connect Badge", doc.doctype, dict(reference_doctype=doc.doctype, enabled=1)
+		"EventsConnect Badge", doc.doctype, dict(reference_doctype=doc.doctype, enabled=1)
 	):
-		frappe.get_doc("Events Connect Badge", d.get("name")).apply(doc)
+		frappe.get_doc("EventsConnect Badge", d.get("name")).apply(doc)

@@ -1,4 +1,4 @@
-"""Custom page renderers for Events Connect app.
+"""Custom page renderers for EventsConnect app.
 
 Handles rendering of profile pages.
 """

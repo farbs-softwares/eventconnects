@@ -21,7 +21,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "reqd": 1
   },
   {
@@ -61,7 +61,7 @@
  ],
  "modified": "2023-09-29 17:03:58.013819",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Course Chapter",
  "naming_rule": "Expression",
  "owner": "Administrator",
@@ -86,7 +86,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "select": 1,
    "share": 1,
    "write": 1

@@ -27,7 +27,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Badge",
-   "options": "Events Connect Badge",
+   "options": "EventsConnect Badge",
    "reqd": 1
   },
   {
@@ -63,8 +63,8 @@
  "links": [],
  "modified": "2024-05-13 20:16:00.191517",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Badge Assignment",
+ "module": "EventsConnect",
+ "name": "EventsConnect Badge Assignment",
  "owner": "Administrator",
  "permissions": [
   {
@@ -100,7 +100,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1,
    "write": 1
   },
@@ -110,7 +110,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

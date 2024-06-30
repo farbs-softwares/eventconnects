@@ -31,7 +31,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Course",
-   "options": "Events Connect Course"
+   "options": "EventsConnect Course"
   },
   {
    "columns": 4,
@@ -98,8 +98,8 @@
  "links": [],
  "modified": "2021-09-29 15:27:55.585874",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Exercise",
+ "module": "EventsConnect",
+ "name": "EventsConnect Exercise",
  "owner": "Administrator",
  "permissions": [
   {

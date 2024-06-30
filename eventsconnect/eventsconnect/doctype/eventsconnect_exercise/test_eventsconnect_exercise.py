@@ -13,7 +13,7 @@ class TestEventsConnectExercise(unittest.TestCase):
 		course = new_course("Test Course")
 		member = frappe.get_doc(
 			{
-				"doctype": "Events Connect Enrollment",
+				"doctype": "EventsConnect Enrollment",
 				"course": course.name,
 				"member": frappe.session.user,
 			}
@@ -21,7 +21,7 @@ class TestEventsConnectExercise(unittest.TestCase):
 		member.insert()
 		e = frappe.get_doc(
 			{
-				"doctype": "Events Connect Exercise",
+				"doctype": "EventsConnect Exercise",
 				"name": "test-problem",
 				"course": course.name,
 				"title": "Test Problem",
@@ -49,6 +49,6 @@ class TestEventsConnectExercise(unittest.TestCase):
 		assert user_submission.name == submission.name
 
 	def tearDown(self):
-		frappe.db.delete("Events Connect Enrollment")
+		frappe.db.delete("EventsConnect Enrollment")
 		frappe.db.delete("Exercise Submission")
-		frappe.db.delete("Events Connect Exercise")
+		frappe.db.delete("EventsConnect Exercise")

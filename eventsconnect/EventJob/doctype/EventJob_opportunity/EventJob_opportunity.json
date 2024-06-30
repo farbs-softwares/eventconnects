@@ -143,7 +143,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "select": 1,
    "share": 1
   },
@@ -154,7 +154,7 @@
    "if_owner": 1,
    "print": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1,
    "write": 1
   }

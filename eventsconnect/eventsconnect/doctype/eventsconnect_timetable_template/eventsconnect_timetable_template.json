@@ -21,21 +21,21 @@
    "fieldname": "timetable",
    "fieldtype": "Table",
    "label": "Timetable",
-   "options": "Events Connect Batch Timetable"
+   "options": "EventsConnect Batch Timetable"
   },
   {
    "fieldname": "timetable_legends",
    "fieldtype": "Table",
    "label": "Timetable Legends",
-   "options": "Events Connect Timetable Legend"
+   "options": "EventsConnect Timetable Legend"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
  "modified": "2023-10-11 17:09:05.096243",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Timetable Template",
+ "module": "EventsConnect",
+ "name": "EventsConnect Timetable Template",
  "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [

@@ -10,9 +10,9 @@ from eventsconnect.eventsconnect.doctype.eventsconnect_course.test_eventsconnect
 
 class TestEventsConnectEnrollment(unittest.TestCase):
 	def setUp(self):
-		frappe.db.delete("Events Connect Enrollment")
-		frappe.db.delete("Events Connect Batch Old")
-		frappe.db.delete("Events Connect Course Mentor Mapping")
+		frappe.db.delete("EventsConnect Enrollment")
+		frappe.db.delete("EventsConnect Batch Old")
+		frappe.db.delete("EventsConnect Course Mentor Mapping")
 		frappe.db.delete("User", {"email": ("like", "%@test.com")})
 
 	def new_course_batch(self):
@@ -26,7 +26,7 @@ class TestEventsConnectEnrollment(unittest.TestCase):
 
 		batch = frappe.get_doc(
 			{
-				"doctype": "Events Connect Batch Old",
+				"doctype": "EventsConnect Batch Old",
 				"name": "test-batch",
 				"title": "Test Batch",
 				"course": course.name,
@@ -40,7 +40,7 @@ class TestEventsConnectEnrollment(unittest.TestCase):
 	def add_membership(self, batch_name, member_name, course, member_type="Student"):
 		doc = frappe.get_doc(
 			{
-				"doctype": "Events Connect Enrollment",
+				"doctype": "EventsConnect Enrollment",
 				"batch_old": batch_name,
 				"member": member_name,
 				"member_type": member_type,

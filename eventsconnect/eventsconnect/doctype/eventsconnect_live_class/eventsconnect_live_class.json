@@ -114,7 +114,7 @@
    "fieldname": "batch_name",
    "fieldtype": "Link",
    "label": "Batch",
-   "options": "Events Connect Batch"
+   "options": "EventsConnect Batch"
   },
   {
    "default": "No Recording",
@@ -128,8 +128,8 @@
  "links": [],
  "modified": "2024-01-09 11:22:33.272341",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Live Class",
+ "module": "EventsConnect",
+ "name": "EventsConnect Live Class",
  "owner": "Administrator",
  "permissions": [
   {
@@ -162,7 +162,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

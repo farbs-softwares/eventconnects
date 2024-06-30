@@ -135,15 +135,15 @@
    "fieldname": "source",
    "fieldtype": "Link",
    "label": "Source",
-   "options": "Events Connect Source"
+   "options": "EventsConnect Source"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
  "modified": "2023-10-26 16:54:12.408274",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Payment",
+ "module": "EventsConnect",
+ "name": "EventsConnect Payment",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [

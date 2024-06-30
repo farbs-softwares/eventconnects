@@ -73,7 +73,7 @@ def get_schedule(course, date, batch=None):
 	)
 
 	booked_slots = frappe.get_all(
-		"Events Connect Certificate Request",
+		"EventsConnect Certificate Request",
 		filters={"evaluator": evaluator, "date": date},
 		fields=["start_time", "day"],
 	)

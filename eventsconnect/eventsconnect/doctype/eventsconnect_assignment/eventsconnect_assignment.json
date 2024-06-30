@@ -66,8 +66,8 @@
  "links": [],
  "modified": "2024-04-05 12:01:36.601160",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Assignment",
+ "module": "EventsConnect",
+ "name": "EventsConnect Assignment",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
@@ -101,7 +101,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Events Connect Student",
+   "role": "EventsConnect Student",
    "share": 1
   }
  ],

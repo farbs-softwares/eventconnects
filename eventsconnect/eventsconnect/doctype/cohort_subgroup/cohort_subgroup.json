@@ -58,7 +58,7 @@
    "fieldname": "course",
    "fieldtype": "Link",
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
@@ -80,7 +80,7 @@
  ],
  "modified": "2021-12-16 15:12:42.504883",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Cohort Subgroup",
  "naming_rule": "Expression",
  "owner": "Administrator",

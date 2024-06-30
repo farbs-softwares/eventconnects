@@ -44,7 +44,7 @@
    "fieldname": "question_name",
    "fieldtype": "Link",
    "label": "Question Name",
-   "options": "Events Connect Question"
+   "options": "EventsConnect Question"
   },
   {
    "fieldname": "column_break_flus",
@@ -63,8 +63,8 @@
  "links": [],
  "modified": "2024-05-17 17:38:51.760653",
  "modified_by": "Administrator",
- "module": "Events Connect",
- "name": "Events Connect Quiz Result",
+ "module": "EventsConnect",
+ "name": "EventsConnect Quiz Result",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

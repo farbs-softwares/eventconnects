@@ -21,7 +21,7 @@ def get_data(filters=None):
 		query_filter = {"course": filters.course}
 
 	memberships = frappe.get_all(
-		"Events Connect Enrollment",
+		"EventsConnect Enrollment",
 		query_filter,
 		["name", "course", "member", "member_name", "progress"],
 		order_by="course",
@@ -32,7 +32,7 @@ def get_data(filters=None):
 			frappe._dict(
 				{
 					"course": membership.name,
-					"course_name": frappe.db.get_value("Events Connect Course", membership.course, "title"),
+					"course_name": frappe.db.get_value("EventsConnect Course", membership.course, "title"),
 					"member": membership.member,
 					"member_name": membership.member_name,
 					"progress": cint(membership.progress),
@@ -49,7 +49,7 @@ def get_columns():
 			"fieldname": "course",
 			"fieldtype": "Link",
 			"label": _("Course"),
-			"options": "Events Connect Course",
+			"options": "EventsConnect Course",
 			"width": 200,
 		},
 		{

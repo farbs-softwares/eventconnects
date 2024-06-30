@@ -8,7 +8,7 @@ community.patches.replace_member_with_user_in_course_mentor_mapping
 community.patches.replace_member_with_user_in_eventsconnect_message
 community.patches.replace_member_with_user_in_mentor_request
 community.patches.v0_0.chapter_lesson_index_table
-execute:frappe.delete_doc("DocType", "Events Connect Message")
+execute:frappe.delete_doc("DocType", "EventsConnect Message")
 community.patches.v0_0.course_instructor_update
 execute:frappe.delete_doc("DocType", "Discussion Message")
 execute:frappe.delete_doc("DocType", "Discussion Thread")
@@ -18,9 +18,9 @@ execute:frappe.delete_doc("DocType", "Chapters") #06-10-2021
 execute:frappe.delete_doc("DocType", "Lessons") #06-10-2021
 execute:frappe.delete_doc("DocType", "Chapter") #06-10-2021
 execute:frappe.delete_doc("DocType", "Lesson") #06-10-2021
-execute:frappe.delete_doc("DocType", "Events Connect Topic") #06-10-2021
+execute:frappe.delete_doc("DocType", "EventsConnect Topic") #06-10-2021
 school.patches.v0_0.add_progress_to_membership #20-10-2021
-execute:frappe.delete_doc("Workspace", "Events Connect", ignore_missing=True, force=True) #24-10-2021
+execute:frappe.delete_doc("Workspace", "EventsConnect", ignore_missing=True, force=True) #24-10-2021
 execute:frappe.delete_doc("Custom Field", "User-verify_age", ignore_missing=True, force=True)
 school.patches.v0_0.multiple_instructors #11-02-2022
 school.patches.v0_0.set_course_in_lesson #21-03-2022
@@ -55,13 +55,13 @@ execute:frappe.delete_doc("Web Form", "class", ignore_missing=True, force=True)
 eventsconnect.patches.v0_0.amend_course_and_lesson_editor_fields
 eventsconnect.patches.v0_0.convert_course_description_to_html #11-05-2023
 eventsconnect.patches.v1_0.rename_assignment_doctype
-execute:frappe.permissions.reset_perms("Events Connect Assignment")
-execute:frappe.permissions.reset_perms("Events Connect Quiz")
+execute:frappe.permissions.reset_perms("EventsConnect Assignment")
+execute:frappe.permissions.reset_perms("EventsConnect Quiz")
 eventsconnect.patches.v1_0.create_class_evaluator_role
-execute:frappe.permissions.reset_perms("Events Connect Class")
+execute:frappe.permissions.reset_perms("EventsConnect Class")
 execute:frappe.permissions.reset_perms("Course Evaluator")
-execute:frappe.permissions.reset_perms("Events Connect Certificate Request")
-execute:frappe.permissions.reset_perms("Events Connect Certificate Evaluation")
+execute:frappe.permissions.reset_perms("EventsConnect Certificate Request")
+execute:frappe.permissions.reset_perms("EventsConnect Certificate Evaluation")
 eventsconnect.patches.v1_0.paid_certificate_to_paid_course #18-08-2023
 eventsconnect.patches.v1_0.revert_class_registration #18-08-2023
 eventsconnect.patches.v1_0.rename_eventsconnect_batch_doctype
@@ -71,7 +71,7 @@ eventsconnect.patches.v1_0.rename_classes_in_navbar
 eventsconnect.patches.v1_0.publish_batches
 eventsconnect.patches.v1_0.publish_certificates
 eventsconnect.patches.v1_0.change_naming_for_batch_course #14-09-2023
-execute:frappe.permissions.reset_perms("Events Connect Enrollment")
+execute:frappe.permissions.reset_perms("EventsConnect Enrollment")
 eventsconnect.patches.v1_0.create_student_role
 eventsconnect.patches.v1_0.mark_confirmation_for_batch_students
 eventsconnect.patches.v1_0.create_quiz_questions

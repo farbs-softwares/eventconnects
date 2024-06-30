@@ -25,7 +25,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Exercise",
-   "options": "Events Connect Exercise"
+   "options": "EventsConnect Exercise"
   },
   {
    "fetch_from": "exercise.title",
@@ -40,14 +40,14 @@
    "fieldname": "course",
    "fieldtype": "Link",
    "label": "Course",
-   "options": "Events Connect Course",
+   "options": "EventsConnect Course",
    "read_only": 1
   },
   {
    "fieldname": "batch_old",
    "fieldtype": "Link",
    "label": "Batch Old",
-   "options": "Events Connect Batch Old"
+   "options": "EventsConnect Batch Old"
   },
   {
    "fetch_from": "exercise.lesson",
@@ -96,14 +96,14 @@
    "fieldname": "member",
    "fieldtype": "Link",
    "label": "Member",
-   "options": "Events Connect Enrollment"
+   "options": "EventsConnect Enrollment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
  "modified": "2021-12-08 22:25:05.809377",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Exercise Submission",
  "owner": "Administrator",
  "permissions": [

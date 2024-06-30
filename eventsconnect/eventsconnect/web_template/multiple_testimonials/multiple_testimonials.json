@@ -26,14 +26,14 @@
    "fieldname": "testimonials",
    "fieldtype": "Link",
    "label": "Testimonials",
-   "options": "Events Connect Course Review",
+   "options": "EventsConnect Course Review",
    "reqd": 0
   }
  ],
  "idx": 1,
  "modified": "2022-06-28 17:16:39.614879",
  "modified_by": "Administrator",
- "module": "Events Connect",
+ "module": "EventsConnect",
  "name": "Multiple Testimonials",
  "owner": "Administrator",
  "standard": 1,

@@ -1,4 +1,4 @@
-"""API methods for the Events Connect.
+"""API methods for the EventsConnect.
 """
 
 import frappe
@@ -25,7 +25,7 @@ def submit_solution(exercise, code):
 	@exerecise: name of the exercise to submit
 	@code: solution to the exercise
 	"""
-	ex = frappe.get_doc("Events Connect Exercise", exercise)
+	ex = frappe.get_doc("EventsConnect Exercise", exercise)
 	if not ex:
 		return
 	doc = ex.submit(code)
@@ -36,19 +36,19 @@ def submit_solution(exercise, code):
 def save_current_lesson(course_name, lesson_name):
 	"""Saves the current lesson for a student/mentor."""
 	name = frappe.get_value(
-		doctype="Events Connect Enrollment",
+		doctype="EventsConnect Enrollment",
 		filters={"course": course_name, "member": frappe.session.user},
 		fieldname="name",
 	)
 	if not name:
 		return
-	frappe.db.set_value("Events Connect Enrollment", name, "current_lesson", lesson_name)
+	frappe.db.set_value("EventsConnect Enrollment", name, "current_lesson", lesson_name)
 
 
 @frappe.whitelist()
 def join_cohort(course, cohort, subgroup, invite_code):
 	"""Creates a Cohort Join Request for given user."""
-	course_doc = frappe.get_doc("Events Connect Course", course)
+	course_doc = frappe.get_doc("EventsConnect Course", course)
 	cohort_doc = course_doc and course_doc.get_cohort(cohort)
 	subgroup_doc = cohort_doc and cohort_doc.get_subgroup(subgroup)
 
@@ -173,7 +173,7 @@ def get_translations():
 def validate_billing_access(type, name):
 	access = True
 	message = ""
-	doctype = "Events Connect Course" if type == "course" else "Events Connect Batch"
+	doctype = "EventsConnect Course" if type == "course" else "EventsConnect Batch"
 
 	if frappe.session.user == "Guest":
 		access = False
@@ -189,7 +189,7 @@ def validate_billing_access(type, name):
 
 	if type == "course":
 		membership = frappe.db.exists(
-			"Events Connect Enrollment", {"member": frappe.session.user, "course": name}
+			"EventsConnect Enrollment", {"member": frappe.session.user, "course": name}
 		)
 		if membership:
 			access = False
@@ -257,9 +257,9 @@ def get_eventjob_opportunities():
 @frappe.whitelist(allow_guest=True)
 def get_chart_details():
 	details = frappe._dict()
-	details.enrollments = frappe.db.count("Events Connect Enrollment")
+	details.enrollments = frappe.db.count("EventsConnect Enrollment")
 	details.courses = frappe.db.count(
-		"Events Connect Course",
+		"EventsConnect Course",
 		{
 			"published": 1,
 			"upcoming": 0,
@@ -267,9 +267,9 @@ def get_chart_details():
 	)
 	details.users = frappe.db.count("User", {"enabled": 1})
 	details.completions = frappe.db.count(
-		"Events Connect Enrollment", {"progress": ["like", "%100%"]}
+		"EventsConnect Enrollment", {"progress": ["like", "%100%"]}
 	)
-	details.lesson_completions = frappe.db.count("Events Connect Course Progress")
+	details.lesson_completions = frappe.db.count("EventsConnect Course Progress")
 	return details
 
 
@@ -331,7 +331,7 @@ def get_evaluator_details(evaluator):
 
 @frappe.whitelist(allow_guest=True)
 def get_certified_participants(search_query=""):
-	EventsConnectCertificate = DocType("Events Connect Certificate")
+	EventsConnectCertificate = DocType("EventsConnect Certificate")
 	participants = (
 		frappe.qb.from_(EventsConnectCertificate)
 		.select(EventsConnectCertificate.member)
@@ -351,11 +351,11 @@ def get_certified_participants(search_query=""):
 			as_dict=True,
 		)
 		course_names = frappe.get_all(
-			"Events Connect Certificate", {"member": participant.member}, pluck="course"
+			"EventsConnect Certificate", {"member": participant.member}, pluck="course"
 		)
 		courses = []
 		for course in course_names:
-			courses.append(frappe.db.get_value("Events Connect Course", course, "title"))
+			courses.append(frappe.db.get_value("EventsConnect Course", course, "title"))
 		details["courses"] = courses
 		participant_details.append(details)
 	return participant_details
@@ -364,7 +364,7 @@ def get_certified_participants(search_query=""):
 @frappe.whitelist()
 def get_assigned_badges(member):
 	assigned_badges = frappe.get_all(
-		"Events Connect Badge Assignment",
+		"EventsConnect Badge Assignment",
 		{"member": member},
 		["badge"],
 		as_dict=1,
@@ -372,7 +372,7 @@ def get_assigned_badges(member):
 
 	for badge in assigned_badges:
 		badge.update(
-			frappe.db.get_value("Events Connect Badge", badge.badge, ["name", "title", "image"])
+			frappe.db.get_value("EventsConnect Badge", badge.badge, ["name", "title", "image"])
 		)
 	return assigned_badges
 
@@ -381,7 +381,7 @@ def get_assigned_badges(member):
 def get_certificates(member):
 	"""Get certificates for a member."""
 	return frappe.get_all(
-		"Events Connect Certificate",
+		"EventsConnect Certificate",
 		filters={"member": member},
 		fields=["name", "course", "course_title", "issue_date", "template"],
 		order_by="creation desc",
@@ -420,7 +420,7 @@ def mark_all_as_read():
 
 @frappe.whitelist(allow_guest=True)
 def get_sidebar_settings():
-	eventsconnect_settings = frappe.get_single("Events Connect Settings")
+	eventsconnect_settings = frappe.get_single("EventsConnect Settings")
 	sidebar_items = frappe._dict()
 
 	items = [
@@ -436,8 +436,8 @@ def get_sidebar_settings():
 
 	if len(eventsconnect_settings.sidebar_items):
 		web_pages = frappe.get_all(
-			"Events Connect Sidebar Item",
-			{"parenttype": "Events Connect Settings", "parentfield": "sidebar_items"},
+			"EventsConnect Sidebar Item",
+			{"parenttype": "EventsConnect Settings", "parentfield": "sidebar_items"},
 			["web_page", "route", "title as label", "icon"],
 		)
 		for page in web_pages:
@@ -452,15 +452,15 @@ def get_sidebar_settings():
 def update_sidebar_item(webpage, icon):
 	filters = {
 		"web_page": webpage,
-		"parenttype": "Events Connect Settings",
+		"parenttype": "EventsConnect Settings",
 		"parentfield": "sidebar_items",
-		"parent": "Events Connect Settings",
+		"parent": "EventsConnect Settings",
 	}
 
-	if frappe.db.exists("Events Connect Sidebar Item", filters):
-		frappe.db.set_value("Events Connect Sidebar Item", filters, "icon", icon)
+	if frappe.db.exists("EventsConnect Sidebar Item", filters):
+		frappe.db.set_value("EventsConnect Sidebar Item", filters, "icon", icon)
 	else:
-		doc = frappe.new_doc("Events Connect Sidebar Item")
+		doc = frappe.new_doc("EventsConnect Sidebar Item")
 		doc.update(filters)
 		doc.icon = icon
 		doc.insert()
@@ -469,11 +469,11 @@ def update_sidebar_item(webpage, icon):
 @frappe.whitelist()
 def delete_sidebar_item(webpage):
 	return frappe.db.delete(
-		"Events Connect Sidebar Item",
+		"EventsConnect Sidebar Item",
 		{
 			"web_page": webpage,
-			"parenttype": "Events Connect Settings",
+			"parenttype": "EventsConnect Settings",
 			"parentfield": "sidebar_items",
-			"parent": "Events Connect Settings",
+			"parent": "EventsConnect Settings",
 		},
 	)
